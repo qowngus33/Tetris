@@ -79,7 +79,6 @@ public class Board extends JFrame {
 		nextBlockPane.setBackground(Color.BLACK);
 		nextBlockPane.setBorder(border);
 		
-		
 		JPanel eastPanel = new JPanel();
 		JPanel scoreBoard = new JPanel();
 		scoreBoard.add(label);
@@ -149,7 +148,7 @@ public class Board extends JFrame {
 	private void placeBlock() {
 		StyledDocument doc = gamePane.getStyledDocument();
 		SimpleAttributeSet styles = new SimpleAttributeSet();
-		StyleConstants.setForeground(styles, curr.getColor());
+		//StyleConstants.setForeground(styles, curr.getColor());
 		
 		for(int j=0; j<curr.height(); j++) {
 			int rows = y+j == 0 ? 0 : y+j-1;
@@ -183,7 +182,7 @@ public class Board extends JFrame {
 			if(gameEnded()) {
 				timer.stop();
 				label.setText("Game Ended. Press s to restart.");
-				System.out.print("Game is ended");
+				placeBlock();
 				return;
 			}
 			
@@ -417,8 +416,19 @@ public class Board extends JFrame {
 				break;
 			case KeyEvent.VK_UP: //Rotate
 				eraseCurr();
-				if(x+curr.width()==WIDTH) x = WIDTH - curr.height();
+				if(x+curr.height()>=WIDTH) x = WIDTH - curr.height();
 				curr.rotate();
+				for(int i=x;i<x+curr.width();i++) {
+					for(int j=y;j<y+curr.height();j++) {
+						if(board[j][i]==1 && curr.getShape(i-x, j-y)==1) {
+							curr.rotate();
+							curr.rotate();
+							curr.rotate();
+							break;
+						}
+					}
+				}
+				placeBlock();
 				drawGameBoard();
 				break;
 			case KeyEvent.VK_SPACE:
