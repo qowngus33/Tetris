@@ -1,18 +1,23 @@
 package junit.test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.IOException;
-
 import org.junit.jupiter.api.Test;
-
-import file.ScoreBoard;
+import file.ScoreBoardFile;
 
 class FileTest {
 
 	@Test
 	void test() {
-		ScoreBoard sb = new ScoreBoard();
+		ScoreBoardFile sb = null;
+		try {
+			sb = new ScoreBoardFile();
+			String temp = sb.readScoreBoard();
+			System.out.println(temp);
+		} catch (NumberFormatException | IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 //		try {
 //			sb.writeScoreBoard("SY", "10");
 //			sb.writeScoreBoard("DG", "40");
@@ -24,13 +29,6 @@ class FileTest {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		try {
-			String temp = sb.readScoreBoard();
-			System.out.println(temp);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 }

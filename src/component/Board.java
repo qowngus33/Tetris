@@ -2,28 +2,22 @@ package component;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
 import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.Timer;
 import javax.swing.border.CompoundBorder;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
-import java.lang.Object.*;
 
 import blocks.Block;
 import blocks.IBlock;
@@ -33,7 +27,6 @@ import blocks.OBlock;
 import blocks.SBlock;
 import blocks.TBlock;
 import blocks.ZBlock;
-import file.ScoreBoard;
 
 public class Board extends JFrame {
 
@@ -205,7 +198,7 @@ public class Board extends JFrame {
 		removeKeyListener(playerKeyListener);
 		label.setText("Game Ended.");
 		placeBlock();
-		new ScoreBoardWindow(score);
+		new ScoreBoard(score);
 	}
 	
 	protected void speedUp() {
@@ -440,7 +433,7 @@ public class Board extends JFrame {
 				moveLeft();
 				drawGameBoard();
 				break;
-			case KeyEvent.VK_UP: //Rotate
+			case KeyEvent.VK_UP: //Rotate 수정해야함 
 				eraseCurr();
 				if(x+curr.height()>=WIDTH) x = WIDTH - curr.height();
 				curr.rotate();

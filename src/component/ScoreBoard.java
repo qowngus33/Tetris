@@ -19,17 +19,15 @@ import javax.swing.JTextPane;
 import javax.swing.WindowConstants;
 import javax.swing.text.*;
 
-import file.ScoreBoard;
+import file.ScoreBoardFile;
 
-public class ScoreBoardWindow extends JFrame {
+public class ScoreBoard extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private ScoreBoard sb;
-	private int score;
+	private ScoreBoardFile sb;
 
-	public ScoreBoardWindow(int score) {
+	public ScoreBoard(int score) {
         super("ScoreBoard"); //타이틀
-        this.score = score;
         JPanel outerPanel = new JPanel();
         JPanel innerPanel = new JPanel();
         JLabel label = new JLabel();
@@ -37,7 +35,12 @@ public class ScoreBoardWindow extends JFrame {
         JTextPane scoreboard = new JTextPane();
         JTextField nameEnter = new JTextField(5);
         scoreboard.setEditable(false);
-        sb = new ScoreBoard();
+        try {
+			sb = new ScoreBoardFile();
+		} catch (NumberFormatException | IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
         setSize(200, 425); //창 크기 설정
         
         label.setHorizontalAlignment(JLabel.CENTER);
@@ -49,6 +52,7 @@ public class ScoreBoardWindow extends JFrame {
 			scoreboard.setText(sb.readScoreBoard());
 			if(score<sb.isWritable()) {
 				btn.setEnabled(false);
+				nameEnter.setEditable(false);
 				label.setText("GAME OVER");
 			} else {
 				label.setText("Enter name in two alphabet.");
@@ -58,9 +62,11 @@ public class ScoreBoardWindow extends JFrame {
 			e1.printStackTrace();
 		}
         
+        javax.swing.text.Style style = scoreboard.addStyle("Red", null);
+        StyleConstants.setForeground(style, Color.RED);
         StyledDocument doc = scoreboard.getStyledDocument();
         SimpleAttributeSet center = new SimpleAttributeSet();
-        StyleConstants.setFontFamily(center, Font.MONOSPACED);
+        StyleConstants.setFontFamily(center, "Courier");
         doc.setParagraphAttributes(0, doc.getLength(), center, false);
         
         outerPanel.setLayout(new BorderLayout());
@@ -79,13 +85,16 @@ public class ScoreBoardWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	String name = nameEnter.getText();
-            	if(name.length()>2 || name.length()<1) {
+            	if(name.length()>2 || name.length()<2) {
             		label.setText("Enter name in two alphabet.");
             	} else {
             		label.setText("Name Entered.");
+            		nameEnter.setText("");
             		try {
             			sb.writeScoreBoard(name, Integer.toString(score));
-        				scoreboard.setText(sb.readScoreBoard());
+            			String scoreString = sb.readScoreBoard();
+        				scoreboard.setText(scoreString);
+        				doc.setCharacterAttributes((23*sb.getIndex(name,score)), 22, scoreboard.getStyle("Red"), true);
         				btn.setEnabled(false);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -95,8 +104,4 @@ public class ScoreBoardWindow extends JFrame {
             }
         });
     }
-	
-	public int getScore() {
-		return score;
-	}
 }

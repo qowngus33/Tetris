@@ -10,22 +10,32 @@ import java.io.IOException;
 import java.util.*;
 
 
-public class ScoreBoard {
-	private Vector<Pair> v;
+public class ScoreBoardFile {
 	
-	public void getScoreBoardFile() throws IOException {
+	private Vector<Pair> v;
+	private File file;
+	private int index = 0;
+	
+	public ScoreBoardFile() throws NumberFormatException, IOException{
 		v = new Vector<Pair>();
-		File file=new File("scoreboard.txt");
+		file = new File("scoreboard.txt");
 		if(!file.exists())
-			 file.createNewFile();
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		BufferedReader br;
 		try {
 			 String line=null;
 			br = new BufferedReader(new FileReader(file));
 			while((line=br.readLine())!=null) {
 				String[] splited = line.split(" ");
-				Pair p = new Pair(splited[0],Integer.parseInt(splited[1]));
-				v.add(p);
+				if(splited.length==2 && splited[1].matches("[+-]?\\d*(\\.\\d+)?")) {
+					Pair p = new Pair(splited[0],Integer.parseInt(splited[1]));
+					v.add(p);
+				}
 			}
 			br.close();
 			
@@ -37,21 +47,30 @@ public class ScoreBoard {
 		Collections.sort(v, new PairComparator());
 	}
 	
+	public Vector<Pair> getScoreBoard() {
+		return v;
+	}
+	
 	public String readScoreBoard() throws IOException {
-		getScoreBoardFile();
 		String sb = new String();
-		
-		for(int i = 0; i < Math.min(v.size(),20) ; i++) 
+		for(int i = 0; i < Math.min(v.size(),20) ; i++) {
 			sb += ("  "+String.format("%02d", i+1) +"      "+v.get(i).name + "      " + String.format("%04d", v.get(i).score)+"\n");
-		
+		}
 		return sb;
 	}
 	
+	public int getIndex(String name, int score) {
+		for(int i = 0; i < Math.min(v.size(),20) ; i++) {
+			if(v.get(i).name==name && v.get(i).score==score)
+				index = i;
+		}
+		return index;
+	}
+	
 	public String writeScoreBoard(String name, String score) throws IOException {
-		File file=new File("scoreboard.txt");
-        if(!file.exists())
-            file.createNewFile();
-        
+		v.add(new Pair(name,Integer.parseInt(score)));
+		Collections.sort(v, new PairComparator());
+		
         BufferedReader br;
         String sb = new String();
 		try {
@@ -67,9 +86,7 @@ public class ScoreBoard {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-         
         BufferedWriter bw=new BufferedWriter(new FileWriter(file));
-        
         String temp = name+" "+score;
         bw.write(sb);
         bw.write(temp);
@@ -80,30 +97,21 @@ public class ScoreBoard {
 	}
 	
 	public void eraseScoreFile() throws IOException {
-		File file=new File("scoreboard.txt");
-        if(!file.exists())
-            file.createNewFile();
-    
         BufferedWriter bw=new BufferedWriter(new FileWriter(file));
         bw.newLine();
         bw.close();
 	}
+	
 
 	public int isWritable() throws IOException {
 		if(!v.isEmpty()) {
 			if(v.size()<20) {
 				return 0;
 			} else {
-				return v.get(v.size()-1).score;
-			}
-		} else {
-			getScoreBoardFile();
-			if(!v.isEmpty()) {
-				return v.get(v.size()-1).score;
-			} else {
-				return 0;
+				return v.get(Math.min(v.size()-1,19)).score;
 			}
 		}
+		return 0;
 	}
 }
 
@@ -122,6 +130,7 @@ class Pair {
 	public String getName() {
 		return name;
 	}
+	
 }
 
 class PairComparator implements Comparator<Pair> { 
