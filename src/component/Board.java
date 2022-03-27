@@ -2,7 +2,7 @@ package component;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -11,7 +11,6 @@ import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.Timer;
@@ -42,6 +41,7 @@ public class Board extends JFrame {
 	private JTextPane label;
 	private int[][] board;
 	private KeyListener playerKeyListener;
+	private KeyListener GameOverKeyListener;
 	private SimpleAttributeSet styleSet;
 	private Timer timer;
 	private Block curr;
@@ -56,7 +56,6 @@ public class Board extends JFrame {
 	public Board() {
 		super("SeoulTech SE Tetris");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 		//Board display setting.
 		label = new JTextPane();
 		label.setVisible(true);
@@ -80,26 +79,26 @@ public class Board extends JFrame {
 		nextBlockPane.setBorder(border);
 		
 		JPanel eastPanel = new JPanel();
-		JPanel scoreBoard = new JPanel();
-		scoreBoard.add(label);
+		JPanel score = new JPanel();
+		score.add(label);
 		
-		eastPanel.add(nextBlockPane,BorderLayout.CENTER);
-		//eastPanel.add(scoreBoard,BorderLayout.SOUTH);
+		eastPanel.setLayout(new BorderLayout());
+		eastPanel.add(nextBlockPane,BorderLayout.NORTH);
 		
-		this.getContentPane().add(scoreBoard, BorderLayout.NORTH);
+		this.getContentPane().add(score, BorderLayout.NORTH);
 		this.getContentPane().add(gamePane, BorderLayout.CENTER);
 		this.getContentPane().add(eastPanel,BorderLayout.EAST);
 		
 		//Document default style.
 		styleSet = new SimpleAttributeSet();
 		StyleConstants.setFontSize(styleSet, 18);
-		StyleConstants.setFontFamily(styleSet, "Courier");
+		StyleConstants.setFontFamily(styleSet, Font.MONOSPACED);
 		StyleConstants.setBold(styleSet, true);
 		StyleConstants.setForeground(styleSet, Color.WHITE);
 		StyleConstants.setAlignment(styleSet, StyleConstants.ALIGN_CENTER);
 		
 		//Set timer for block drops.
-		timer = new Timer(initInterval, new ActionListener() {			
+		timer = new Timer(initInterval, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				moveDown();
@@ -111,6 +110,7 @@ public class Board extends JFrame {
 		board = new int[HEIGHT][WIDTH];
 		playerKeyListener = new PlayerKeyListener();
 		addKeyListener(playerKeyListener);
+		addKeyListener(GameOverKeyListener);
 		setFocusable(true);
 		requestFocus();
 		
@@ -122,7 +122,7 @@ public class Board extends JFrame {
 		drawNextBlockBoard();
 		timer.start();
 	}
-
+	
 	private Block getRandomBlock() {
 		Random rnd = new Random(System.currentTimeMillis());
 		int block = rnd.nextInt(1000)%8;
@@ -176,13 +176,11 @@ public class Board extends JFrame {
 		if(y < HEIGHT - curr.height() && !detectCrash('D'))
 			y++;
 		else {
-			placeBlock(); //밑으로 내려가지 않게 고
+			placeBlock(); //밑으로 내려가지 않게 고정 
 			eraseOneLine();
 			
-			if(gameEnded()) {
-				timer.stop();
-				label.setText("Game Ended. Press s to restart.");
-				placeBlock();
+			if(isGameEnded()) { //게임이 종료됨. 
+				gameOver();
 				return;
 			}
 			
@@ -193,6 +191,14 @@ public class Board extends JFrame {
 			drawNextBlockBoard();
 		}
 		placeBlock();
+	}
+	
+	protected void gameOver() {
+		timer.stop();
+		removeKeyListener(playerKeyListener);
+		label.setText("Game Ended.");
+		placeBlock();
+		new ScoreBoard(score);
 	}
 	
 	protected void speedUp() {
@@ -211,7 +217,7 @@ public class Board extends JFrame {
 		}
 	}
 	
-	protected boolean gameEnded() {
+	protected boolean isGameEnded() {
 		for(int i=0;i<WIDTH;i++) {
 			if(board[0][i]==1)
 				return true;
@@ -305,9 +311,9 @@ public class Board extends JFrame {
 		
 		return result;
 	}
-	
-	public void drawGameBoard() {
 		
+	public void drawGameBoard() {
+		StyledDocument doc = gamePane.getStyledDocument();
 		StringBuffer sb = new StringBuffer();
 		for(int t=0; t<WIDTH+2; t++) sb.append(BORDER_CHAR);
 		sb.append("\n");
@@ -326,8 +332,7 @@ public class Board extends JFrame {
 		for(int t=0; t<WIDTH+2; t++) sb.append(BORDER_CHAR);
 		gamePane.setText(sb.toString());
 		//Jtextpane
-		
-		StyledDocument doc = gamePane.getStyledDocument();
+
 		doc.setParagraphAttributes(0, doc.getLength(), styleSet, false);
 		gamePane.setStyledDocument(doc);
 	}
@@ -363,10 +368,12 @@ public class Board extends JFrame {
 		if(!timer.isRunning()) {
 			timer.start();
 			label.setText("score: "+score+"");
+			addKeyListener(playerKeyListener);
 		}
 		else {
 			timer.stop();
 			label.setText("paused");
+			removeKeyListener(playerKeyListener);
 		}
 	}
 	
@@ -381,9 +388,21 @@ public class Board extends JFrame {
 				drawGameBoard();
 			}
 		});
-		timer.start();
+		playerKeyListener = new PlayerKeyListener();
+		addKeyListener(playerKeyListener);
+		setFocusable(true);
+		requestFocus();
+		
+		nextBlock = getRandomBlock();
+		curr = getRandomBlock();
+		placeBlock();
+		drawGameBoard();
+		drawNextBlockBoard();
+		
 		score = 0;
 		label.setText("score: "+score+"");
+		
+		timer.start();
 	}
 
 	public class PlayerKeyListener implements KeyListener {
@@ -398,7 +417,7 @@ public class Board extends JFrame {
 				break;
 			}
 		}
-
+		
 		@Override
 		public void keyPressed(KeyEvent e) {
 			switch(e.getKeyCode()) {
@@ -414,7 +433,7 @@ public class Board extends JFrame {
 				moveLeft();
 				drawGameBoard();
 				break;
-			case KeyEvent.VK_UP: //Rotate
+			case KeyEvent.VK_UP: //Rotate 수정해야함 
 				eraseCurr();
 				if(x+curr.height()>=WIDTH) x = WIDTH - curr.height();
 				curr.rotate();
@@ -454,5 +473,4 @@ public class Board extends JFrame {
 			
 		}
 	}
-	
 }
