@@ -1,20 +1,14 @@
-package component;
+package component.game;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
 
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextPane;
-import javax.swing.Timer;
+import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -28,13 +22,21 @@ import blocks.OBlock;
 import blocks.SBlock;
 import blocks.TBlock;
 import blocks.ZBlock;
+import component.setting.SettingBoard;
 
-public class Board extends JFrame {
+public class GameBoard extends JFrame {
+
+	private static GameBoard instance;
+	private static SettingBoard settingBoard = SettingBoard.getInstance();
+
+	private GameBoard() {
+		super("SeoulTech SE Tetris");
+	}
 
 	private static final long serialVersionUID = 2434035659171694595L;
 	
-	public static final int HEIGHT = 20;
-	public static final int WIDTH = 10;
+	public int HEIGHT = 20;
+	public int WIDTH = 10;
 	public static final char BORDER_CHAR = 'X';
 	
 	private JTextPane gamePane;
@@ -50,13 +52,32 @@ public class Board extends JFrame {
 	private int level = 0;
 	int x = 3; //Default Position.
 	int y = 0;
-	
 	private static int initInterval = 1000;
-	
-	public Board() {
-		super("SeoulTech SE Tetris");
+
+	public boolean isRun = true;
+	public boolean goToSetting = true;
+
+	// game -> setting
+	private JButton settingButton;
+
+	public static GameBoard getInstance(){
+		if(instance == null){
+			return new GameBoard();
+		}
+		return instance;
+	}
+
+	public void startGame(){
+		initGameBoard();
+	}
+
+	public void initGameBoard(){
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
+		setSize(400, 800);
+		setResizable(false);
+		setVisible(true);
+
 		//Board display setting.
 		label = new JTextPane();
 		label.setVisible(true);
@@ -64,32 +85,33 @@ public class Board extends JFrame {
 		label.setOpaque(true);
 		label.setBackground(Color.white);
 		label.setForeground(Color.BLACK);
-		
+
 		gamePane = new JTextPane();
 		nextBlockPane = new JTextPane();
-		
+
 		gamePane.setEditable(false);
 		gamePane.setBackground(Color.BLACK);
 		CompoundBorder border = BorderFactory.createCompoundBorder(
 				BorderFactory.createLineBorder(Color.GRAY, 10),
 				BorderFactory.createLineBorder(Color.DARK_GRAY, 5));
 		gamePane.setBorder(border);
-		
+
 		nextBlockPane.setEditable(false);
 		nextBlockPane.setBackground(Color.BLACK);
 		nextBlockPane.setBorder(border);
-		
+
 		JPanel eastPanel = new JPanel();
 		JPanel scoreBoard = new JPanel();
 		scoreBoard.add(label);
-		
+
+
 		eastPanel.add(nextBlockPane,BorderLayout.CENTER);
 		//eastPanel.add(scoreBoard,BorderLayout.SOUTH);
-		
+
 		this.getContentPane().add(scoreBoard, BorderLayout.NORTH);
 		this.getContentPane().add(gamePane, BorderLayout.CENTER);
 		this.getContentPane().add(eastPanel,BorderLayout.EAST);
-		
+
 		//Document default style.
 		styleSet = new SimpleAttributeSet();
 		StyleConstants.setFontSize(styleSet, 18);
@@ -97,23 +119,23 @@ public class Board extends JFrame {
 		StyleConstants.setBold(styleSet, true);
 		StyleConstants.setForeground(styleSet, Color.WHITE);
 		StyleConstants.setAlignment(styleSet, StyleConstants.ALIGN_CENTER);
-		
+
 		//Set timer for block drops.
-		timer = new Timer(initInterval, new ActionListener() {			
+		timer = new Timer(initInterval, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				moveDown();
 				drawGameBoard();
 			}
 		});
-		
+
 		//Initialize board for the game.
 		board = new int[HEIGHT][WIDTH];
 		playerKeyListener = new PlayerKeyListener();
 		addKeyListener(playerKeyListener);
 		setFocusable(true);
 		requestFocus();
-		
+
 		//Create the first block and draw.
 		nextBlock = getRandomBlock();
 		curr = getRandomBlock();
@@ -121,6 +143,20 @@ public class Board extends JFrame {
 		drawGameBoard();
 		drawNextBlockBoard();
 		timer.start();
+
+		// 설정 화면 버튼
+		settingButton = new JButton("설정");
+ 		this.getContentPane().add(settingButton, BorderLayout.SOUTH);
+ 		settingButton.addActionListener(e -> goToSetting());
+
+	}
+
+	/**
+	 * 설정화면으로 이동
+	 */
+	public void goToSetting(){
+		this.setVisible(false);
+		settingBoard.initSettingBoard();
 	}
 
 	private Block getRandomBlock() {
