@@ -34,7 +34,7 @@ public class SettingBoard extends JFrame{
     public void initSettingBoard(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        setSize(600, 400);
+        setSize(380, 800);
         setResizable(false);
         setVisible(true);
 
@@ -142,28 +142,7 @@ public class SettingBoard extends JFrame{
      */
     public void setDisplaySize(Size size){
 
-        switch (size){
-            // small(default)
-            case SMALL: {
-                gameBoard.HEIGHT = 20;
-                gameBoard.WIDTH = 10;
-                break;
-            }
-            // medium
-            case MEDIUM: {
-                gameBoard.HEIGHT = 28;
-                gameBoard.WIDTH = 14;
-                break;
-            }
-            // large
-            case LARGE: {
-                gameBoard.HEIGHT = 32;
-                gameBoard.WIDTH = 16;
-                break;
-            }
-            default:
-                System.out.println("잘못된 접근입니다.");
-        }
+
     }
 
     /**

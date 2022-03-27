@@ -74,7 +74,7 @@ public class GameBoard extends JFrame {
 	public void initGameBoard(){
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		setSize(400, 800);
+		setSize(380, 800);
 		setResizable(false);
 		setVisible(true);
 
