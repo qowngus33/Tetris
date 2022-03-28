@@ -36,7 +36,6 @@ public abstract class Block {
 		}
 		
 		this.shape = new int[n][m];
-		
 		shape = rotated;
 	}
 	
