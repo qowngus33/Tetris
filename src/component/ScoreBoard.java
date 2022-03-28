@@ -60,20 +60,19 @@ public class ScoreBoard extends JFrame {
 		}
        
         //set style
-        javax.swing.text.Style style = scoreboard.addStyle("Red", null);
-        StyleConstants.setForeground(style, Color.RED);
+        Style redStyle = scoreboard.addStyle("Red", null);
+        StyleConstants.setForeground(redStyle, Color.RED);
+        StyleConstants.setBold(redStyle, true);
+        
+        Style boldStyle = scoreboard.addStyle("Bold", null);
+        StyleConstants.setBold(boldStyle, true);
         
         StyledDocument doc = scoreboard.getStyledDocument();
         SimpleAttributeSet mainAttribute = new SimpleAttributeSet();
         StyleConstants.setFontFamily(mainAttribute, "Courier");
         StyleConstants.setFontSize(mainAttribute, 17);
         doc.setParagraphAttributes(0, doc.getLength(), mainAttribute, false);
-        
-        SimpleAttributeSet boldAttribute = new SimpleAttributeSet();
-        StyleConstants.setBold(boldAttribute, true);
-        StyleConstants.setFontFamily(boldAttribute, "Courier");
-        StyleConstants.setFontSize(boldAttribute, 17);
-        doc.setCharacterAttributes(0, oneLineLength*3, boldAttribute, true);
+        doc.setCharacterAttributes(0, oneLineLength*3, scoreboard.getStyle("Bold"), true);
         
         
         SimpleAttributeSet styleSet = new SimpleAttributeSet();
@@ -110,6 +109,7 @@ public class ScoreBoard extends JFrame {
             			sb.writeScoreBoard(name, Integer.toString(score));
             			String scoreString = sb.readScoreBoard();
         				scoreboard.setText(scoreString);
+        				doc.setCharacterAttributes(0, oneLineLength*3, scoreboard.getStyle("Bold"), true);
         				doc.setCharacterAttributes((oneLineLength*sb.getIndex(name,score)), oneLineLength, scoreboard.getStyle("Red"), true);
         				enterBtn.setEnabled(false);
 					} catch (IOException e1) {

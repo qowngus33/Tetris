@@ -100,7 +100,7 @@ public class Board extends JFrame {
 		
 		//Document default style.
 		styleSet = new SimpleAttributeSet();
-		StyleConstants.setFontSize(styleSet, 18);
+		StyleConstants.setFontSize(styleSet, 25);
 		StyleConstants.setFontFamily(styleSet, Font.MONOSPACED);
 		StyleConstants.setBold(styleSet, true);
 		StyleConstants.setForeground(styleSet, Color.WHITE);
@@ -387,12 +387,12 @@ public class Board extends JFrame {
 		if(!timer.isRunning()) {
 			timer.start();
 			label.setText("score: "+score+"");
-			addKeyListener(playerKeyListener);
+			//addKeyListener(playerKeyListener);
 		}
 		else {
 			timer.stop();
 			label.setText("paused");
-			removeKeyListener(playerKeyListener);
+			//removeKeyListener(playerKeyListener);
 		}
 	}
 	
@@ -455,6 +455,7 @@ public class Board extends JFrame {
 			case KeyEvent.VK_UP: //Rotate 수정해야함 
 				eraseCurr();
 				if(x+curr.height()>=WIDTH) x = WIDTH - curr.height();
+				if(y+curr.width()>=HEIGHT) y = HEIGHT - curr.width();
 				curr.rotate();
 				for(int i=x;i<x+curr.width();i++) {
 					for(int j=y;j<y+curr.height();j++) {
@@ -473,6 +474,7 @@ public class Board extends JFrame {
 				eraseCurr();
 				while(y < HEIGHT - curr.height() && !detectCrash('D')) {
 					y++;
+					score++;
 				}
 				placeBlock(); //밑으로 내려가지 않게 고정 
 				eraseOneLine();
@@ -483,6 +485,7 @@ public class Board extends JFrame {
 				placeBlock();
 				drawGameBoard();
 				drawNextBlockBoard();
+				label.setText("score: "+score+"");
 				break;
 			}
 		}
