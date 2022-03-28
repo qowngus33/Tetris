@@ -1,7 +1,11 @@
-BR 220
-gy 50
-22 10
-DD 0
-dd 0
-GH 657
-랄랄 339
+BR 220 normal
+gy 50 normal
+22 10 normal
+DD 0 normal
+dd 0 normal
+GH 657 normal
+DR 339 normal
+TX 439
+WD 2
+KK 1
+TY 1
