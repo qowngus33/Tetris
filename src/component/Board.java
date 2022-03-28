@@ -3,10 +3,12 @@ package component;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.util.Random;
 
 import javax.swing.BorderFactory;
@@ -55,8 +57,14 @@ public class Board extends JFrame {
 	
 	public Board() {
 		super("SeoulTech SE Tetris");
+		setSize(380, 800);
+		setResizable(false);
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//Board display setting.
+		setVisible(true);
+		
+		//Board display setting.   
+		//label for displaying scores
 		label = new JTextPane();
 		label.setVisible(true);
 		label.setText("score: "+score+"");
@@ -64,24 +72,25 @@ public class Board extends JFrame {
 		label.setBackground(Color.white);
 		label.setForeground(Color.BLACK);
 		
+		//Main game display
 		gamePane = new JTextPane();
-		nextBlockPane = new JTextPane();
-		
 		gamePane.setEditable(false);
 		gamePane.setBackground(Color.BLACK);
 		CompoundBorder border = BorderFactory.createCompoundBorder(
 				BorderFactory.createLineBorder(Color.GRAY, 10),
 				BorderFactory.createLineBorder(Color.DARK_GRAY, 5));
 		gamePane.setBorder(border);
+		JPanel scorePanel = new JPanel();
+		scorePanel.add(label);
 		
+		//Pane for diplaying next block to be put
+		nextBlockPane = new JTextPane();
 		nextBlockPane.setEditable(false);
 		nextBlockPane.setBackground(Color.BLACK);
 		nextBlockPane.setBorder(border);
 		
+		//Additory panel for layout
 		JPanel eastPanel = new JPanel();
-		JPanel scorePanel = new JPanel();
-		scorePanel.add(label);
-		
 		eastPanel.setLayout(new BorderLayout());
 		eastPanel.add(nextBlockPane,BorderLayout.NORTH);
 		
@@ -121,6 +130,7 @@ public class Board extends JFrame {
 		drawGameBoard();
 		drawNextBlockBoard();
 		timer.start();
+		
 	}
 	
 	private Block getRandomBlock() {
@@ -159,8 +169,7 @@ public class Board extends JFrame {
 			}
 		}
 	}
-	
-	
+		
 	private void eraseCurr() throws java.lang.ArrayIndexOutOfBoundsException {
 		for(int i=x; i<x+curr.width(); i++) {
 			for(int j=y; j<y+curr.height(); j++) {
@@ -169,7 +178,6 @@ public class Board extends JFrame {
 			}
 		}
 	}
-
 	
 	protected void moveDown() {
 		eraseCurr();
@@ -200,7 +208,16 @@ public class Board extends JFrame {
 		removeKeyListener(playerKeyListener);
 		label.setText("Game Ended. Score: "+score);
 		placeBlock();
-		new ScoreBoard(score);
+		try {
+			new ScoreBoard(score);
+			dispose();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	protected void speedUp() {

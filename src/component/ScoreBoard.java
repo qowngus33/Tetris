@@ -2,10 +2,7 @@ package component;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -25,34 +22,33 @@ public class ScoreBoard extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private ScoreBoardFile sb;
+	private JPanel outerPanel = new JPanel();
+	private JPanel lowerPanel = new JPanel();
+	private JPanel upperPanel = new JPanel();
+	
+	private JLabel label = new JLabel();
+	private JButton enterBtn = new JButton("Enter");
+	private JButton exitBtn = new JButton("Exit");
+	private JButton startBtn = new JButton("Start Menu");
+	private JTextPane scoreboard = new JTextPane();
+	private JTextField nameEnter = new JTextField(10);
+	private int oneLineLength = 36;
 
-	public ScoreBoard(int score) {
+	public ScoreBoard(int score) throws NumberFormatException, IOException {
         super("ScoreBoard"); //타이틀
         this.setResizable(false);
-        JPanel outerPanel = new JPanel();
-        JPanel innerPanel = new JPanel();
-        JLabel label = new JLabel();
-        JButton btn = new JButton("Enter");
-        JTextPane scoreboard = new JTextPane();
-        JTextField nameEnter = new JTextField(5);
+        setSize(380, 800); //창 크기 설정
         scoreboard.setEditable(false);
-        try {
-			sb = new ScoreBoardFile();
-		} catch (NumberFormatException | IOException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-        setSize(200, 425); //창 크기 설정
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
         
-        label.setHorizontalAlignment(JLabel.CENTER);
-        innerPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        innerPanel.add(nameEnter);
-        innerPanel.add(btn);
-        
+        //load scoreboard file
         try {
+        	sb = new ScoreBoardFile();
 			scoreboard.setText(sb.readScoreBoard());
 			if(score<sb.isWritable()) {
-				btn.setEnabled(false);
+				enterBtn.setEnabled(false);
 				nameEnter.setEditable(false);
 				label.setText("GAME OVER");
 			} else {
@@ -62,27 +58,46 @@ public class ScoreBoard extends JFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-        
+       
+        //set style
         javax.swing.text.Style style = scoreboard.addStyle("Red", null);
         StyleConstants.setForeground(style, Color.RED);
+        
         StyledDocument doc = scoreboard.getStyledDocument();
-        SimpleAttributeSet center = new SimpleAttributeSet();
-        StyleConstants.setFontFamily(center, "Courier");
-        doc.setParagraphAttributes(0, doc.getLength(), center, false);
+        SimpleAttributeSet mainAttribute = new SimpleAttributeSet();
+        StyleConstants.setFontFamily(mainAttribute, "Courier");
+        StyleConstants.setFontSize(mainAttribute, 17);
+        doc.setParagraphAttributes(0, doc.getLength(), mainAttribute, false);
+        
+        SimpleAttributeSet boldAttribute = new SimpleAttributeSet();
+        StyleConstants.setBold(boldAttribute, true);
+        StyleConstants.setFontFamily(boldAttribute, "Courier");
+        StyleConstants.setFontSize(boldAttribute, 17);
+        doc.setCharacterAttributes(0, oneLineLength*3, boldAttribute, true);
+        
+        
+        SimpleAttributeSet styleSet = new SimpleAttributeSet();
+        StyleConstants.setAlignment(styleSet, StyleConstants.ALIGN_CENTER);
+        
+        //set layout
+        upperPanel.setLayout(new BorderLayout());
+        upperPanel.add(startBtn,BorderLayout.EAST);
+        upperPanel.add(label,BorderLayout.CENTER);
+        upperPanel.add(exitBtn,BorderLayout.WEST);
+        label.setHorizontalAlignment(JLabel.CENTER);
+       
+        lowerPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        lowerPanel.add(nameEnter);
+        lowerPanel.add(enterBtn);
         
         outerPanel.setLayout(new BorderLayout());
         outerPanel.add(scoreboard,BorderLayout.CENTER);
-        outerPanel.add(innerPanel,BorderLayout.SOUTH);
-        outerPanel.add(label,BorderLayout.NORTH);
+        outerPanel.add(lowerPanel,BorderLayout.SOUTH);
+        outerPanel.add(upperPanel,BorderLayout.NORTH);
         add(outerPanel);
-
-        Dimension frameSize = getSize();
-        Dimension windowSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((windowSize.width - frameSize.width) / 2, (windowSize.height - frameSize.height) / 2); //화면 중앙에 띄우기
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setVisible(true);
- 
-        btn.addActionListener(new ActionListener() {
+        
+        //button action
+        enterBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             	String name = nameEnter.getText();
@@ -95,13 +110,26 @@ public class ScoreBoard extends JFrame {
             			sb.writeScoreBoard(name, Integer.toString(score));
             			String scoreString = sb.readScoreBoard();
         				scoreboard.setText(scoreString);
-        				doc.setCharacterAttributes((23*sb.getIndex(name,score)), 22, scoreboard.getStyle("Red"), true);
-        				btn.setEnabled(false);
+        				doc.setCharacterAttributes((oneLineLength*sb.getIndex(name,score)), oneLineLength, scoreboard.getStyle("Red"), true);
+        				enterBtn.setEnabled(false);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
             	}
+            }
+        });
+        exitBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	System.exit(0);
+            }
+        });
+        startBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	new StartMenu();
+            	dispose();
             }
         });
     }
