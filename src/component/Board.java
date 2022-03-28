@@ -79,13 +79,13 @@ public class Board extends JFrame {
 		nextBlockPane.setBorder(border);
 		
 		JPanel eastPanel = new JPanel();
-		JPanel score = new JPanel();
-		score.add(label);
+		JPanel scorePanel = new JPanel();
+		scorePanel.add(label);
 		
 		eastPanel.setLayout(new BorderLayout());
 		eastPanel.add(nextBlockPane,BorderLayout.NORTH);
 		
-		this.getContentPane().add(score, BorderLayout.NORTH);
+		this.getContentPane().add(scorePanel, BorderLayout.NORTH);
 		this.getContentPane().add(gamePane, BorderLayout.CENTER);
 		this.getContentPane().add(eastPanel,BorderLayout.EAST);
 		
@@ -125,7 +125,7 @@ public class Board extends JFrame {
 	
 	private Block getRandomBlock() {
 		Random rnd = new Random(System.currentTimeMillis());
-		int block = rnd.nextInt(1000)%8;
+		int block = rnd.nextInt(1000)%6;
 		switch(block) {
 		case 0:
 			return new IBlock();
@@ -138,11 +138,9 @@ public class Board extends JFrame {
 		case 4:
 			return new SBlock();
 		case 5:
-			return new TBlock();
-		case 6:
-			return new OBlock();			
+			return new TBlock();	
 		}
-		return new LBlock();
+		return new OBlock();
 	}
 	
 	private void placeBlock() {
@@ -162,6 +160,7 @@ public class Board extends JFrame {
 		}
 	}
 	
+	
 	private void eraseCurr() throws java.lang.ArrayIndexOutOfBoundsException {
 		for(int i=x; i<x+curr.width(); i++) {
 			for(int j=y; j<y+curr.height(); j++) {
@@ -171,6 +170,7 @@ public class Board extends JFrame {
 		}
 	}
 
+	
 	protected void moveDown() {
 		eraseCurr();
 		if(y < HEIGHT - curr.height() && !detectCrash('D'))
@@ -190,13 +190,15 @@ public class Board extends JFrame {
 			y = 0;
 			drawNextBlockBoard();
 		}
+		score++;
+		label.setText("score: "+score+"");
 		placeBlock();
 	}
 	
 	protected void gameOver() {
 		timer.stop();
 		removeKeyListener(playerKeyListener);
-		label.setText("Game Ended.");
+		label.setText("Game Ended. Score: "+score);
 		placeBlock();
 		new ScoreBoard(score);
 	}

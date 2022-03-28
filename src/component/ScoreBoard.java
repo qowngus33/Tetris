@@ -28,6 +28,7 @@ public class ScoreBoard extends JFrame {
 
 	public ScoreBoard(int score) {
         super("ScoreBoard"); //타이틀
+        this.setResizable(false);
         JPanel outerPanel = new JPanel();
         JPanel innerPanel = new JPanel();
         JLabel label = new JLabel();
