@@ -1,6 +1,6 @@
 package blocks;
 
-import java.awt.Color;
+import java.awt.*;
 
 public abstract class Block {
 		

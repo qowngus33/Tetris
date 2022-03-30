@@ -1,5 +1,6 @@
 package blocks;
-import java.awt.Color;
+
+import java.awt.*;
 
 public class OBlock extends Block {
 
