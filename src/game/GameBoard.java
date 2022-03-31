@@ -1,20 +1,21 @@
-package component;
+package game;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.Random;
 
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
-import javax.swing.JFrame;
+import javax.swing.InputMap;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.KeyStroke;
 import javax.swing.Timer;
 import javax.swing.border.CompoundBorder;
 import javax.swing.text.SimpleAttributeSet;
@@ -29,8 +30,10 @@ import blocks.OBlock;
 import blocks.SBlock;
 import blocks.TBlock;
 import blocks.ZBlock;
+import main.Tetris;
+import scoreboard.ScoreBoardForm;
 
-public class Board extends JFrame {
+public class GameBoard extends JPanel {
 
 	private static final long serialVersionUID = 2434035659171694595L;
 	
@@ -43,7 +46,6 @@ public class Board extends JFrame {
 	private JTextPane label;
 	private int[][] board;
 	private KeyListener playerKeyListener;
-	private KeyListener GameOverKeyListener;
 	private SimpleAttributeSet styleSet;
 	private Timer timer;
 	private Block curr;
@@ -55,19 +57,17 @@ public class Board extends JFrame {
 	
 	private static int initInterval = 1000;
 	
-	public Board() {
-		super("SeoulTech SE Tetris");
+	public GameBoard() {
 		setSize(380, 800);
-		setResizable(false);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBackground(Color.WHITE);
+        setForeground(Color.BLACK);
 		setVisible(true);
 		
 		//Board display setting.   
 		//label for displaying scores
 		label = new JTextPane();
 		label.setVisible(true);
-		label.setText("score: "+score+"");
+		label.setText("score: "+getScore()+"");
 		label.setOpaque(true);
 		label.setBackground(Color.white);
 		label.setForeground(Color.BLACK);
@@ -93,14 +93,13 @@ public class Board extends JFrame {
 		JPanel eastPanel = new JPanel();
 		eastPanel.setLayout(new BorderLayout());
 		eastPanel.add(nextBlockPane,BorderLayout.NORTH);
-		
-		this.getContentPane().add(scorePanel, BorderLayout.NORTH);
-		this.getContentPane().add(gamePane, BorderLayout.CENTER);
-		this.getContentPane().add(eastPanel,BorderLayout.EAST);
+		eastPanel.add(scorePanel,BorderLayout.CENTER);
+		this.add(gamePane, BorderLayout.SOUTH);
+		this.add(eastPanel,BorderLayout.EAST);
 		
 		//Document default style.
 		styleSet = new SimpleAttributeSet();
-		StyleConstants.setFontSize(styleSet, 18);
+		StyleConstants.setFontSize(styleSet, 20);
 		StyleConstants.setFontFamily(styleSet, Font.MONOSPACED);
 		StyleConstants.setBold(styleSet, true);
 		StyleConstants.setForeground(styleSet, Color.WHITE);
@@ -117,12 +116,11 @@ public class Board extends JFrame {
 		
 		//Initialize board for the game.
 		board = new int[HEIGHT][WIDTH];
-		playerKeyListener = new PlayerKeyListener();
-		addKeyListener(playerKeyListener);
-		addKeyListener(GameOverKeyListener);
+		//playerKeyListener = new PlayerKeyListener();
+		//addKeyListener(playerKeyListener);
 		setFocusable(true);
 		requestFocus();
-		
+		initControls();
 		//Create the first block and draw.
 		nextBlock = getRandomBlock();
 		curr = getRandomBlock();
@@ -132,6 +130,57 @@ public class Board extends JFrame {
 		timer.start();
 		
 	}
+	
+	 private void initControls(){
+
+	        InputMap im = this.getInputMap();
+	        ActionMap am = this.getActionMap();
+
+	        im.put(KeyStroke.getKeyStroke("RIGHT"), "right");
+	        im.put(KeyStroke.getKeyStroke("LEFT"), "left");
+	        im.put(KeyStroke.getKeyStroke("UP"), "up");
+	        im.put(KeyStroke.getKeyStroke("DOWN"), "down");
+	        im.put(KeyStroke.getKeyStroke("SPACE"), "space");
+
+	        am.put("right", new AbstractAction() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	                moveRight();
+	                drawGameBoard();
+	            }
+	        });
+	        am.put("left", new AbstractAction() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	                moveLeft();
+	                drawGameBoard();
+	            }
+	        });
+	        am.put("up", new AbstractAction() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	                rotateBlock();
+	                drawGameBoard();
+	                // System.out.println("up");
+	            }
+	        });
+	        am.put("down", new AbstractAction() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	                moveDown();
+	                drawGameBoard();
+	                // System.out.println("down");
+	            }
+	        });
+	        am.put("space", new AbstractAction() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	               dropBlock();
+	               drawGameBoard();
+	               drawNextBlockBoard();
+	            }
+	        });
+	    }
 	
 	private Block getRandomBlock() {
 		Random rnd = new Random(System.currentTimeMillis());
@@ -153,6 +202,39 @@ public class Board extends JFrame {
 		return new OBlock();
 	}
 	
+	public void rotateBlock(){
+        eraseCurr();
+        if(x+curr.height()>=WIDTH) x = WIDTH - curr.height();
+        if(y+curr.width()>=HEIGHT) y = HEIGHT - curr.width();
+        curr.rotate();
+        for(int i=x;i<x+curr.width();i++) {
+            for(int j=y;j<y+curr.height();j++) {
+                if(board[j][i]==1 && curr.getShape(i-x, j-y)==1) {
+                    curr.rotate();
+                    curr.rotate();
+                    curr.rotate();
+                    break;
+                }
+            }
+        }
+        placeBlock();
+    }
+	
+	public void dropBlock(){
+	        eraseCurr();
+	        while(y < HEIGHT - curr.height() && !detectCrash('D')) {
+	            y++;
+	            score = getScore() + 1;
+	        }
+	        placeBlock(); //밑으로 내려가지 않게 고정
+	        eraseOneLine();
+	        curr = nextBlock;
+	        nextBlock = getRandomBlock();
+	        x = 3;
+	        y = 0;
+	        placeBlock();
+	}
+	 
 	private void placeBlock() {
 		StyledDocument doc = gamePane.getStyledDocument();
 		SimpleAttributeSet styles = new SimpleAttributeSet();
@@ -198,19 +280,20 @@ public class Board extends JFrame {
 			y = 0;
 			drawNextBlockBoard();
 		}
-		score++;
-		label.setText("score: "+score+"");
+		score = getScore() + 1;
+		label.setText("score: "+getScore()+"");
 		placeBlock();
 	}
 	
 	protected void gameOver() {
 		timer.stop();
 		removeKeyListener(playerKeyListener);
-		label.setText("Game Ended. Score: "+score);
+		label.setText("Game Ended. Score: "+getScore());
 		placeBlock();
+		this.setVisible(false);
 		try {
-			new ScoreBoard(score);
-			dispose();
+			ScoreBoardForm sbf = new ScoreBoardForm(score);
+			sbf.setVisible(true);
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -221,7 +304,7 @@ public class Board extends JFrame {
 	}
 	
 	protected void speedUp() {
-		if(score/100 > level && initInterval>100) {
+		if(getScore()/100 > level && initInterval>100) {
 			level += 1;
 			initInterval -= 100;
 			timer.stop();
@@ -275,8 +358,8 @@ public class Board extends JFrame {
 						board[k][l] = board[k-1][l];
 					}
 				}
-				 score += 10;
-				 label.setText("score: "+score+"");
+				 score = getScore() + 10;
+				 label.setText("score: "+getScore()+"");
 			}
 		}
 	}
@@ -386,110 +469,33 @@ public class Board extends JFrame {
 	public void pause() {
 		if(!timer.isRunning()) {
 			timer.start();
-			label.setText("score: "+score+"");
-			addKeyListener(playerKeyListener);
+			label.setText("score: "+getScore()+"");
+			//addKeyListener(playerKeyListener);
 		}
 		else {
 			timer.stop();
 			label.setText("paused");
-			removeKeyListener(playerKeyListener);
+			//removeKeyListener(playerKeyListener);
 		}
 	}
 	
 	public void reset() {
-		this.board = new int[20][10];
-		timer.stop();
-		initInterval = 1000;
-		timer = new Timer(initInterval, new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				moveDown();
-				drawGameBoard();
-			}
-		});
-		playerKeyListener = new PlayerKeyListener();
-		addKeyListener(playerKeyListener);
-		setFocusable(true);
-		requestFocus();
-		
-		nextBlock = getRandomBlock();
-		curr = getRandomBlock();
-		placeBlock();
-		drawGameBoard();
-		drawNextBlockBoard();
-		
-		score = 0;
-		label.setText("score: "+score+"");
-		
-		timer.start();
+		 this.board = new int[20][10];
+	        timer.stop();
+	        initInterval = 1000;
+	        timer = new Timer(initInterval, new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	                moveDown();
+	                drawGameBoard();
+	            }
+	        });
+	        timer.start();
+	        score = 0;
+	        label.setText("score: "+getScore()+"");
 	}
 
-	public class PlayerKeyListener implements KeyListener {
-		@Override
-		public void keyTyped(KeyEvent e) {
-			switch(e.getKeyChar()) {
-			case 'p':
-				pause();
-				break;
-			case 's':
-				reset();
-				break;
-			}
-		}
-		
-		@Override
-		public void keyPressed(KeyEvent e) {
-			switch(e.getKeyCode()) {
-			case KeyEvent.VK_DOWN:
-				moveDown();
-				drawGameBoard();
-				break;
-			case KeyEvent.VK_RIGHT:
-				moveRight();
-				drawGameBoard();
-				break;
-			case KeyEvent.VK_LEFT:
-				moveLeft();
-				drawGameBoard();
-				break;
-			case KeyEvent.VK_UP: //Rotate 수정해야함 
-				eraseCurr();
-				if(x+curr.height()>=WIDTH) x = WIDTH - curr.height();
-				curr.rotate();
-				for(int i=x;i<x+curr.width();i++) {
-					for(int j=y;j<y+curr.height();j++) {
-						if(board[j][i]==1 && curr.getShape(i-x, j-y)==1) {
-							curr.rotate();
-							curr.rotate();
-							curr.rotate();
-							break;
-						}
-					}
-				}
-				placeBlock();
-				drawGameBoard();
-				break;
-			case KeyEvent.VK_SPACE:
-				eraseCurr();
-				while(y < HEIGHT - curr.height() && !detectCrash('D')) {
-					y++;
-				}
-				placeBlock(); //밑으로 내려가지 않게 고정 
-				eraseOneLine();
-				curr = nextBlock;
-				nextBlock = getRandomBlock();
-				x = 3;
-				y = 0;
-				placeBlock();
-				drawGameBoard();
-				drawNextBlockBoard();
-				break;
-			}
-		}
-
-		@Override
-		public void keyReleased(KeyEvent e) {
-			
-		}
+	public int getScore() {
+		return score;
 	}
 }

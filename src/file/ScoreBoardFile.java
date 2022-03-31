@@ -54,7 +54,7 @@ public class ScoreBoardFile {
 	public String readScoreBoard() throws IOException {
 		String sb = new String();
 		for(int i = 0; i < Math.min(v.size(),20) ; i++) {
-			sb += ("   "+String.format("%02d", i+1)+String.format("%8s", v.get(i).name) +"      "+ String.format("%04d", v.get(i).score) 
+			sb += ("  "+String.format("%02d", i+1)+String.format("%8s", v.get(i).name) +"      "+ String.format("%04d", v.get(i).score) 
 			+ String.format("%12s", v.get(i).level)+"\n");
 		}
 		return sb;
