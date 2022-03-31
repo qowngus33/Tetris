@@ -71,8 +71,8 @@ public class StartMenu extends JFrame {
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
-				new Board();
-				dispose();
+				setVisible(false);
+		        Tetris.start();
 			}
 		});
 		
@@ -92,7 +92,8 @@ public class StartMenu extends JFrame {
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
-				System.exit(1);
+				setVisible(false);
+		        Tetris.showSettingMenu();
 			}
 		});
 		
@@ -112,16 +113,9 @@ public class StartMenu extends JFrame {
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
-				try {
-					new ScoreBoard(-1);
-				} catch (NumberFormatException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 				setVisible(false);
+				//Tetris.setScore(0);
+				Tetris.showScoreBoard();
 			}
 		});
 
