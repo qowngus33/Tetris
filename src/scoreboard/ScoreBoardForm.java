@@ -23,15 +23,17 @@ public class ScoreBoardForm extends JFrame {
         panel.add(settingBtn);
         panel.add(startMenuBtn);
         this.add(panel);
+
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     private void btnSettingActionPerformed(){
-        this.setVisible(false);
+        dispose();
         Tetris.showSettingMenu();
     }
 
     private void btnStartMenuActionPerformed(){
-        this.setVisible(false);
+        dispose();
         Tetris.showStartMenu();
     }
 }

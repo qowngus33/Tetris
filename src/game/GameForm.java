@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameForm extends JFrame{
-
     private GameBoard gameBoard;
 
     public GameForm(Size size) {
@@ -32,20 +31,22 @@ public class GameForm extends JFrame{
         gameBoard = new GameBoard(size);
         this.add(gameBoard, BorderLayout.CENTER);
         this.add(panel, BorderLayout.SOUTH);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 
     private void btnSettingActionPerformed(){
-        this.setVisible(false);
+        dispose();
         Tetris.showSettingMenu();
     }
 
     private void btnStartMenuActionPerformed(){
-        this.setVisible(false);
+        dispose();
         Tetris.showStartMenu();
     }
 
     private void btnScoreBoardActionPerformed(){
-        this.setVisible(false);
+        dispose();
         Tetris.showScoreBoard();
     }
 }

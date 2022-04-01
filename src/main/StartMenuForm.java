@@ -1,5 +1,6 @@
 package main;
 
+import setting.KeySetting;
 import setting.SettingMenuForm;
 import setting.Size;
 
@@ -11,7 +12,6 @@ public class StartMenuForm extends JFrame {
      * 시작메뉴 화면 구성(임시)
      */
     public StartMenuForm(){
-
         setSize(400, 400);
 
         JButton btnStart = new JButton("Start");
@@ -34,20 +34,21 @@ public class StartMenuForm extends JFrame {
         panel.add(btnScoreBoardButton);
 
         this.getContentPane().add(panel);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private void btnStartActionPerformed(){
-        this.setVisible(false);
+        dispose();
         Tetris.start(new Size());
     }
 
     private void btnSettingMenuActionPerformed(){
-        this.setVisible(false);
+        dispose();
         Tetris.showSettingMenu();
     }
 
     private void btnScoreBoardActionPerformed(){
-        this.setVisible(false);
+        dispose();
         Tetris.showScoreBoard();
     }
 

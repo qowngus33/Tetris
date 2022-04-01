@@ -5,10 +5,12 @@ import scoreboard.ScoreBoardForm;
 import setting.SettingMenuForm;
 import setting.Size;
 
+import javax.swing.*;
 import java.awt.*;
+import java.util.Map;
 import java.util.Scanner;
 
-public class Tetris {
+public class Tetris extends JFrame {
 
     private static GameForm gameForm;
     private static StartMenuForm startMenuForm;

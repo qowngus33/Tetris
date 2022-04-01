@@ -1,7 +1,9 @@
 package game;
 
 import blocks.*;
+import setting.KeySetting;
 import setting.Size;
+import setting.exception.EmptyKeyException;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -13,6 +15,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.security.Key;
+import java.util.Map;
 import java.util.Random;
 
 public class GameBoard extends JPanel{
@@ -98,8 +102,6 @@ public class GameBoard extends JPanel{
 
         //Initialize board for the game.
         board = new int[HEIGHT][WIDTH];
-        // playerKeyListener = new PlayerKeyListener();
-        // addKeyListener(playerKeyListener);
         initControls();
 
 
@@ -116,19 +118,19 @@ public class GameBoard extends JPanel{
     }
 
     /**
-     * 키 이벤트 (멈춤, 재시작 추가 필요)
-     * String parameter 받아서 원하는 키로 게임 기능
+     * 키 이벤트
      */
     private void initControls(){
 
         InputMap im = this.getInputMap();
         ActionMap am = this.getActionMap();
 
-        im.put(KeyStroke.getKeyStroke("RIGHT"), "right");
-        im.put(KeyStroke.getKeyStroke("LEFT"), "left");
-        im.put(KeyStroke.getKeyStroke("UP"), "up");
-        im.put(KeyStroke.getKeyStroke("DOWN"), "down");
-        im.put(KeyStroke.getKeyStroke("SPACE"), "space");
+        im.put(KeyStroke.getKeyStroke(KeySetting.rightKey), "right");
+        im.put(KeyStroke.getKeyStroke(KeySetting.leftKey), "left");
+        im.put(KeyStroke.getKeyStroke(KeySetting.rotateKey), "up");
+        im.put(KeyStroke.getKeyStroke(KeySetting.downKey), "down");
+        im.put(KeyStroke.getKeyStroke(KeySetting.dropKey), "space");
+        im.put(KeyStroke.getKeyStroke(KeySetting.pauseKey), "pause");
 
         am.put("right", new AbstractAction() {
             @Override
@@ -167,9 +169,16 @@ public class GameBoard extends JPanel{
         am.put("space", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               dropBlock();
-               drawGameBoard();
-               drawNextBlockBoard();
+                dropBlock();
+                drawGameBoard();
+                drawNextBlockBoard();
+            }
+        });
+
+        am.put("pause", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pause();
             }
         });
     }
