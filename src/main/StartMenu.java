@@ -1,17 +1,13 @@
 package main;
 
-import setting.KeySetting;
-import setting.SettingMenuForm;
-import setting.Size;
-
 import javax.swing.*;
 import java.awt.*;
 
-public class StartMenuForm extends JFrame {
+public class StartMenu extends JFrame {
     /**
      * 시작메뉴 화면 구성(임시)
      */
-    public StartMenuForm(){
+    public StartMenu(){
         setSize(400, 400);
 
         JButton btnStart = new JButton("Start");
@@ -39,7 +35,7 @@ public class StartMenuForm extends JFrame {
 
     private void btnStartActionPerformed(){
         dispose();
-        Tetris.start(new Size());
+        Tetris.start();
     }
 
     private void btnSettingMenuActionPerformed(){

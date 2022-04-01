@@ -1,9 +1,7 @@
 package game;
 
 import blocks.*;
-import setting.KeySetting;
-import setting.Size;
-import setting.exception.EmptyKeyException;
+import setting.SettingItem;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -13,13 +11,12 @@ import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.security.Key;
-import java.util.Map;
 import java.util.Random;
 
 public class GameBoard extends JPanel{
+
+    private SettingItem settingItem;
 
     private static final long serialVersionUID = 2434035659171694595L;
 
@@ -42,10 +39,12 @@ public class GameBoard extends JPanel{
     int y = 0;
     private static int initInterval = 1000;
 
-    public GameBoard(Size size){
+    public GameBoard(){
+
+        settingItem = SettingItem.getInstance();
 
         setVisible(true);
-        setSize(size.boardWidth, size.boardHeight);
+        setSize(settingItem.getBoardWidth(), settingItem.getBoardHeight());
         setBackground(Color.WHITE);
         setForeground(Color.BLACK);
 
@@ -85,7 +84,7 @@ public class GameBoard extends JPanel{
 
         //Document default style.
         styleSet = new SimpleAttributeSet();
-        StyleConstants.setFontSize(styleSet, Size.fontSize);
+        StyleConstants.setFontSize(styleSet, settingItem.getFontSize());
         StyleConstants.setFontFamily(styleSet, "Courier");
         StyleConstants.setBold(styleSet, true);
         StyleConstants.setForeground(styleSet, Color.WHITE);
@@ -103,7 +102,6 @@ public class GameBoard extends JPanel{
         //Initialize board for the game.
         board = new int[HEIGHT][WIDTH];
         initControls();
-
 
         setFocusable(true);
         requestFocus();
@@ -125,53 +123,61 @@ public class GameBoard extends JPanel{
         InputMap im = this.getInputMap();
         ActionMap am = this.getActionMap();
 
-        im.put(KeyStroke.getKeyStroke(KeySetting.rightKey), "right");
-        im.put(KeyStroke.getKeyStroke(KeySetting.leftKey), "left");
-        im.put(KeyStroke.getKeyStroke(KeySetting.rotateKey), "up");
-        im.put(KeyStroke.getKeyStroke(KeySetting.downKey), "down");
-        im.put(KeyStroke.getKeyStroke(KeySetting.dropKey), "space");
-        im.put(KeyStroke.getKeyStroke(KeySetting.pauseKey), "pause");
+        im.put(KeyStroke.getKeyStroke(settingItem.getRightKey()), "right");
+        im.put(KeyStroke.getKeyStroke(settingItem.getLeftKey()), "left");
+        im.put(KeyStroke.getKeyStroke(settingItem.getRotateKey()), "up");
+        im.put(KeyStroke.getKeyStroke(settingItem.getDownKey()), "down");
+        im.put(KeyStroke.getKeyStroke(settingItem.getDropKey()), "space");
+        im.put(KeyStroke.getKeyStroke(settingItem.getPauseKey()), "pause");
 
         am.put("right", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                moveRight();
-                drawGameBoard();
+                if(timer.isRunning()){
+                    moveRight();
+                    drawGameBoard();
+                }
             }
         });
 
         am.put("left", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                moveLeft();
-                drawGameBoard();
+                if(timer.isRunning()){
+                    moveLeft();
+                    drawGameBoard();
+                }
             }
         });
 
         am.put("up", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                rotateBlock();
-                drawGameBoard();
-                // System.out.println("up");
+                if(timer.isRunning()){
+                    rotateBlock();
+                    drawGameBoard();
+                }
             }
         });
 
         am.put("down", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                moveDown();
-                drawGameBoard();
-                // System.out.println("down");
+                if (timer.isRunning()) {
+                    moveDown();
+                    drawGameBoard();
+                }
             }
         });
 
         am.put("space", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dropBlock();
-                drawGameBoard();
-                drawNextBlockBoard();
+                if(timer.isRunning()){
+                    dropBlock();
+                    drawGameBoard();
+                    drawNextBlockBoard();
+                }
             }
         });
 
@@ -476,78 +482,4 @@ public class GameBoard extends JPanel{
         y = 0;
         placeBlock();
     }
-
-
-
-    /*
-    public class PlayerKeyListener implements KeyListener {
-        @Override
-        public void keyTyped(KeyEvent e) {
-            switch(e.getKeyChar()) {
-                case 'p':
-                    pause();
-                    break;
-                case 's':
-                    reset();
-                    break;
-            }
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-            switch(e.getKeyCode()) {
-                case KeyEvent.VK_DOWN:
-                    moveDown();
-                    drawGameBoard();
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    moveRight();
-                    drawGameBoard();
-                    break;
-                case KeyEvent.VK_LEFT:
-                    moveLeft();
-                    drawGameBoard();
-                    break;
-                case KeyEvent.VK_UP: //Rotate
-                    eraseCurr();
-                    if(x+curr.height()>=WIDTH) x = WIDTH - curr.height();
-                    curr.rotate();
-                    for(int i=x;i<x+curr.width();i++) {
-                        for(int j=y;j<y+curr.height();j++) {
-                            if(board[j][i]==1 && curr.getShape(i-x, j-y)==1) {
-                                curr.rotate();
-                                curr.rotate();
-                                curr.rotate();
-                                break;
-                            }
-                        }
-                    }
-                    placeBlock();
-                    drawGameBoard();
-                    break;
-                case KeyEvent.VK_SPACE:
-                    eraseCurr();
-                    while(y < HEIGHT - curr.height() && !detectCrash('D')) {
-                        y++;
-                    }
-                    placeBlock(); //밑으로 내려가지 않게 고정
-                    eraseOneLine();
-                    curr = nextBlock;
-                    nextBlock = getRandomBlock();
-                    x = 3;
-                    y = 0;
-                    placeBlock();
-                    drawGameBoard();
-                    drawNextBlockBoard();
-                    break;
-            }
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-
-        }
-    }
-     */
-
 }

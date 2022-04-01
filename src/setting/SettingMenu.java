@@ -1,22 +1,11 @@
 package setting;
 
-import game.GameForm;
 import main.Tetris;
-import setting.exception.EmptyKeyException;
 
 import javax.swing.*;
-import javax.xml.crypto.dsig.keyinfo.KeyName;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.io.*;
-import java.security.Key;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Vector;
-import java.util.logging.Logger;
 
-public class SettingMenuForm extends JFrame implements Serializable {
+public class SettingMenu extends JFrame {
 
     private JLabel sizeLabel;
     private JRadioButton[] sizeBtns;
@@ -36,15 +25,11 @@ public class SettingMenuForm extends JFrame implements Serializable {
     private JPanel initScoreBoardPanel;
     private JPanel settingBtnPanel;
 
-    private GameForm gameForm;
+    private SettingItem settingItem;
 
-    // private static Map<String, Object> initDataMap;
+    public SettingMenu() {
 
-    public SettingMenuForm() {
-
-        KeySetting.initKeySetting();
-        Size.initSize();
-        ColorBlind.initColorBlind();
+        settingItem = SettingItem.getInstance();
 
         setTitle("설정메뉴");
         setSize(600, 800);
@@ -67,9 +52,9 @@ public class SettingMenuForm extends JFrame implements Serializable {
             sizePanel.add(sizeBtns[i]);
         }
         sizeBtns[1].setSelected(true); // medium
-        sizeBtns[0].addActionListener(e -> btnSmallBtnActionPerformed());
-        sizeBtns[1].addActionListener(e -> btnMediumBtnActionPerformed());
-        sizeBtns[2].addActionListener(e -> btnLargeBtnActionPerformed());
+        sizeBtns[0].addActionListener(e -> settingItem.btnSmallBtnActionPerformed());
+        sizeBtns[1].addActionListener(e -> settingItem.btnMediumBtnActionPerformed());
+        sizeBtns[2].addActionListener(e -> settingItem.btnLargeBtnActionPerformed());
 
         // 조작키 설정
         keyPanel = new JPanel(new BorderLayout());
@@ -87,8 +72,8 @@ public class SettingMenuForm extends JFrame implements Serializable {
         colorBlindBtnGroup.add(colorBlindOffBtn);
 
         colorBlindOffBtn.setSelected(true); // default
-        colorBlindOnBtn.addActionListener(e -> btnColorBlindOnActionPerformed());
-        colorBlindOffBtn.addActionListener(e -> btnColorBlindOffActionPerformed());
+        colorBlindOnBtn.addActionListener(e -> settingItem.btnColorBlindOnActionPerformed());
+        colorBlindOffBtn.addActionListener(e -> settingItem.btnColorBlindOffActionPerformed());
 
         JPanel colorBlindPanel = new JPanel(new GridLayout(0, 3));
         colorBlindPanel.add(colorBlindLabel);
@@ -97,7 +82,7 @@ public class SettingMenuForm extends JFrame implements Serializable {
 
         // 스코어 보드 기록 초기화
         initScoreBoardBtn = new JButton("스코어 보드 기록 초기화");
-        initScoreBoardBtn.addActionListener(e -> btnInitScoreBoardActionPerformed());
+        initScoreBoardBtn.addActionListener(e -> settingItem.btnInitScoreBoardActionPerformed());
 
         initScoreBoardPanel = new JPanel();
         initScoreBoardPanel.add(initScoreBoardBtn);
@@ -130,8 +115,7 @@ public class SettingMenuForm extends JFrame implements Serializable {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-
-    private JPanel displayKeySetting(){
+    public JPanel displayKeySetting(){
 
         JButton leftKey = new JButton("LEFT");
         JButton rightKey = new JButton("RIGHT");
@@ -140,11 +124,11 @@ public class SettingMenuForm extends JFrame implements Serializable {
         JButton dropKey = new JButton("DROP");
 
         // btnKeyAction안에 String 값 전달만 하면 됨
-        leftKey.addActionListener(e -> btnLeftKeyActionPerformed("J"));
-        rightKey.addActionListener(e -> btnRightKeyActionPerformed("L"));
-        downKey.addActionListener(e -> btnDownKeyActionPerformed("K"));
-        rotateKey.addActionListener(e -> btnRotateKeyActionPerformed("I"));
-        dropKey.addActionListener(e -> btnDropKeyActionPerformed("SPACE"));
+        leftKey.addActionListener(e -> settingItem.btnLeftKeyActionPerformed("J"));
+        rightKey.addActionListener(e -> settingItem.btnRightKeyActionPerformed("L"));
+        downKey.addActionListener(e -> settingItem.btnDownKeyActionPerformed("K"));
+        rotateKey.addActionListener(e -> settingItem.btnRotateKeyActionPerformed("I"));
+        dropKey.addActionListener(e -> settingItem.btnDropKeyActionPerformed("SPACE"));
 
         JPanel keySettingPanel = new JPanel();
         keySettingPanel.add(leftKey);
@@ -156,129 +140,28 @@ public class SettingMenuForm extends JFrame implements Serializable {
         return keySettingPanel;
     }
 
-    private void btnGameActionPerformed(){
+    public void btnGameActionPerformed(){
         dispose();
-        Tetris.start(new Size());
+        Tetris.start();
     }
 
-    private void btnStartMenuActionPerformed(){
+    public void btnStartMenuActionPerformed(){
         dispose();
         Tetris.showStartMenu();
     }
 
     /**
-     * 색맹 모드
-     */
-    private void btnColorBlindOnActionPerformed() {
-
-    }
-
-    private void btnColorBlindOffActionPerformed() {
-
-    }
-
-    /**
-     * 스코어보드 초기화
-     */
-    private void btnInitScoreBoardActionPerformed(){
-        // score board init logic
-        JOptionPane.showMessageDialog(initScoreBoardPanel,"스코어보드가 초기화되었습니다.");
-    }
-
-    /**
      * 설정 초기화
      */
-    private void btnInitSettingActionPerformed() {
-        btnMediumBtnActionPerformed();
+    public void btnInitSettingActionPerformed() {
+        settingItem.btnMediumBtnActionPerformed();
         sizeBtns[1].setSelected(true);
 
-        KeySetting.initKeySetting();
+        settingItem.initKeySetting();
 
-        btnColorBlindOffActionPerformed();
+        settingItem.btnColorBlindOffActionPerformed();
         colorBlindOffBtn.setSelected(true);
 
         JOptionPane.showMessageDialog(initScoreBoardPanel,"설정이 초기화되었습니다.");
-    }
-
-    /**
-     * 설정 불러오기
-     */
-//    private Map<String, Object> loadData(){
-//
-//    }
-
-    /**
-     * 설정 저장
-     */
-    private void btnSaveSettingActionPerformed() throws IOException {
-
-        String[][] keySetting = new String[5][1];
-        keySetting[0][0] = KeySetting.leftKey;
-
-        File csv = new File("setting.csv");
-        BufferedWriter bw = new BufferedWriter(new FileWriter(csv));
-
-
-        JOptionPane.showMessageDialog(initScoreBoardPanel,"설정이 저장되었습니다.");
-    }
-
-    /**
-     * 화면 크기 조절
-     */
-    private void btnSmallBtnActionPerformed() {
-        Size.boardWidth = 380;
-        Size.boardHeight = 700;
-        Size.fontSize = 15;
-    }
-
-    // default
-    private void btnMediumBtnActionPerformed() {
-        Size.boardWidth = 500;
-        Size.boardHeight = 900;
-        Size.fontSize = 23;
-    }
-
-    private void btnLargeBtnActionPerformed() {
-        Size.boardWidth = 900;
-        Size.boardHeight = 1500;
-        Size.fontSize = 30;
-    }
-
-    /**
-     * 조작키 설정
-     */
-    private void btnLeftKeyActionPerformed(String key){
-        if(key == null){
-            throw new EmptyKeyException("LEFT 키 값이 없습니다.");
-        }
-        KeySetting.leftKey = key;
-    }
-
-    private void btnRightKeyActionPerformed(String key){
-        if(key == null){
-            throw new EmptyKeyException("RIGHT 키 값이 없습니다.");
-        }
-        KeySetting.rightKey = key;
-    }
-
-    private void btnDownKeyActionPerformed(String key){
-        if(key == null){
-            throw new EmptyKeyException("DOWN 키 값이 없습니다.");
-        }
-        KeySetting.downKey = key;
-    }
-
-    private void btnDropKeyActionPerformed(String key){
-        if(key == null){
-            throw new EmptyKeyException("DROP 키 값이 없습니다.");
-        }
-        KeySetting.dropKey = key;
-    }
-
-    private void btnRotateKeyActionPerformed(String key){
-        if(key == null){
-            throw new EmptyKeyException("ROTATE 키 값이 없습니다.");
-        }
-        KeySetting.rotateKey = key;
     }
 }

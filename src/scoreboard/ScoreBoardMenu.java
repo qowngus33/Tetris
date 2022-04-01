@@ -5,9 +5,9 @@ import main.Tetris;
 import javax.swing.*;
 import java.awt.*;
 
-public class ScoreBoardForm extends JFrame {
+public class ScoreBoardMenu extends JFrame {
 
-    public ScoreBoardForm(){
+    public ScoreBoardMenu(){
 
         setTitle("Score Board");
         setSize(380, 800);

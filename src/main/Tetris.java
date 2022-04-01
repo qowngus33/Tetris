@@ -1,24 +1,21 @@
 package main;
 
-import game.GameForm;
-import scoreboard.ScoreBoardForm;
-import setting.SettingMenuForm;
-import setting.Size;
+import game.GameMenu;
+import scoreboard.ScoreBoardMenu;
+import setting.SettingMenu;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Map;
-import java.util.Scanner;
 
 public class Tetris extends JFrame {
 
-    private static GameForm gameForm;
-    private static StartMenuForm startMenuForm;
-    private static SettingMenuForm settingMenuForm;
-    private static ScoreBoardForm scoreBoardForm;
+    private static GameMenu gameForm;
+    private static StartMenu startMenuForm;
+    private static SettingMenu settingMenuForm;
+    private static ScoreBoardMenu scoreBoardForm;
 
-    public static void start(Size size){
-        gameForm = new GameForm(size);
+    public static void start(){
+        gameForm = new GameMenu();
         gameForm.setVisible(true);
     }
 
@@ -39,9 +36,9 @@ public class Tetris extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                startMenuForm = new StartMenuForm();
-                settingMenuForm = new SettingMenuForm();
-                scoreBoardForm = new ScoreBoardForm();
+                startMenuForm = new StartMenu();
+                settingMenuForm = new SettingMenu();
+                scoreBoardForm = new ScoreBoardMenu();
 
                 startMenuForm.setVisible(true);
             }

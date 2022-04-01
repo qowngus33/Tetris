@@ -1,17 +1,20 @@
 package game;
 
 import main.Tetris;
-import setting.Size;
+import setting.SettingItem;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class GameForm extends JFrame{
+public class GameMenu extends JFrame{
     private GameBoard gameBoard;
+    private SettingItem settingItem;
 
-    public GameForm(Size size) {
+    public GameMenu() {
 
-        setSize(size.boardWidth, size.boardHeight);
+        settingItem = SettingItem.getInstance();
+
+        setSize(settingItem.getBoardWidth(), settingItem.getBoardHeight());
         setBackground(Color.WHITE);
         setForeground(Color.BLACK);
 
@@ -28,11 +31,11 @@ public class GameForm extends JFrame{
         panel.add(startMenuBtn);
         panel.add(scoreBoardBtn);
 
-        gameBoard = new GameBoard(size);
+        gameBoard = new GameBoard();
+
         this.add(gameBoard, BorderLayout.CENTER);
         this.add(panel, BorderLayout.SOUTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
     }
 
     private void btnSettingActionPerformed(){
