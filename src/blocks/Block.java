@@ -6,7 +6,7 @@ public abstract class Block {
 		
 	protected int[][] shape;
 	protected String color;
-	protected String item = "";
+	protected String item;
 	
 	public Block() {
 		shape = new int[][]{ 

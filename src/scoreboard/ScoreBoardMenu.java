@@ -15,10 +15,12 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.WindowConstants;
 import javax.swing.text.*;
+
+import file.ScoreBoardFile;
 import file.ScoreBoardFile;
 import main.Tetris;
 
-public class ScoreBoardForm extends JFrame {
+public class ScoreBoardMenu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private ScoreBoardFile sb;
@@ -35,7 +37,7 @@ public class ScoreBoardForm extends JFrame {
 	private int oneLineLength = 35;
 	private int score;
 
-	public ScoreBoardForm(int score) throws NumberFormatException, IOException {
+	public ScoreBoardMenu(int score) throws NumberFormatException, IOException {
         super("ScoreBoard"); //타이틀
         this.setResizable(false);
         this.score = score;
@@ -47,7 +49,7 @@ public class ScoreBoardForm extends JFrame {
         //load scoreboard file
         try {
         	sb = new ScoreBoardFile();
-			scoreboard.setText(sb.readScoreBoard("",0));
+			scoreboard.setText(sb.readScoreBoard());
 			if(score<sb.isWritable()) {
 				enterBtn.setEnabled(false);
 				nameEnter.setEditable(false);
@@ -113,7 +115,7 @@ public class ScoreBoardForm extends JFrame {
     }
 	public void reloadData() {
 		try {
-			scoreboard.setText(sb.readScoreBoard("",0));
+			scoreboard.setText(sb.readScoreBoard());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -130,7 +132,7 @@ public class ScoreBoardForm extends JFrame {
     		nameEnter.setText("");
     		try {
     			int temp = sb.writeScoreBoard(name, Integer.toString(score),"normal");
-    			String scoreString = sb.readScoreBoard(name,score);
+    			String scoreString = sb.readScoreBoard();
 				scoreboard.setText(scoreString);
 	
 				doc.setCharacterAttributes(0, oneLineLength*3, scoreboard.getStyle("Bold"), false);

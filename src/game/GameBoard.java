@@ -31,7 +31,8 @@ import blocks.SBlock;
 import blocks.TBlock;
 import blocks.ZBlock;
 import main.Tetris;
-import scoreboard.ScoreBoardForm;
+import scoreboard.ScoreBoardMenu;
+import setting.SettingItem;
 
 public class GameBoard extends JPanel {
 
@@ -41,6 +42,7 @@ public class GameBoard extends JPanel {
 	public static final int WIDTH = 10;
 	public static final char BORDER_CHAR = 'X';
 	
+	private SettingItem settingItem;
 	private JTextPane gamePane;
 	private JTextPane nextBlockPane;
 	private JTextPane label;
@@ -62,6 +64,7 @@ public class GameBoard extends JPanel {
 		setBackground(Color.WHITE);
         setForeground(Color.BLACK);
 		setVisible(true);
+		settingItem = SettingItem.getInstance();
 		
 		//Board display setting.   
 		//label for displaying scores
@@ -99,7 +102,7 @@ public class GameBoard extends JPanel {
 		
 		//Document default style.
 		styleSet = new SimpleAttributeSet();
-		StyleConstants.setFontSize(styleSet, 20);
+		StyleConstants.setFontSize(styleSet, settingItem.getFontSize());
 		StyleConstants.setFontFamily(styleSet, Font.MONOSPACED);
 		StyleConstants.setBold(styleSet, true);
 		StyleConstants.setForeground(styleSet, Color.WHITE);
@@ -181,6 +184,13 @@ public class GameBoard extends JPanel {
 	               drawNextBlockBoard();
 	            }
 	        });
+	        
+	        am.put("pause", new AbstractAction() {
+	             @Override
+	             public void actionPerformed(ActionEvent e) {
+	                 pause();
+	             }
+	         });
 	    }
 	
 	private Block getRandomBlock() {
@@ -287,7 +297,7 @@ public class GameBoard extends JPanel {
 		placeBlock();
 		this.setVisible(false);
 		try {
-			ScoreBoardForm sbf = new ScoreBoardForm(score);
+			ScoreBoardMenu sbf = new ScoreBoardMenu(score);
 			sbf.setVisible(true);
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
