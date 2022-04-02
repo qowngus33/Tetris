@@ -114,7 +114,6 @@ public class StartMenu extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				setVisible(false);
-				//Tetris.setScore(0);
 				Tetris.showScoreBoard();
 			}
 		});

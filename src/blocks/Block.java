@@ -5,22 +5,35 @@ import java.awt.Color;
 public abstract class Block {
 		
 	protected int[][] shape;
-	protected Color color;
+	protected String color;
+	protected String item = "";
 	
 	public Block() {
 		shape = new int[][]{ 
 				{1, 1}, 
 				{1, 1}
 		};
-		color = Color.YELLOW;
+		color = "YELLOW";
 	}
 	
 	public int getShape(int x, int y) {
 		return shape[y][x];
 	}
 	
-	public Color getColor() {
+	public String getColor() {
 		return color;
+	}
+	
+	public String getItem() {
+		return item;
+	}
+	
+	public void setShape(int x, int y, int value) {
+		shape[y][x] = value;
+	}
+	
+	public void setItem(String item) {
+		this.item = item;
 	}
 	
 	public void rotate() {

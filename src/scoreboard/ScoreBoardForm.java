@@ -47,7 +47,7 @@ public class ScoreBoardForm extends JFrame {
         //load scoreboard file
         try {
         	sb = new ScoreBoardFile();
-			scoreboard.setText(sb.readScoreBoard());
+			scoreboard.setText(sb.readScoreBoard("",0));
 			if(score<sb.isWritable()) {
 				enterBtn.setEnabled(false);
 				nameEnter.setEditable(false);
@@ -111,6 +111,14 @@ public class ScoreBoardForm extends JFrame {
             }
         });
     }
+	public void reloadData() {
+		try {
+			scoreboard.setText(sb.readScoreBoard("",0));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public void tryWriteScoreboard() {
 		String name = nameEnter.getText();
@@ -121,11 +129,12 @@ public class ScoreBoardForm extends JFrame {
     		label.setText("Name Entered.");
     		nameEnter.setText("");
     		try {
-    			sb.writeScoreBoard(name, Integer.toString(score));
-    			String scoreString = sb.readScoreBoard();
+    			int temp = sb.writeScoreBoard(name, Integer.toString(score),"normal");
+    			String scoreString = sb.readScoreBoard(name,score);
 				scoreboard.setText(scoreString);
-				doc.setCharacterAttributes(0, oneLineLength*3, scoreboard.getStyle("Bold"), true);
-				doc.setCharacterAttributes((oneLineLength*sb.getIndex(name,score)), oneLineLength, scoreboard.getStyle("Red"), true);
+	
+				doc.setCharacterAttributes(0, oneLineLength*3, scoreboard.getStyle("Bold"), false);
+				doc.setCharacterAttributes((oneLineLength*temp), oneLineLength, scoreboard.getStyle("Red"), false);
 				enterBtn.setEnabled(false);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block

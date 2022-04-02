@@ -141,6 +141,7 @@ public class GameBoard extends JPanel {
 	        im.put(KeyStroke.getKeyStroke("UP"), "up");
 	        im.put(KeyStroke.getKeyStroke("DOWN"), "down");
 	        im.put(KeyStroke.getKeyStroke("SPACE"), "space");
+	        
 
 	        am.put("right", new AbstractAction() {
 	            @Override
@@ -186,18 +187,12 @@ public class GameBoard extends JPanel {
 		Random rnd = new Random(System.currentTimeMillis());
 		int block = rnd.nextInt(1000)%6;
 		switch(block) {
-		case 0:
-			return new IBlock();
-		case 1:
-			return new JBlock();
-		case 2:
-			return new LBlock();
-		case 3:
-			return new ZBlock();
-		case 4:
-			return new SBlock();
-		case 5:
-			return new TBlock();	
+		case 0: return new IBlock();
+		case 1: return new JBlock();
+		case 2: return new LBlock();
+		case 3: return new ZBlock();
+		case 4: return new SBlock();
+		case 5: return new TBlock();	
 		}
 		return new OBlock();
 	}
