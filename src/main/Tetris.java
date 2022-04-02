@@ -1,8 +1,8 @@
 package main;
 
-import game.GameForm;
-import scoreboard.ScoreBoardForm;
-import setting.SettingMenuForm;
+import game.GameMenu;
+import scoreboard.ScoreBoardMenu;
+import setting.SettingMenu;
 
 import java.awt.*;
 import java.io.IOException;
@@ -11,14 +11,18 @@ import component.StartMenu;
 
 public class Tetris {
 
-    private static GameForm gameForm;
+    private static GameMenu gameForm;
     private static StartMenu startmenu;
-    private static SettingMenuForm settingMenuForm;
-    private static ScoreBoardForm scoreBoardForm;
+    private static SettingMenu settingMenuForm;
+    private static ScoreBoardMenu scoreBoardForm;
 
     public static void start(){
-        gameForm = new GameForm();
+        gameForm = new GameMenu();
         gameForm.setVisible(true);
+    }
+    
+    public static void disposeGameMenu() {
+    	gameForm.setVisible(false);
     }
 
     public static void showStartMenu(){
@@ -31,7 +35,17 @@ public class Tetris {
 
     public static void showScoreBoard(){
     	scoreBoardForm.reloadData();
-        scoreBoardForm.setVisible(true);
+    	scoreBoardForm.dispose();
+    	try {
+			scoreBoardForm = new ScoreBoardMenu(-1);
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	scoreBoardForm.setVisible(true);
     }
 
     public static void main(String[] args) {
@@ -39,9 +53,9 @@ public class Tetris {
             @Override
             public void run() {
             	startmenu = new StartMenu();
-                settingMenuForm = new SettingMenuForm();
+                settingMenuForm = new SettingMenu();
                 try {
-					scoreBoardForm = new ScoreBoardForm(-1);
+					scoreBoardForm = new ScoreBoardMenu(-1);
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -24,11 +24,9 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 import blocks.*;
-import javafx.animation.FadeTransition;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
 import main.Tetris;
-import scoreboard.ScoreBoardForm;
+import scoreboard.ScoreBoardMenu;
+import setting.SettingItem;
 
 public class itemGameBoard extends JPanel {
 
@@ -38,6 +36,7 @@ public class itemGameBoard extends JPanel {
 	public static final int WIDTH = 10;
 	public static final char BORDER_CHAR = 'X';
 
+	private SettingItem settingItem;
 	private JTextPane gamePane;
 	private JTextPane nextBlockPane;
 	private JTextPane label;
@@ -60,6 +59,7 @@ public class itemGameBoard extends JPanel {
 		setBackground(Color.WHITE);
 		setForeground(Color.BLACK);
 		setVisible(true);
+		settingItem = SettingItem.getInstance();
 
 		// Board display setting.
 		// label for displaying scores
@@ -179,11 +179,18 @@ public class itemGameBoard extends JPanel {
 				drawNextBlockBoard();
 			}
 		});
+		
+		am.put("pause", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pause();
+            }
+        });
 	}
 
 	private void setStyle() {
 		styleSet = new SimpleAttributeSet();
-		StyleConstants.setFontSize(styleSet, 20);
+		StyleConstants.setFontSize(styleSet, settingItem.getFontSize());
 		
 		Style r = gamePane.addStyle("RED", null);
 		StyleConstants.setForeground(r, Color.RED);
@@ -384,8 +391,9 @@ public class itemGameBoard extends JPanel {
 		placeBlock();
 
 		try {
-			ScoreBoardForm sbf = new ScoreBoardForm(score);
+			ScoreBoardMenu sbf = new ScoreBoardMenu(score);
 			sbf.setVisible(true);
+			Tetris.disposeGameMenu();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
