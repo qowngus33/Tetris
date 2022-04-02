@@ -1,9 +1,11 @@
 package setting;
 
+import blocks.*;
 import setting.exception.EmptyKeyException;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.Random;
 
 public class SettingItem {
 
@@ -15,17 +17,21 @@ public class SettingItem {
     private String rotateKey;
     private String dropKey;
     private String pauseKey;
-
     private int boardWidth;
     private int boardHeight;
     private int fontSize;
-
     private boolean isColorBlind;
+    private int initInterval;
+    private Mode mode;
 
     private SettingItem(){
         initKeySetting();
         initSizeSetting();
+        initColorBlindMode();
+        initInitInterval();
+        initMode();
     }
+
 
     public static SettingItem getInstance(){
         if(instance == null){
@@ -51,6 +57,14 @@ public class SettingItem {
 
     public void initColorBlindMode(){
         isColorBlind = false;
+    }
+
+    public void initInitInterval(){
+        initInterval = 1000;
+    }
+
+    public void initMode() {
+        mode = Mode.NORMAL;
     }
 
     /**
@@ -132,6 +146,24 @@ public class SettingItem {
         JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),"스코어보드가 초기화되었습니다.");
     }
 
+    /**
+     * 난이도 모드
+     */
+    public void btnEasyModeActionPerformed(){
+        initInterval = 1200;
+        mode = Mode.EASY;
+    }
+
+    public void btnNormalModeActionPerformed(){
+        initInterval = 1000;
+        mode = Mode.NORMAL;
+    }
+
+    public void btnHardModeActionPerformed(){
+        initInterval = 800;
+        mode = Mode.HARD;
+    }
+
 
     /**
      * 설정 불러오기
@@ -184,5 +216,13 @@ public class SettingItem {
 
     public boolean isColorBlind() {
         return isColorBlind;
+    }
+
+    public int getInitInterval() {
+        return initInterval;
+    }
+
+    public Mode getMode(){
+        return mode;
     }
 }

@@ -1,6 +1,7 @@
 package game;
 
 import blocks.*;
+import setting.Mode;
 import setting.SettingItem;
 
 import javax.swing.*;
@@ -37,11 +38,17 @@ public class GameBoard extends JPanel{
     private int level = 0;
     int x = 3; //Default Position.
     int y = 0;
-    private static int initInterval = 1000;
+
+    /**
+     * Mode 추가
+     */
+    private static int initInterval;
+    private Mode mode;
 
     public GameBoard(){
 
         settingItem = SettingItem.getInstance();
+        mode = settingItem.getMode();
 
         setVisible(true);
         setSize(settingItem.getBoardWidth(), settingItem.getBoardHeight());
@@ -74,7 +81,6 @@ public class GameBoard extends JPanel{
         JPanel scoreBoard = new JPanel();
         scoreBoard.add(label);
 
-
         eastPanel.add(nextBlockPane,BorderLayout.CENTER);
         //eastPanel.add(scoreBoard,BorderLayout.SOUTH);
 
@@ -91,7 +97,10 @@ public class GameBoard extends JPanel{
         StyleConstants.setAlignment(styleSet, StyleConstants.ALIGN_CENTER);
 
         //Set timer for block drops.
-        timer = new Timer(initInterval, new ActionListener() {
+        /**
+         * Mode 추가
+         */
+        timer = new Timer(settingItem.getInitInterval(), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 moveDown();
@@ -107,12 +116,92 @@ public class GameBoard extends JPanel{
         requestFocus();
 
         //Create the first block and draw.
-        nextBlock = getRandomBlock();
-        curr = getRandomBlock();
+        /**
+         * Mode 추가
+         */
+        nextBlock = getRandomBlockMode(mode);
+        curr = getRandomBlockMode(mode);
         placeBlock();
         drawGameBoard();
         drawNextBlockBoard();
         timer.start();
+    }
+
+    /**
+     * 난이도 추가 - 블럭 확률
+     */
+    public Block getRandomBlockMode(Mode mode){
+        switch (mode){
+            case EASY:
+                return getRandomBlockEasyMode();
+            case NORMAL:
+                return getRandomBlockNormalMode();
+            case HARD:
+                return getRandomBlockHardMode();
+        }
+        return getRandomBlockNormalMode();
+    }
+
+    public Block getRandomBlockEasyMode(){
+        int random = (int)(Math.random() * 72);
+
+        if(random < 10){
+            return new JBlock();
+        }else if(random < 20){
+            return new LBlock();
+        }else if(random < 30){
+            return new ZBlock();
+        }else if(random < 40){
+            return new SBlock();
+        }else if(random < 50){
+            return new TBlock();
+        }else if(random < 60){
+            return new OBlock();
+        }else {
+            return new IBlock(); // 가중치 12
+        }
+    }
+
+    // normal mode
+    public Block getRandomBlockNormalMode() {
+        Random rnd = new Random(System.currentTimeMillis());
+        int block = rnd.nextInt(1000)%6;
+        switch(block) {
+            case 0:
+                return new IBlock();
+            case 1:
+                return new JBlock();
+            case 2:
+                return new LBlock();
+            case 3:
+                return new ZBlock();
+            case 4:
+                return new SBlock();
+            case 5:
+                return new TBlock();
+        }
+        return new OBlock();
+    }
+
+    // hard mode
+    public Block getRandomBlockHardMode(){
+        int random = (int)(Math.random() * 68);
+
+        if(random < 10){
+            return new JBlock();
+        }else if(random < 20){
+            return new LBlock();
+        }else if(random < 30){
+            return new ZBlock();
+        }else if(random < 40){
+            return new SBlock();
+        }else if(random < 50){
+            return new TBlock();
+        }else if(random < 60){
+            return new OBlock();
+        }else {
+            return new IBlock(); // 가중치 8
+        }
     }
 
     /**
@@ -189,28 +278,6 @@ public class GameBoard extends JPanel{
         });
     }
 
-    private Block getRandomBlock() {
-        Random rnd = new Random(System.currentTimeMillis());
-        int block = rnd.nextInt(1000)%8;
-        switch(block) {
-            case 0:
-                return new IBlock();
-            case 1:
-                return new JBlock();
-            case 2:
-                return new LBlock();
-            case 3:
-                return new ZBlock();
-            case 4:
-                return new SBlock();
-            case 5:
-                return new TBlock();
-            case 6:
-                return new OBlock();
-        }
-        return new LBlock();
-    }
-
     private void placeBlock() {
         StyledDocument doc = gamePane.getStyledDocument();
         SimpleAttributeSet styles = new SimpleAttributeSet();
@@ -253,7 +320,7 @@ public class GameBoard extends JPanel{
             }
 
             curr = nextBlock;
-            nextBlock = getRandomBlock();
+            nextBlock = getRandomBlockMode(mode);
             x = 3;
             y = 0;
             drawNextBlockBoard();
@@ -477,7 +544,7 @@ public class GameBoard extends JPanel{
         placeBlock(); //밑으로 내려가지 않게 고정
         eraseOneLine();
         curr = nextBlock;
-        nextBlock = getRandomBlock();
+        nextBlock = getRandomBlockMode(mode);
         x = 3;
         y = 0;
         placeBlock();

@@ -6,7 +6,8 @@ public abstract class Block {
 		
 	protected int[][] shape;
 	protected Color color;
-	
+	public int typeNum;
+
 	public Block() {
 		shape = new int[][]{ 
 				{1, 1}, 

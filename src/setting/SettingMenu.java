@@ -24,6 +24,10 @@ public class SettingMenu extends JFrame {
     private JButton initScoreBoardBtn;
     private JPanel initScoreBoardPanel;
     private JPanel settingBtnPanel;
+    private JLabel modeLabel;
+    private ButtonGroup modeBtnGroup;
+    private JRadioButton[] modeBtns;
+    private JPanel modePanel;
 
     private SettingItem settingItem;
 
@@ -36,7 +40,7 @@ public class SettingMenu extends JFrame {
         setBackground(Color.WHITE);
 
         // 화면 크기 조절 버튼 & 이벤트 설정
-        String[] sizeNames = {"small", "medium", "large"};
+        String[] sizeNames = {"SMALL", "MEDIUM", "LARGE"};
         sizeLabel = new JLabel("화면 크기");
         sizeBtns = new JRadioButton[3];
         sizeBtnGroup = new ButtonGroup();
@@ -62,6 +66,27 @@ public class SettingMenu extends JFrame {
         keyPanel.add(new JLabel("조작키 설정"), BorderLayout.NORTH);
         keyPanel.add(keySettingPanel,BorderLayout.CENTER);
         // 키패드 추가 필요
+
+        // 난이도 설정
+        String[] modeNames = {"EASY", "NORMAL", "HARD"};
+        modeLabel = new JLabel("난이도 설정");
+        modeBtns = new JRadioButton[3];
+        modeBtnGroup = new ButtonGroup();
+
+        for(int i = 0; i < modeBtns.length; i++){
+            modeBtns[i] = new JRadioButton(modeNames[i]);
+            modeBtnGroup.add(modeBtns[i]);
+        }
+
+        modePanel = new JPanel(new GridLayout(0, 4));
+        modePanel.add(modeLabel);
+        for(int i = 0; i < modeBtns.length; i++){
+            modePanel.add(modeBtns[i]);
+        }
+        modeBtns[1].setSelected(true); // NORMAL
+        modeBtns[0].addActionListener(e -> settingItem.btnEasyModeActionPerformed());
+        modeBtns[1].addActionListener(e -> settingItem.btnNormalModeActionPerformed());
+        modeBtns[2].addActionListener(e -> settingItem.btnHardModeActionPerformed());
 
         // 색맹 모드 켜고 끄기
         colorBlindLabel = new JLabel("색맹 모드");
@@ -105,9 +130,10 @@ public class SettingMenu extends JFrame {
         settingBtnPanel.add(saveSettingBtn);
 
         // panel 추가
-        this.getContentPane().setLayout(new GridLayout(5, 0));
+        this.getContentPane().setLayout(new GridLayout(6, 0));
         this.getContentPane().add(sizePanel);
         this.getContentPane().add(keyPanel);
+        this.getContentPane().add(modePanel);
         this.getContentPane().add(initScoreBoardPanel);
         this.getContentPane().add(colorBlindPanel);
         this.getContentPane().add(settingBtnPanel);
@@ -161,6 +187,9 @@ public class SettingMenu extends JFrame {
 
         settingItem.btnColorBlindOffActionPerformed();
         colorBlindOffBtn.setSelected(true);
+
+        settingItem.btnNormalModeActionPerformed();
+        modeBtns[1].setSelected(true);
 
         JOptionPane.showMessageDialog(initScoreBoardPanel,"설정이 초기화되었습니다.");
     }
