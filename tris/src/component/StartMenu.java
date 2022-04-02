@@ -4,8 +4,8 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -13,6 +13,7 @@ import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import main.Tetris;
@@ -54,7 +55,6 @@ public class StartMenu extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setVisible(true);
 
 		// setBackground(new Color(0, 0, 0, 0));
 		setLayout(null);
@@ -63,7 +63,8 @@ public class StartMenu extends JFrame {
 		imagepanel.add(menuSB);
 		imagepanel.add(menuExit);
 		imagepanel.add(icon);
-
+		setVisible(true);
+		menuStart.requestFocus();
 		// start menu
 		menuStart.setBounds(130, 425, 130, 40);
 		menuStart.setBorderPainted(false);
@@ -73,6 +74,9 @@ public class StartMenu extends JFrame {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				menuStart.setIcon(menuStartClicked);
+				menuOption.setIcon(menuOptionBasic);
+				menuSB.setIcon(menuSBBasic);
+				menuExit.setIcon(menuExitBasic);
 				menuStart.setCursor(new Cursor(HAND_CURSOR));
 			}
 
@@ -87,6 +91,80 @@ public class StartMenu extends JFrame {
 				dispose();
 			}
 		});
+		menuStart.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				switch (e.getKeyCode()) {
+				case 37:
+					System.out.println("left");
+					menuStart.setIcon(menuStartBasic);
+					menuOption.setIcon(menuOptionClicked);
+					menuSB.setIcon(menuSBBasic);
+					menuExit.setIcon(menuExitBasic);
+					break;
+				case 38:
+					System.out.println("up");
+					menuStart.setIcon(menuStartClicked);
+					menuOption.setIcon(menuOptionBasic);
+					menuSB.setIcon(menuSBBasic);
+					menuExit.setIcon(menuExitBasic);
+					break;
+				case 39:
+					setFocusable(true);
+					System.out.println("right");
+					menuStart.setIcon(menuStartBasic);
+					menuOption.setIcon(menuOptionBasic);
+					menuSB.setIcon(menuSBClicked);
+					menuExit.setIcon(menuExitBasic);
+					break;
+				case 40:
+					System.out.println("down");
+					menuStart.setIcon(menuStartBasic);
+					menuOption.setIcon(menuOptionBasic);
+					menuSB.setIcon(menuSBBasic);
+					menuExit.setIcon(menuExitClicked);
+					break;
+				case KeyEvent.VK_ENTER:
+					break;
+				case KeyEvent.VK_SPACE:
+					break;
+				default:
+					System.out.println("no!");
+					JOptionPane alertNo = new JOptionPane();
+					alertNo.showMessageDialog(
+							null, "↑ : START 버튼 선택\n" + "← : OPTION 버튼 선택\n" + "→ : SCORE BOARD 버튼 선택\n"
+									+ "↓ : EXIT 버튼 선택\n" + "Enter, Space Bar : 선택된 버튼 실행",
+							"Key Reminder", JOptionPane.PLAIN_MESSAGE);
+					break;
+				}
+
+				if ((e.getKeyCode() == KeyEvent.VK_ENTER) || (e.getKeyCode() == KeyEvent.VK_SPACE)) {
+					if (menuStart.getIcon() == menuStartClicked) {
+						new Board();
+						dispose();
+					}
+					if (menuOption.getIcon() == menuOptionClicked) {
+						;
+					}
+					if (menuSB.getIcon() == menuSBClicked) {
+						try {
+							new ScoreBoard(-1);
+						} catch (NumberFormatException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						dispose();
+					}
+					if (menuExit.getIcon() == menuExitClicked) {
+						System.exit(1);
+					}
+				}
+			}
+				
+		});
 
 		// options menu
 		menuOption.setBounds(25, 500, 130, 40);
@@ -96,7 +174,10 @@ public class StartMenu extends JFrame {
 		menuOption.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				menuStart.setIcon(menuStartBasic);
 				menuOption.setIcon(menuOptionClicked);
+				menuSB.setIcon(menuSBBasic);
+				menuExit.setIcon(menuExitBasic);
 				menuOption.setCursor(new Cursor(HAND_CURSOR));
 			}
 
@@ -136,7 +217,10 @@ public class StartMenu extends JFrame {
 		menuSB.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				menuStart.setIcon(menuStartBasic);
+				menuOption.setIcon(menuOptionBasic);
 				menuSB.setIcon(menuSBClicked);
+				menuExit.setIcon(menuExitBasic);
 				menuSB.setCursor(new Cursor(HAND_CURSOR));
 			}
 
@@ -158,6 +242,7 @@ public class StartMenu extends JFrame {
 				}
 				dispose();
 			}
+
 		});
 
 		// exit menu
@@ -168,6 +253,9 @@ public class StartMenu extends JFrame {
 		menuExit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				menuStart.setIcon(menuStartBasic);
+				menuOption.setIcon(menuOptionBasic);
+				menuSB.setIcon(menuSBBasic);
 				menuExit.setIcon(menuExitClicked);
 				menuExit.setCursor(new Cursor(HAND_CURSOR));
 			}
@@ -182,73 +270,6 @@ public class StartMenu extends JFrame {
 				System.exit(1);
 			}
 		});
-		class key implements KeyListener {
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == 37) {
-					// System.out.println("left");
-					menuStart.setIcon(menuStartBasic);
-					menuOption.setIcon(menuOptionClicked);
-					menuSB.setIcon(menuSBBasic);
-					menuExit.setIcon(menuExitBasic);
-				}
-				if (e.getKeyCode() == 38) {
-					// System.out.println("up");
-					menuStart.setIcon(menuStartClicked);
-					menuOption.setIcon(menuOptionBasic);
-					menuSB.setIcon(menuSBBasic);
-					menuExit.setIcon(menuExitBasic);
-				}
-				if (e.getKeyCode() == 39) {
-					// System.out.println("right");
-					menuStart.setIcon(menuStartBasic);
-					menuOption.setIcon(menuOptionBasic);
-					menuSB.setIcon(menuSBClicked);
-					menuExit.setIcon(menuExitBasic);
-				}
-				if (e.getKeyCode() == 40) {
-					// System.out.println("down");
-					menuStart.setIcon(menuStartBasic);
-					menuOption.setIcon(menuOptionBasic);
-					menuSB.setIcon(menuSBBasic);
-					menuExit.setIcon(menuExitClicked);
-				}
-
-				if ((e.getKeyCode() == KeyEvent.VK_ENTER) || (e.getKeyCode() == KeyEvent.VK_SPACE)) {
-					if (menuStart.getIcon() == menuStartClicked) {
-						new Board();
-						dispose();
-					}
-					if(menuOption.getIcon() == menuOptionClicked) {
-						;
-					}
-					if(menuSB.getIcon() == menuSBClicked) {
-						try {
-							new ScoreBoard(-1);
-						} catch (NumberFormatException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						dispose();
-					}
-					if(menuExit.getIcon() == menuExitClicked) {
-						System.exit(1);
-					}
-				}
-			}
-
-			public void keyReleased(KeyEvent e) {
-			}
-
-			public void keyTyped(KeyEvent e) {
-			}
-		}
-		menuStart.addKeyListener(new key());
-		menuOption.addKeyListener(new key());
-		menuSB.addKeyListener(new key());
-		menuExit.addKeyListener(new key());
 	}
 
 	public void paint(Graphics g) {
