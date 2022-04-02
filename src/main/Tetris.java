@@ -30,6 +30,7 @@ public class Tetris {
     }
 
     public static void showScoreBoard(){
+    	scoreBoardForm.reloadData();
         scoreBoardForm.setVisible(true);
     }
 

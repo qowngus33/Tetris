@@ -5,21 +5,23 @@ DD 0 normal
 dd 0 normal
 GH 657 normal
 DR 339 normal
-TX 439
-WD 2
-KK 1
-TY 1
-HU 587
-ER 1
-ER 1
-WE 344
-EE 324
-QW 922
-EE 102
-ER 103
-RT 1018
-TT 0
-TY 0
-TY 0
-TY 102
-TU 369
+함수 132normal
+함수 101 normal
+그래 97 normal
+확인 107 normal
+왜? 106 normal
+지금 91 normal
+TY 2430 normal
+GH 109 normal
+RR 110 normal
+FF 105 normal
+TU 102 normal
+FR 108 normal
+WE 108 normal
+RT 108 normal
+FG 108 normal
+RT 107 normal
+22 103 normal
+확인 107 normal
+기안 95 normal
+해냈 99 normal

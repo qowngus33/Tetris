@@ -8,7 +8,7 @@ public class LBlock extends Block {
 			{1, 1, 1},
 			{1, 0, 0}
 		};
-		color = Color.ORANGE;
+		color = "ORANGE";
 	}
 	
 }

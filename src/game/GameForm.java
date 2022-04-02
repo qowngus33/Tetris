@@ -8,13 +8,14 @@ import java.awt.event.ActionEvent;
 
 public class GameForm extends JFrame{
 
-    private GameBoard gameBoard;
+    private itemGameBoard itemGameBoard;
 
     public GameForm() {
         setSize(380, 800);
         setBackground(Color.WHITE);
         setForeground(Color.BLACK);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         JButton settingButton = new JButton("설정");
         JButton startMenuBtn = new JButton("시작메뉴로");
@@ -30,8 +31,8 @@ public class GameForm extends JFrame{
         panel.add(startMenuBtn);
         panel.add(scoreBoardBtn);
 
-        gameBoard = new GameBoard();
-        this.add(gameBoard, BorderLayout.CENTER);
+        itemGameBoard = new itemGameBoard();
+        this.add(itemGameBoard, BorderLayout.CENTER);
         this.add(panel, BorderLayout.SOUTH);
     }
 

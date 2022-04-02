@@ -8,7 +8,7 @@ public class SBlock extends Block {
 			{0, 1, 1},
 			{1, 1, 0}
 		};
-		color = Color.GREEN;
+		color = "GREEN";
 	}
 
 }
