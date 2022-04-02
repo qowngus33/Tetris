@@ -26,13 +26,19 @@ import java.io.IOException;
      private int fontSize;
 
      private boolean isColorBlind;
-     
+
+     private int initInterval;
+     private Mode mode;
+
      private ScoreBoardFile sb;
      private SettingFile settingfile;
 
      private SettingItem(){
          initKeySetting();
          initSizeSetting();
+         initColorBlindMode();
+         initInitInterval();
+         initMode();
      }
 
      public static SettingItem getInstance(){
@@ -59,6 +65,14 @@ import java.io.IOException;
 
      public void initColorBlindMode(){
          isColorBlind = false;
+     }
+
+     public void initInitInterval(){
+         initInterval = 1000;
+     }
+
+     public void initMode() {
+         mode = Mode.NORMAL;
      }
 
      /**
@@ -147,6 +161,25 @@ import java.io.IOException;
     	
      }
 
+     /**
+      * 난이도 모드
+      */
+     public void btnEasyModeActionPerformed(){
+         initInterval = 1200;
+         mode = Mode.EASY;
+     }
+
+     public void btnNormalModeActionPerformed(){
+         initInterval = 1000;
+         mode = Mode.NORMAL;
+     }
+
+     public void btnHardModeActionPerformed(){
+         initInterval = 800;
+         mode = Mode.HARD;
+     }
+
+
 
      /**
       * 설정 불러오기
@@ -200,5 +233,13 @@ import java.io.IOException;
 
      public boolean isColorBlind() {
          return isColorBlind;
+     }
+
+     public int getInitInterval() {
+         return initInterval;
+     }
+
+     public Mode getMode(){
+         return mode;
      }
  }

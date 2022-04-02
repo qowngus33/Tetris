@@ -7,8 +7,9 @@ package game;
  import java.awt.*;
 
  public class GameMenu extends JFrame{
-     private itemGameBoard gameBoard;
+     // private itemGameBoard gameBoard;
      private SettingItem settingItem;
+     private GameBoard gameBoard;
 
      public GameMenu() {
 
@@ -32,7 +33,7 @@ package game;
          panel.add(startMenuBtn);
          panel.add(scoreBoardBtn);
 
-         gameBoard = new itemGameBoard();
+         gameBoard = new GameBoard();
 
          this.add(gameBoard, BorderLayout.CENTER);
          this.add(panel, BorderLayout.SOUTH);
