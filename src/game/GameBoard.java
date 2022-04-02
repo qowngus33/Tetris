@@ -32,6 +32,7 @@ import blocks.TBlock;
 import blocks.ZBlock;
 import main.Tetris;
 import scoreboard.ScoreBoardMenu;
+import setting.Mode;
 import setting.SettingItem;
 
 public class GameBoard extends JPanel {
@@ -56,15 +57,20 @@ public class GameBoard extends JPanel {
 	private int level = 0;
 	int x = 3; //Default Position.
 	int y = 0;
-	
-	private static int initInterval = 1000;
-	
+
+	/**
+	 * Mode 추가
+	 */
+	private static int initInterval;
+	private Mode mode;
+
 	public GameBoard() {
 		setSize(380, 800);
 		setBackground(Color.WHITE);
         setForeground(Color.BLACK);
 		setVisible(true);
 		settingItem = SettingItem.getInstance();
+		mode = settingItem.getMode();
 		
 		//Board display setting.   
 		//label for displaying scores
@@ -109,7 +115,7 @@ public class GameBoard extends JPanel {
 		StyleConstants.setAlignment(styleSet, StyleConstants.ALIGN_CENTER);
 		
 		//Set timer for block drops.
-		timer = new Timer(initInterval, new ActionListener() {
+		timer = new Timer(settingItem.getInitInterval(), new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				moveDown();
@@ -125,86 +131,165 @@ public class GameBoard extends JPanel {
 		requestFocus();
 		initControls();
 		//Create the first block and draw.
-		nextBlock = getRandomBlock();
-		curr = getRandomBlock();
+		nextBlock = getRandomBlockMode(mode);
+		curr = getRandomBlockMode(mode);
 		placeBlock();
 		drawGameBoard();
 		drawNextBlockBoard();
 		timer.start();
 		
 	}
-	
-	 private void initControls(){
 
-	        InputMap im = this.getInputMap();
-	        ActionMap am = this.getActionMap();
+	/**
+	 * 난이도 추가 - 블럭 확률
+	 */
+	public Block getRandomBlockMode(Mode mode){
+		switch (mode){
+			case EASY:
+				return getRandomBlockEasyMode();
+			case NORMAL:
+				return getRandomBlockNormalMode();
+			case HARD:
+				return getRandomBlockHardMode();
+		}
+		return getRandomBlockNormalMode();
+	}
 
-	        im.put(KeyStroke.getKeyStroke("RIGHT"), "right");
-	        im.put(KeyStroke.getKeyStroke("LEFT"), "left");
-	        im.put(KeyStroke.getKeyStroke("UP"), "up");
-	        im.put(KeyStroke.getKeyStroke("DOWN"), "down");
-	        im.put(KeyStroke.getKeyStroke("SPACE"), "space");
-	        
+	// easy mode
+	public Block getRandomBlockEasyMode(){
+		int random = (int)(Math.random() * 72);
 
-	        am.put("right", new AbstractAction() {
-	            @Override
-	            public void actionPerformed(ActionEvent e) {
-	                moveRight();
-	                drawGameBoard();
-	            }
-	        });
-	        am.put("left", new AbstractAction() {
-	            @Override
-	            public void actionPerformed(ActionEvent e) {
-	                moveLeft();
-	                drawGameBoard();
-	            }
-	        });
-	        am.put("up", new AbstractAction() {
-	            @Override
-	            public void actionPerformed(ActionEvent e) {
-	                rotateBlock();
-	                drawGameBoard();
-	                // System.out.println("up");
-	            }
-	        });
-	        am.put("down", new AbstractAction() {
-	            @Override
-	            public void actionPerformed(ActionEvent e) {
-	                moveDown();
-	                drawGameBoard();
-	                // System.out.println("down");
-	            }
-	        });
-	        am.put("space", new AbstractAction() {
-	            @Override
-	            public void actionPerformed(ActionEvent e) {
-	               dropBlock();
-	               drawGameBoard();
-	               drawNextBlockBoard();
-	            }
-	        });
-	        
-	        am.put("pause", new AbstractAction() {
-	             @Override
-	             public void actionPerformed(ActionEvent e) {
-	                 pause();
-	             }
-	         });
-	    }
-	
-	private Block getRandomBlock() {
+		if(random < 10){
+			return new JBlock();
+		}else if(random < 20){
+			return new LBlock();
+		}else if(random < 30){
+			return new ZBlock();
+		}else if(random < 40){
+			return new SBlock();
+		}else if(random < 50){
+			return new TBlock();
+		}else if(random < 60){
+			return new OBlock();
+		}else {
+			return new IBlock(); // 가중치 12
+		}
+	}
+
+	// normal mode
+	public Block getRandomBlockNormalMode() {
 		Random rnd = new Random(System.currentTimeMillis());
 		int block = rnd.nextInt(1000)%6;
 		switch(block) {
-		case 0: return new IBlock();
-		case 1: return new JBlock();
-		case 2: return new LBlock();
-		case 3: return new ZBlock();
-		case 4: return new SBlock();
-		case 5: return new TBlock();	
+			case 0:
+				return new IBlock();
+			case 1:
+				return new JBlock();
+			case 2:
+				return new LBlock();
+			case 3:
+				return new ZBlock();
+			case 4:
+				return new SBlock();
+			case 5:
+				return new TBlock();
 		}
 		return new OBlock();
+	}
+
+	// hard mode
+	public Block getRandomBlockHardMode(){
+		int random = (int)(Math.random() * 68);
+
+		if(random < 10){
+			return new JBlock();
+		}else if(random < 20){
+			return new LBlock();
+		}else if(random < 30){
+			return new ZBlock();
+		}else if(random < 40){
+			return new SBlock();
+		}else if(random < 50){
+			return new TBlock();
+		}else if(random < 60){
+			return new OBlock();
+		}else {
+			return new IBlock(); // 가중치 8
+		}
+	}
+
+	/**
+	 * 키 이벤트
+	 */
+	private void initControls(){
+
+		InputMap im = this.getInputMap();
+		ActionMap am = this.getActionMap();
+
+		im.put(KeyStroke.getKeyStroke(settingItem.getRightKey()), "right");
+		im.put(KeyStroke.getKeyStroke(settingItem.getLeftKey()), "left");
+		im.put(KeyStroke.getKeyStroke(settingItem.getRotateKey()), "up");
+		im.put(KeyStroke.getKeyStroke(settingItem.getDownKey()), "down");
+		im.put(KeyStroke.getKeyStroke(settingItem.getDropKey()), "space");
+		im.put(KeyStroke.getKeyStroke(settingItem.getPauseKey()), "pause");
+
+		am.put("right", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(timer.isRunning()){
+					moveRight();
+					drawGameBoard();
+				}
+			}
+		});
+
+		am.put("left", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(timer.isRunning()){
+					moveLeft();
+					drawGameBoard();
+				}
+			}
+		});
+
+		am.put("up", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(timer.isRunning()){
+					rotateBlock();
+					drawGameBoard();
+				}
+			}
+		});
+
+		am.put("down", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (timer.isRunning()) {
+					moveDown();
+					drawGameBoard();
+				}
+			}
+		});
+
+		am.put("space", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(timer.isRunning()){
+					dropBlock();
+					drawGameBoard();
+					drawNextBlockBoard();
+				}
+			}
+		});
+
+		am.put("pause", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				pause();
+			}
+		});
 	}
 	
 	public void rotateBlock(){
@@ -234,7 +319,7 @@ public class GameBoard extends JPanel {
 	        placeBlock(); //밑으로 내려가지 않게 고정
 	        eraseOneLine();
 	        curr = nextBlock;
-	        nextBlock = getRandomBlock();
+	        nextBlock = getRandomBlockMode(mode);
 	        x = 3;
 	        y = 0;
 	        placeBlock();
@@ -280,7 +365,7 @@ public class GameBoard extends JPanel {
 			}
 			
 			curr = nextBlock;
-			nextBlock = getRandomBlock();
+			nextBlock = getRandomBlockMode(mode);
 			x = 3;
 			y = 0;
 			drawNextBlockBoard();
