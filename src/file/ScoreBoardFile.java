@@ -26,8 +26,8 @@ public class ScoreBoardFile extends FileClass {
 		for (int i = 0; i < strings.length; i++) {
 			if (strings[i] != null) {
 				String[] splited = strings[i].split(" ");
-				if (splited.length == 3 && splited[1].matches("[+-]?\\d*(\\.\\d+)?")) {
-					Pair p = new Pair(splited[0], Integer.parseInt(splited[1]), splited[2]);
+				if (splited.length == 4 && splited[1].matches("[+-]?\\d*(\\.\\d+)?")) {
+					Pair p = new Pair(splited[0], Integer.parseInt(splited[1]), splited[2],splited[3]);
 					v.add(p);
 				}
 			}
@@ -38,17 +38,17 @@ public class ScoreBoardFile extends FileClass {
 	public String readScoreBoard() throws IOException {
 		String sb = new String();
 		for (int i = 0; i < Math.min(v.size(), 20); i++) {
-			sb += ("  " + String.format("%02d", i + 1) + String.format("%8s", v.get(i).name) + "      "
-					+ String.format("%04d", v.get(i).score) + String.format("%12s", v.get(i).level) + "\n");
+			sb += ("  " + String.format("%02d", i + 1) + String.format("%6s", v.get(i).name) + "      "
+					+ String.format("%04d", v.get(i).score) + String.format("%10s", v.get(i).level) + String.format("%10s", v.get(i).mode) + "\n");
 		}
 		return sb;
 	}
 
-	public int writeScoreBoard(String name, String score, String level) throws IOException {
-		v.add(new Pair(name, Integer.parseInt(score), level));
+	public int writeScoreBoard(String name, int score, String level,String mode) throws IOException {
+		v.add(new Pair(name, score, level,mode));
 		Collections.sort(v, new PairComparator());
 		for (int i = 0; i < Math.min(v.size(), 20); i++) {
-			if (v.get(i).getName() == name)
+			if (v.get(i).name == name && v.get(i).score == score)
 				this.index = i;
 		}
 		BufferedReader br;
@@ -67,7 +67,7 @@ public class ScoreBoardFile extends FileClass {
 			e1.printStackTrace();
 		}
 		BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-		String temp = name + " " + score + " " + level; // to be edited
+		String temp = name + " " + score + " " + level + " " + mode; // to be edited
 		bw.write(sb);
 		bw.write(temp);
 		bw.newLine();
@@ -92,25 +92,20 @@ class Pair {
 	String name;
 	Integer score;
 	String level;
+	String mode;
 
 	public Pair() {
 		this.name = "DF";
 		this.score = 0;
 		this.level = "normal";
+		this.mode = "";
 	}
 
-	public Pair(String name, Integer score, String level) {
+	public Pair(String name, Integer score, String level,String mode) {
 		this.name = name;
 		this.score = score;
 		this.level = level;
-	}
-
-	public Integer getScore() {
-		return score;
-	}
-
-	public String getName() {
-		return name;
+		this.mode = mode;
 	}
 }
 

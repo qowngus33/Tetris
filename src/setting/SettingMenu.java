@@ -65,7 +65,7 @@ import java.io.IOException;
          for(int i = 0; i < sizeBtns.length; i++){
              sizePanel.add(sizeBtns[i]);
          }
-         sizeBtns[1].setSelected(true); // medium
+         sizeBtns[settingfile.getSizeSetting()].setSelected(true); // medium
          sizeBtns[0].addActionListener(e -> settingItem.btnSmallBtnActionPerformed());
          sizeBtns[1].addActionListener(e -> settingItem.btnMediumBtnActionPerformed());
          sizeBtns[2].addActionListener(e -> settingItem.btnLargeBtnActionPerformed());
@@ -93,7 +93,7 @@ import java.io.IOException;
          for(int i = 0; i < modeBtns.length; i++){
              modePanel.add(modeBtns[i]);
          }
-         modeBtns[1].setSelected(true); // NORMAL
+         modeBtns[settingfile.getLevelSetting()].setSelected(true); // NORMAL
          modeBtns[0].addActionListener(e -> settingItem.btnEasyModeActionPerformed());
          modeBtns[1].addActionListener(e -> settingItem.btnNormalModeActionPerformed());
          modeBtns[2].addActionListener(e -> settingItem.btnHardModeActionPerformed());
@@ -131,7 +131,14 @@ import java.io.IOException;
          gameBtn.addActionListener(e -> btnGameActionPerformed());
          startMenuBtn.addActionListener(e -> btnStartMenuActionPerformed());
          initSettingBtn.addActionListener(e -> btnInitSettingActionPerformed());
-         // saveSettingBtn.addActionListener(e -> btnSaveSettingActionPerformed());
+         saveSettingBtn.addActionListener(e -> {
+			try {
+				settingItem.btnSaveSettingActionPerformed();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 
          settingBtnPanel = new JPanel(new GridLayout(5, 0));
          settingBtnPanel.add(gameBtn);
@@ -202,6 +209,6 @@ import java.io.IOException;
          modeBtns[1].setSelected(true);
 
          JOptionPane.showMessageDialog(initScoreBoardPanel,"설정이 초기화되었습니다.");
-         settingfile.saveSetting(1);
+         settingfile.saveSetting(1,1);
      }
  }

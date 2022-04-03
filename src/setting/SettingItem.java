@@ -190,8 +190,24 @@ import java.io.IOException;
       * 설정 저장
       */
      public void btnSaveSettingActionPerformed() throws IOException {
+    	 int screenSize;
+    	 int level;
+    	 if(mode == Mode.EASY)
+    		 level = 0;
+    	 else if(mode == Mode.NORMAL)
+    		 level = 1;
+    	 else
+    		 level = 2;
+    	 
+    	 if(getBoardWidth() < 340)
+    		 screenSize = 0;
+    	 else if(getBoardWidth() > 440)
+    		 screenSize = 2;
+    	 else
+    		 screenSize = 1;
+    		
     	 settingfile = new SettingFile();
-         settingfile.saveSetting(1);
+         settingfile.saveSetting(screenSize,level);
          JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "설정이 저장되었습니다.");
      }
 

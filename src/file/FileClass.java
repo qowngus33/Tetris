@@ -53,6 +53,13 @@ public abstract class FileClass {
 			e1.printStackTrace();
 		}
 	}
+	
+	public void writeFile(String content) throws IOException {
+		BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+		bw.write(content);
+		bw.newLine();
+		bw.close();
+	}
 
 	public void eraseFile() throws IOException {
 		if (file.exists()) {

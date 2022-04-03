@@ -8,7 +8,7 @@ import blocks.*;
 public class itemGameBoard extends GameBoard {
 
 	private static final long serialVersionUID = 1L;
-	private int lineNum = 0;
+	private int lineChange = 1;
 
 	public itemGameBoard() {
 		this.setFocusable(true);
@@ -16,6 +16,7 @@ public class itemGameBoard extends GameBoard {
 		setNextBlock();
 		this.timer.start();
 		this.lineNum = 0;
+		this.gameMode = "item";
 	}
 
 	private Block getItemBlock() {
@@ -25,7 +26,7 @@ public class itemGameBoard extends GameBoard {
 		case 1:
 			return new WBlock();
 		case 0:
-			Block temp = getRandomBlockMode(mode);
+			Block temp = getRandomBlock.getRandomBlockMode(mode);
 			temp.setItem("L");
 			temp.setShape(1, 0, 2);
 			return temp;
@@ -138,17 +139,17 @@ public class itemGameBoard extends GameBoard {
 			setNextBlock();
 		}
 		score = score + 1;
-		label.setText("score: " + score + "");
+		updateScore();
 		placeBlock();
 	}
 
 	protected void setNextBlock() {
 		this.curr = this.nextBlock;
-		if (lineNum >= 1) {
+		if (lineNum >= lineChange) {
 			this.nextBlock = this.getItemBlock();
 			lineNum = 0;
 		} else {
-			this.nextBlock = getRandomBlockMode(mode);
+			this.nextBlock = getRandomBlock.getRandomBlockMode(mode);
 		}
 		x = 3;
 		y = 0;
@@ -185,8 +186,7 @@ public class itemGameBoard extends GameBoard {
 		for (int i = 0; i < HEIGHT; i++)
 			for (int j = 0; j < WIDTH; j++)
 				if (board[i][j] != 2)
-					doc.setCharacterAttributes(13 + i * (WIDTH + 3) + j + 1, 1, gamePane.getStyle(colorBoard[i][j]),
-							false);
+					doc.setCharacterAttributes(13 + i * (WIDTH + 3) + j + 1, 1, gamePane.getStyle(colorBoard[i][j]),false);
 		gamePane.setStyledDocument(doc);
 	}
 
@@ -200,8 +200,6 @@ public class itemGameBoard extends GameBoard {
 				}
 			}
 		}
-		StyledDocument doc = this.gamePane.getStyledDocument();
-		this.gamePane.setStyledDocument(doc);
 		for (int i = 0; i < WIDTH; i++) {
 			board[line + y][i] = 1;
 		}

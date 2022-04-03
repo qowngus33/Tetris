@@ -19,6 +19,7 @@ package game;
          setBackground(Color.WHITE);
          setForeground(Color.BLACK);
          setLocationRelativeTo(null);
+         setVisible(true);
          
          JButton settingButton = new JButton("설정");
          JButton startMenuBtn = new JButton("시작메뉴로");

@@ -63,7 +63,7 @@ package component;
  		imagepanel.add(menuSB);
  		imagepanel.add(menuExit);
  		imagepanel.add(icon);
- 		setVisible(true);
+ 		//setVisible(true);
  		menuStart.requestFocus();
  		// start menu
  		menuStart.setBounds(130, 425, 130, 40);
@@ -89,7 +89,6 @@ package component;
  				Tetris.start();
  			}
  		});
- 		
  		menuStart.addKeyListener(new KeyAdapter() {
  			@Override
  			public void keyPressed(KeyEvent e) {
@@ -152,7 +151,7 @@ package component;
  			}
 
  		});
-
+ 		
  		// options menu
  		menuOption.setBounds(25, 500, 130, 40);
  		menuOption.setBorderPainted(false);
