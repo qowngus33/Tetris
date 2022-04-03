@@ -79,18 +79,17 @@ package component;
  				menuExit.setIcon(menuExitBasic);
  				menuStart.setCursor(new Cursor(HAND_CURSOR));
  			}
-
  			@Override
  			public void mouseExited(MouseEvent e) {
  				menuStart.setIcon(menuStartBasic);
  			}
-
  			@Override
  			public void mousePressed(MouseEvent e) {
  				setVisible(false);
  				Tetris.start();
  			}
  		});
+ 		
  		menuStart.addKeyListener(new KeyAdapter() {
  			@Override
  			public void keyPressed(KeyEvent e) {
@@ -129,24 +128,21 @@ package component;
  				case KeyEvent.VK_SPACE:
  					break;
  				default:
- 					System.out.println("no!");
  					JOptionPane alertNo = new JOptionPane();
  					alertNo.showMessageDialog(
  							null, "↑ : START 버튼 선택\n" + "← : OPTION 버튼 선택\n" + "→ : SCORE BOARD 버튼 선택\n"
  		                           + "↓ : EXIT 버튼 선택\n" + "Enter, Space Bar : 선택된 버튼 실행","Key Reminder", JOptionPane.PLAIN_MESSAGE);
  					break;
  				}
-
  				if ((e.getKeyCode() == KeyEvent.VK_ENTER) || (e.getKeyCode() == KeyEvent.VK_SPACE)) {
+ 					setVisible(false);
  					if (menuStart.getIcon() == menuStartClicked) {
- 						setVisible(false);
  						Tetris.start();
  					}
  					if (menuOption.getIcon() == menuOptionClicked) {
- 						;
+ 						Tetris.showSettingMenu();
  					}
  					if (menuSB.getIcon() == menuSBClicked) {
- 						setVisible(false);
  						Tetris.showScoreBoard();
  					}
  					if (menuExit.getIcon() == menuExitClicked) {
@@ -171,12 +167,10 @@ package component;
  				menuExit.setIcon(menuExitBasic);
  				menuOption.setCursor(new Cursor(HAND_CURSOR));
  			}
-
  			@Override
  			public void mouseExited(MouseEvent e) {
  				menuOption.setIcon(menuOptionBasic);
  			}
-
  			@Override
  			public void mousePressed(MouseEvent e) {
  				setVisible(false);
@@ -194,7 +188,6 @@ package component;
  			public void mouseEntered(MouseEvent e) {
  				icon.setIcon(iconClicked);
  			}
-
  			@Override
  			public void mouseExited(MouseEvent e) {
  				icon.setIcon(iconBasic);
@@ -215,18 +208,15 @@ package component;
  				menuExit.setIcon(menuExitBasic);
  				menuSB.setCursor(new Cursor(HAND_CURSOR));
  			}
-
  			@Override
  			public void mouseExited(MouseEvent e) {
  				menuSB.setIcon(menuSBBasic);
  			}
-
  			@Override
  			public void mousePressed(MouseEvent e) {
  				setVisible(false);
  				Tetris.showScoreBoard();
  			}
-
  		});
 
  		// exit menu
@@ -243,12 +233,10 @@ package component;
  				menuExit.setIcon(menuExitClicked);
  				menuExit.setCursor(new Cursor(HAND_CURSOR));
  			}
-
  			@Override
  			public void mouseExited(MouseEvent e) {
  				menuExit.setIcon(menuExitBasic);
  			}
-
  			@Override
  			public void mousePressed(MouseEvent e) {
  				System.exit(1);

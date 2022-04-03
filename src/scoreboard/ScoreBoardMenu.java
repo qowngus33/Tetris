@@ -36,12 +36,15 @@ public class ScoreBoardMenu extends JFrame {
 	private JTextField nameEnter = new JTextField(10);
 	private int oneLineLength = 35;
 	private int score;
+	private String level = "normal";
 
-	public ScoreBoardMenu(int score) throws NumberFormatException, IOException {
+	public ScoreBoardMenu(int score,String level) throws NumberFormatException, IOException {
         super("ScoreBoard"); //타이틀
         this.setResizable(false);
         this.score = score;
-        setSize(380, 800); //창 크기 설정
+        this.level = level;
+        
+        setSize(380, 800);
         scoreboard.setEditable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -131,7 +134,7 @@ public class ScoreBoardMenu extends JFrame {
     		label.setText("Name Entered.");
     		nameEnter.setText("");
     		try {
-    			int temp = sb.writeScoreBoard(name, Integer.toString(score),"normal");
+    			int temp = sb.writeScoreBoard(name, Integer.toString(score),level);
     			String scoreString = sb.readScoreBoard();
 				scoreboard.setText(scoreString);
 	

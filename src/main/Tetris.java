@@ -37,7 +37,7 @@ public class Tetris {
     	scoreBoardForm.reloadData();
     	scoreBoardForm.dispose();
     	try {
-			scoreBoardForm = new ScoreBoardMenu(-1);
+			scoreBoardForm = new ScoreBoardMenu(-1,"");
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,7 +55,7 @@ public class Tetris {
             	startmenu = new StartMenu();
                 settingMenuForm = new SettingMenu();
                 try {
-					scoreBoardForm = new ScoreBoardMenu(-1);
+					scoreBoardForm = new ScoreBoardMenu(-1,"");
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
