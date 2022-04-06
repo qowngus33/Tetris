@@ -1,4 +1,0 @@
-rr 1779 NORMAL item
-EE 11789 NORMAL item
-ER 1977 NORMAL item
-WE 455 HARD regul
