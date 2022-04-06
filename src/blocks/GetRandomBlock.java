@@ -41,7 +41,7 @@ public class GetRandomBlock {
 	// normal mode
 	public Block getRandomBlockNormalMode() {
 		Random rnd = new Random(System.currentTimeMillis());
-		int block = rnd.nextInt(1000) % 6;
+		int block = rnd.nextInt(1000) % 7;
 		switch (block) {
 		case 0:
 			return new IBlock();

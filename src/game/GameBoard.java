@@ -71,6 +71,7 @@ public class GameBoard extends JPanel {
 		// Board display setting.
 		// label for displaying scores
 		label = new JTextPane();
+		label.setEditable(false);
 		label.setVisible(true);
 		updateScore();
 		label.setOpaque(true);
@@ -110,6 +111,7 @@ public class GameBoard extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				moveDown();
 				drawGameBoard();
+				eraseOneLine();
 			}
 		});
 
@@ -118,7 +120,7 @@ public class GameBoard extends JPanel {
 		colorBoard = new String[HEIGHT + 2][WIDTH + 2];
 		for (int i = 0; i < HEIGHT + 2; i++)
 			for (int j = 0; j < WIDTH + 2; j++)
-				colorBoard[i][j] = "WHITE";
+				colorBoard[i][j] = "BLACK";
 
 		setFocusable(true);
 		requestFocus();
@@ -220,6 +222,8 @@ public class GameBoard extends JPanel {
 		StyleConstants.setForeground(m, Color.MAGENTA);
 		Style w = gamePane.addStyle("WHITE", null);
 		StyleConstants.setForeground(w, Color.WHITE);
+		Style B = gamePane.addStyle("BLACK", null);
+		StyleConstants.setForeground(B, Color.BLACK);
 
 		StyleConstants.setFontFamily(styleSet, Font.MONOSPACED);
 		StyleConstants.setBold(styleSet, true);
@@ -232,7 +236,7 @@ public class GameBoard extends JPanel {
 			for (int j = y; j < y + curr.height(); j++) {
 				if (curr.getShape(i - x, j - y) >= 1 && i < WIDTH && j < HEIGHT) {
 					board[j][i] = 0;
-					colorBoard[j][i] = "WHITE";
+					colorBoard[j][i] = "BLACK";
 				}
 			}
 		}
@@ -240,7 +244,6 @@ public class GameBoard extends JPanel {
 	
 	protected void placeBlock() {
 		StyledDocument doc = gamePane.getStyledDocument();
-	
 		for (int j = 0; j < curr.height(); j++) {
 			doc.setParagraphAttributes(0, doc.getLength(), styleSet, true);
 			gamePane.setStyledDocument(doc);
@@ -286,7 +289,7 @@ public class GameBoard extends JPanel {
 		StyledDocument doc = nextBlockPane.getStyledDocument();
 		StringBuffer sb = new StringBuffer();
 		sb.append("\n");
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 3; i++) {
 			sb.append("  ");
 			for (int j = 0; j < 5; j++) {
 				if (nextBlock.width() > j && nextBlock.height() > i) {
@@ -328,8 +331,7 @@ public class GameBoard extends JPanel {
 			y++;
 		else {
 			placeBlock(); // 밑으로 내려가지 않게 고정
-			eraseOneLine();
-			
+			//eraseOneLine();
 			if (isGameEnded()) { // 게임이 종료됨.
 				gameOver();
 				return;
@@ -373,7 +375,6 @@ public class GameBoard extends JPanel {
 		}
 		placeBlock(); // 밑으로 내려가지 않게 고정
 		eraseOneLine();
-
 		curr = nextBlock;
 		nextBlock = getRandomBlock.getRandomBlockMode(mode);
 		x = 3;
@@ -392,10 +393,10 @@ public class GameBoard extends JPanel {
 			}
 			if (lineClear) {
 				speedUp();
-				System.out.println("one line cleared!");
 				for (int k = i; k > 1; k--) {
 					for (int l = 0; l < WIDTH; l++) {
 						board[k][l] = board[k - 1][l];
+						colorBoard[k][l] = colorBoard[k - 1][l];
 					}
 				}
 				score += 10;
@@ -411,7 +412,7 @@ public class GameBoard extends JPanel {
 		case 'L':
 			for (int i = 0; i < curr.height(); i++)
 				for (int j = 0; j < curr.width(); j++)
-					if (curr.getShape(j, i) == 1 && board[i + y][j + x - 1] == 1) {
+					if (curr.getShape(j, i) != 0 && board[i + y][j + x - 1] != 0) {
 						result = true;
 						j = curr.width();
 					}
@@ -419,7 +420,7 @@ public class GameBoard extends JPanel {
 		case 'R':
 			for (int i = 0; i < curr.height(); i++)
 				for (int j = curr.width() - 1; j >= 0; j--)
-					if (curr.getShape(j, i) == 1 && board[i+y][j+x+1] == 1) {
+					if (curr.getShape(j, i) != 0 && board[i+y][j+x+1] != 0) {
 						result = true;
 						break;
 					}
@@ -427,7 +428,7 @@ public class GameBoard extends JPanel {
 		case 'D':
 			for (int i = 0; i < curr.width(); i++) 
 				for (int j = curr.height() - 1; j >= 0; j--) 
-					if (curr.getShape(i, j) == 1 && board[j + y + 1][i + x] == 1) {
+					if (curr.getShape(i, j) != 0 && board[j + y + 1][i + x] != 0) {
 						result = true;
 						break;
 					}

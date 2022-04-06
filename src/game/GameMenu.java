@@ -34,8 +34,7 @@ package game;
          panel.add(startMenuBtn);
          panel.add(scoreBoardBtn);
 
-         gameBoard = new GameBoard();
-
+         gameBoard = new itemGameBoard();
          this.add(gameBoard, BorderLayout.CENTER);
          this.add(panel, BorderLayout.SOUTH);
          this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

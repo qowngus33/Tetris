@@ -22,7 +22,7 @@ public class Tetris {
     }
     
     public static void disposeGameMenu() {
-    	gameForm.setVisible(false);
+    	gameForm.dispose();
     }
 
     public static void showStartMenu(){
