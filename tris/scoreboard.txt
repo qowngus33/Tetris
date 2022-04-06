@@ -1,11 +1,4 @@
-BR 220 normal
-gy 50 normal
-22 10 normal
-DD 0 normal
-dd 0 normal
-GH 657 normal
-DR 339 normal
-TX 439
-WD 2
-KK 1
-TY 1
+TY 140 NORMAL
+GH 169 EASY
+YY 607 EASY
+TY 456 HARD

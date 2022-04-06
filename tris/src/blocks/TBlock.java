@@ -8,7 +8,7 @@ public class TBlock extends Block {
 			{0, 1, 0},
 			{1, 1, 1}
 		};
-		color = Color.MAGENTA;
+		color = "MAGENTA";
 	}
 	
 }

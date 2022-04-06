@@ -1,4 +1,4 @@
-package component;
+package scoreboard;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,8 +17,10 @@ import javax.swing.WindowConstants;
 import javax.swing.text.*;
 
 import file.ScoreBoardFile;
+import file.ScoreBoardFile;
+import main.Tetris;
 
-public class ScoreBoard extends JFrame {
+public class ScoreBoardMenu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private ScoreBoardFile sb;
@@ -32,17 +34,21 @@ public class ScoreBoard extends JFrame {
 	private JButton startBtn = new JButton("Start Menu");
 	private JTextPane scoreboard = new JTextPane();
 	private JTextField nameEnter = new JTextField(10);
-	private int oneLineLength = 36;
+	private int oneLineLength = 35;
+	private int score;
+	private String level = "normal";
 
-	public ScoreBoard(int score) throws NumberFormatException, IOException {
+	public ScoreBoardMenu(int score,String level) throws NumberFormatException, IOException {
         super("ScoreBoard"); //타이틀
         this.setResizable(false);
-        setSize(380, 800); //창 크기 설정
+        this.score = score;
+        this.level = level;
+        
+        setSize(380, 800);
         scoreboard.setEditable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setVisible(true);
-        
+       
         //load scoreboard file
         try {
         	sb = new ScoreBoardFile();
@@ -50,7 +56,7 @@ public class ScoreBoard extends JFrame {
 			if(score<sb.isWritable()) {
 				enterBtn.setEnabled(false);
 				nameEnter.setEditable(false);
-				label.setText("GAME OVER");
+				label.setText("역대 테트리스 게임 점수");
 			} else {
 				label.setText("Enter name in two alphabet.");
 			}
@@ -60,20 +66,19 @@ public class ScoreBoard extends JFrame {
 		}
        
         //set style
-        javax.swing.text.Style style = scoreboard.addStyle("Red", null);
-        StyleConstants.setForeground(style, Color.RED);
+        Style redStyle = scoreboard.addStyle("Red", null);
+        StyleConstants.setForeground(redStyle, Color.RED);
+        StyleConstants.setBold(redStyle, true);
+        
+        Style boldStyle = scoreboard.addStyle("Bold", null);
+        StyleConstants.setBold(boldStyle, true);
         
         StyledDocument doc = scoreboard.getStyledDocument();
         SimpleAttributeSet mainAttribute = new SimpleAttributeSet();
         StyleConstants.setFontFamily(mainAttribute, "Courier");
         StyleConstants.setFontSize(mainAttribute, 17);
         doc.setParagraphAttributes(0, doc.getLength(), mainAttribute, false);
-        
-        SimpleAttributeSet boldAttribute = new SimpleAttributeSet();
-        StyleConstants.setBold(boldAttribute, true);
-        StyleConstants.setFontFamily(boldAttribute, "Courier");
-        StyleConstants.setFontSize(boldAttribute, 17);
-        doc.setCharacterAttributes(0, oneLineLength*3, boldAttribute, true);
+        doc.setCharacterAttributes(0, oneLineLength*3, scoreboard.getStyle("Bold"), true);
         
         
         SimpleAttributeSet styleSet = new SimpleAttributeSet();
@@ -96,27 +101,12 @@ public class ScoreBoard extends JFrame {
         outerPanel.add(upperPanel,BorderLayout.NORTH);
         add(outerPanel);
         
-        //button action
+      //button action
+        startBtn.addActionListener(e -> btnStartMenuActionPerformed()); 
         enterBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	String name = nameEnter.getText();
-            	if(name.length()>2 || name.length()<2) {
-            		label.setText("Enter name in two alphabet.");
-            	} else {
-            		label.setText("Name Entered.");
-            		nameEnter.setText("");
-            		try {
-            			sb.writeScoreBoard(name, Integer.toString(score));
-            			String scoreString = sb.readScoreBoard();
-        				scoreboard.setText(scoreString);
-        				doc.setCharacterAttributes((oneLineLength*sb.getIndex(name,score)), oneLineLength, scoreboard.getStyle("Red"), true);
-        				enterBtn.setEnabled(false);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-            	}
+            	tryWriteScoreboard();
             }
         });
         exitBtn.addActionListener(new ActionListener() {
@@ -125,12 +115,41 @@ public class ScoreBoard extends JFrame {
             	System.exit(0);
             }
         });
-        startBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	new StartMenu();
-            	dispose();
-            }
-        });
+    }
+	public void reloadData() {
+		try {
+			scoreboard.setText(sb.readScoreBoard());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void tryWriteScoreboard() {
+		String name = nameEnter.getText();
+		StyledDocument doc = scoreboard.getStyledDocument();
+    	if(name.length()>2 || name.length()<2) {
+    		label.setText("Enter name in two alphabet.");
+    	} else {
+    		label.setText("Name Entered.");
+    		nameEnter.setText("");
+    		try {
+    			int temp = sb.writeScoreBoard(name, Integer.toString(score),level);
+    			String scoreString = sb.readScoreBoard();
+				scoreboard.setText(scoreString);
+	
+				doc.setCharacterAttributes(0, oneLineLength*3, scoreboard.getStyle("Bold"), false);
+				doc.setCharacterAttributes((oneLineLength*temp), oneLineLength, scoreboard.getStyle("Red"), false);
+				enterBtn.setEnabled(false);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+    	}
+	}
+
+    private void btnStartMenuActionPerformed(){
+    	dispose();
+        Tetris.showStartMenu();
     }
 }

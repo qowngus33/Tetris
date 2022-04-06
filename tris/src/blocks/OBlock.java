@@ -8,7 +8,7 @@ public class OBlock extends Block {
 			{1, 1}, 
 			{1, 1},
 		};
-		color = Color.YELLOW;
+		color = "YELLOW";
 	}
 	
 }

@@ -26,6 +26,7 @@ public class StartMenu extends JFrame {
 			.getImage();
 
 	private ImageIcon menuStartClicked = new ImageIcon(Tetris.class.getResource("../images/menuStartClicked.png"));
+	private ImageIcon menuStartPressed = new ImageIcon(Tetris.class.getResource("../images/menuStartClicked.png"));
 	private ImageIcon menuStartBasic = new ImageIcon(Tetris.class.getResource("../images/menuStart.png"));
 	private JButton menuStart = new JButton(menuStartBasic);
 
@@ -45,6 +46,17 @@ public class StartMenu extends JFrame {
 	private ImageIcon iconBasic = new ImageIcon(Tetris.class.getResource("../images/tetrisIcon.png"));
 	private JButton icon = new JButton(iconBasic);
 
+	private ImageIcon itemStartClicked = new ImageIcon(Tetris.class.getResource("../images/itemStartClicked.png"));
+	private ImageIcon itemStartBasic = new ImageIcon(Tetris.class.getResource("../images/itemStart.png"));
+	private JButton itemStart = new JButton(itemStartBasic);
+
+	private ImageIcon normalStartClicked = new ImageIcon(Tetris.class.getResource("../images/normalStartClicked.png"));
+	private ImageIcon normalStartBasic = new ImageIcon(Tetris.class.getResource("../images/normalStart.png"));
+	private JButton normalStart = new JButton(normalStartBasic);
+
+	int cnt = 0;
+	int step = 0;
+
 	public StartMenu() {
 		// basic
 		// setUndecorated(true);
@@ -59,12 +71,75 @@ public class StartMenu extends JFrame {
 		// setBackground(new Color(0, 0, 0, 0));
 		setLayout(null);
 		imagepanel.add(menuStart);
+		imagepanel.add(itemStart);
+		imagepanel.add(normalStart);
 		imagepanel.add(menuOption);
 		imagepanel.add(menuSB);
 		imagepanel.add(menuExit);
 		imagepanel.add(icon);
 		setVisible(true);
 		menuStart.requestFocus();
+
+		itemStart.setBounds(130, 335, 130, 40);
+		itemStart.setBorderPainted(false);
+		itemStart.setContentAreaFilled(false);
+		itemStart.setFocusPainted(false);
+		itemStart.setVisible(false);
+		itemStart.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				menuStart.setIcon(menuStartBasic);
+				itemStart.setIcon(itemStartClicked);
+				normalStart.setIcon(normalStartBasic);
+				menuOption.setIcon(menuOptionBasic);
+				menuSB.setIcon(menuSBBasic);
+				menuExit.setIcon(menuExitBasic);
+				itemStart.setCursor(new Cursor(HAND_CURSOR));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				itemStart.setIcon(itemStartBasic);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				dispose();
+				Tetris.start();
+				// item start
+			}
+		});
+
+		normalStart.setBounds(130, 380, 130, 40);
+		normalStart.setBorderPainted(false);
+		normalStart.setContentAreaFilled(false);
+		normalStart.setFocusPainted(false);
+		normalStart.setVisible(false);
+		normalStart.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				menuStart.setIcon(menuStartBasic);
+				itemStart.setIcon(itemStartBasic);
+				normalStart.setIcon(normalStartClicked);
+				menuOption.setIcon(menuOptionBasic);
+				menuSB.setIcon(menuSBBasic);
+				menuExit.setIcon(menuExitBasic);
+				normalStart.setCursor(new Cursor(HAND_CURSOR));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				normalStart.setIcon(normalStartBasic);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				dispose();
+				Tetris.start();
+				// normal start
+			}
+		});
+
 		// start menu
 		menuStart.setBounds(130, 425, 130, 40);
 		menuStart.setBorderPainted(false);
@@ -87,10 +162,22 @@ public class StartMenu extends JFrame {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				new Board();
-				dispose();
+
+				if (cnt == 0) {
+					menuStart.setIcon(menuStartPressed);
+					normalStart.setVisible(true);
+					itemStart.setVisible(true);
+					cnt++;
+				} else {
+					menuStart.setIcon(menuStartBasic);
+					itemStart.setVisible(false);
+					normalStart.setVisible(false);
+					cnt--;
+				}
+
 			}
 		});
+
 		menuStart.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -104,10 +191,42 @@ public class StartMenu extends JFrame {
 					break;
 				case 38:
 					System.out.println("up");
-					menuStart.setIcon(menuStartClicked);
-					menuOption.setIcon(menuOptionBasic);
-					menuSB.setIcon(menuSBBasic);
-					menuExit.setIcon(menuExitBasic);
+					if (cnt == 0) {
+						menuStart.setIcon(menuStartClicked);
+						menuOption.setIcon(menuOptionBasic);
+						menuSB.setIcon(menuSBBasic);
+						menuExit.setIcon(menuExitBasic);
+						step = 0;
+					} else {
+						if (step < 2)
+							step++;
+						if (step == 1) {
+							normalStart.setIcon(normalStartClicked);
+							menuStart.setIcon(menuStartBasic);
+							itemStart.setIcon(itemStartBasic);
+							menuOption.setIcon(menuOptionBasic);
+							menuSB.setIcon(menuSBBasic);
+							menuExit.setIcon(menuExitBasic);
+						}
+						if (step == 2) {
+							normalStart.setIcon(normalStartBasic);
+							menuStart.setIcon(menuStartBasic);
+							itemStart.setIcon(itemStartClicked);
+							menuOption.setIcon(menuOptionBasic);
+							menuSB.setIcon(menuSBBasic);
+							menuExit.setIcon(menuExitBasic);
+						}
+						if (step == 0) {
+							normalStart.setIcon(normalStartBasic);
+							menuStart.setIcon(menuStartClicked);
+							itemStart.setIcon(itemStartBasic);
+							menuOption.setIcon(menuOptionBasic);
+							menuSB.setIcon(menuSBBasic);
+							menuExit.setIcon(menuExitBasic);
+						}
+						
+					}
+
 					break;
 				case 39:
 					setFocusable(true);
@@ -119,51 +238,102 @@ public class StartMenu extends JFrame {
 					break;
 				case 40:
 					System.out.println("down");
-					menuStart.setIcon(menuStartBasic);
-					menuOption.setIcon(menuOptionBasic);
-					menuSB.setIcon(menuSBBasic);
-					menuExit.setIcon(menuExitClicked);
+					if (cnt == 0 && step == 0) {
+						System.out.println("down");
+						menuStart.setIcon(menuStartBasic);
+						menuOption.setIcon(menuOptionBasic);
+						menuSB.setIcon(menuSBBasic);
+						menuExit.setIcon(menuExitClicked);
+					} 
+					else {
+						if (step > -1)
+							step--;
+						if (step == 1) {
+							normalStart.setIcon(normalStartClicked);
+							menuStart.setIcon(menuStartBasic);
+							itemStart.setIcon(itemStartBasic);
+							menuOption.setIcon(menuOptionBasic);
+							menuSB.setIcon(menuSBBasic);
+							menuExit.setIcon(menuExitBasic);
+						}
+						if (step == 2) {
+							normalStart.setIcon(normalStartBasic);
+							menuStart.setIcon(menuStartBasic);
+							itemStart.setIcon(itemStartClicked);
+							menuOption.setIcon(menuOptionBasic);
+							menuSB.setIcon(menuSBBasic);
+							menuExit.setIcon(menuExitBasic);
+						}
+						if(step == 0) {
+							normalStart.setIcon(normalStartBasic);
+							menuStart.setIcon(menuStartClicked);
+							itemStart.setIcon(itemStartBasic);
+							menuOption.setIcon(menuOptionBasic);
+							menuSB.setIcon(menuSBBasic);
+							menuExit.setIcon(menuExitBasic);
+						}
+						if(step == -1) {
+							normalStart.setIcon(normalStartBasic);
+							menuStart.setIcon(menuStartBasic);
+							itemStart.setIcon(itemStartBasic);
+							menuOption.setIcon(menuOptionBasic);
+							menuSB.setIcon(menuSBBasic);
+							menuExit.setIcon(menuExitClicked);
+						}
+						
+					}
 					break;
 				case KeyEvent.VK_ENTER:
 					break;
 				case KeyEvent.VK_SPACE:
 					break;
 				default:
-					System.out.println("no!");
 					JOptionPane alertNo = new JOptionPane();
-					alertNo.showMessageDialog(
-							null, "°Ë : START πˆ∆∞ º±≈√\n" + "°Á : OPTION πˆ∆∞ º±≈√\n" + "°Ê : SCORE BOARD πˆ∆∞ º±≈√\n"
-									+ "°È : EXIT πˆ∆∞ º±≈√\n" + "Enter, Space Bar : º±≈√µ» πˆ∆∞ Ω««‡",
+					alertNo.showMessageDialog(null,
+							"ÔøΩÎÑÅ : START Ë∏∞Íæ™Îìâ ÔøΩÍΩëÔøΩÍπÆ\n" + "ÔøΩÎÑÄ : OPTION Ë∏∞Íæ™Îìâ ÔøΩÍΩëÔøΩÍπÆ\n" + "ÔøΩÎÑÇ : SCORE BOARD Ë∏∞Íæ™Îìâ ÔøΩÍΩëÔøΩÍπÆ\n"
+									+ "ÔøΩÎÑÉ : EXIT Ë∏∞Íæ™Îìâ ÔøΩÍΩëÔøΩÍπÆ\n" + "Enter, Space Bar : ÔøΩÍΩëÔøΩÍπÆÔøΩÎßÇ Ë∏∞Íæ™Îìâ ÔøΩÎñéÔøΩÎªæ",
 							"Key Reminder", JOptionPane.PLAIN_MESSAGE);
 					break;
 				}
-
 				if ((e.getKeyCode() == KeyEvent.VK_ENTER) || (e.getKeyCode() == KeyEvent.VK_SPACE)) {
-					if (menuStart.getIcon() == menuStartClicked) {
-						new Board();
+					if (itemStart.getIcon() == itemStartClicked) {
 						dispose();
+						Tetris.start();
+						// item mode start
+					}
+					if (normalStart.getIcon() == normalStartClicked) {
+						dispose();
+						Tetris.start();
+						// normal mode start
+					}
+					if (menuStart.getIcon() == menuStartClicked) {
+
+						if (cnt == 0) {
+							menuStart.setIcon(menuStartPressed);
+							itemStart.setVisible(true);
+							normalStart.setVisible(true);
+							cnt++;
+						} else {
+							menuStart.setIcon(menuStartBasic);
+							itemStart.setVisible(false);
+							normalStart.setVisible(false);
+							cnt--;
+						}
+
 					}
 					if (menuOption.getIcon() == menuOptionClicked) {
-						;
+						dispose();
+						Tetris.showSettingMenu();
 					}
 					if (menuSB.getIcon() == menuSBClicked) {
-						try {
-							new ScoreBoard(-1);
-						} catch (NumberFormatException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
 						dispose();
+						Tetris.showScoreBoard();
 					}
 					if (menuExit.getIcon() == menuExitClicked) {
 						System.exit(1);
 					}
 				}
 			}
-				
 		});
 
 		// options menu
@@ -172,6 +342,7 @@ public class StartMenu extends JFrame {
 		menuOption.setContentAreaFilled(false);
 		menuOption.setFocusPainted(false);
 		menuOption.addMouseListener(new MouseAdapter() {
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				menuStart.setIcon(menuStartBasic);
@@ -188,7 +359,8 @@ public class StartMenu extends JFrame {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				System.exit(0);
+				setVisible(false);
+				Tetris.showSettingMenu();
 			}
 		});
 
@@ -231,18 +403,9 @@ public class StartMenu extends JFrame {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				try {
-					new ScoreBoard(-1);
-				} catch (NumberFormatException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				dispose();
+				setVisible(false);
+				Tetris.showScoreBoard();
 			}
-
 		});
 
 		// exit menu

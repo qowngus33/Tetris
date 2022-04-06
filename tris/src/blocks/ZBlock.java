@@ -8,7 +8,7 @@ public class ZBlock extends Block {
 			{1, 1, 0},
 			{0, 1, 1}
 		};
-		color = Color.RED;
+		color = "RED";
 	}
 	
 }
