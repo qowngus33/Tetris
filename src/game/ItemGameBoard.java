@@ -5,12 +5,13 @@ import javax.swing.text.StyledDocument;
 
 import blocks.*;
 
-public class itemGameBoard extends GameBoard {
+public class ItemGameBoard extends GameBoard {
 
 	private static final long serialVersionUID = 1L;
-	private int lineChange = 0;
+	private int lineChange = 10;
 
-	public itemGameBoard() {
+	public ItemGameBoard() {
+		System.out.println("Item mode");
 		this.setFocusable(true);
 		this.mode = settingItem.getMode();
 		setNextBlock();
@@ -48,54 +49,26 @@ public class itemGameBoard extends GameBoard {
 
 	@Override
 	public void dropBlock() {
-		eraseCurr();	
+		gamePane.eraseCurr(x,y,curr);	
 		while (y < HEIGHT - curr.height() && !detectCrash('D')) {
 			y++;
 			score++;
 		}
 		items();
-		if (curr.getItem() != "bomb") placeBlock();
-		eraseOneLine();
+		if (curr.getItem() != "bomb") gamePane.placeBlock(x,y,curr);
+		eraseLine();
 		setNextBlock();
-		placeBlock();
+		gamePane.placeBlock(x,y,curr);
 	}
 	
 	@Override
-	public void drawNextBlockBoard() {
-		StyledDocument doc = nextBlockPane.getStyledDocument();
-		StringBuffer sb = new StringBuffer();
-		sb.append("\n");
-		for (int i = 0; i < 3; i++) {
-			sb.append("  ");
-			for (int j = 0; j < 5; j++) {
-				if (nextBlock.width() > j && nextBlock.height() > i) {
-					if (nextBlock.getShape(j, i) == 1) {
-						sb.append("O");
-					} else if(nextBlock.getShape(j, i) == 2) {
-						sb.append("L");
-					}else {
-						sb.append(" ");
-					}
-				} else {
-					sb.append(" ");
-				}
-			}
-			sb.append("\n");
-		}
-		nextBlockPane.setText(sb.toString());
-		doc.setParagraphAttributes(0, doc.getLength(), styleSet, false);
-		doc.setCharacterAttributes(0, doc.getLength(), gamePane.getStyle(nextBlock.getColor()), false);
-		nextBlockPane.setStyledDocument(doc);
-	}
-
-	@Override
 	protected void moveDown() {
-		eraseCurr();
+		gamePane.eraseCurr(x,y,curr);	
 		if (y < HEIGHT - curr.height() && !detectCrash('D'))
 			y++;
 		else {
-			placeBlock(); // 밑으로 내려가지 않게 고정
-			eraseOneLine();
+			gamePane.placeBlock(x,y,curr);
+			eraseLine();
 			if (isGameEnded()) { // 게임이 종료됨.
 				gameOver();
 				return;
@@ -103,11 +76,33 @@ public class itemGameBoard extends GameBoard {
 			items();
 			setNextBlock();
 		}
-		eraseOneLine();
+		eraseLine();
 		score += 1;
 		updateScore();
-		placeBlock();
+		gamePane.placeBlock(x,y,curr);
 	}
+	
+//	protected void moveDown() {
+//		gamePane.eraseCurr(x,y,curr);
+//		if (y < HEIGHT - curr.height() && !detectCrash('D'))
+//			y++;
+//		else {
+//			gamePane.placeBlock(x,y,curr); // 밑으로 내려가지 않게 고정
+//			//eraseLine();
+//			if (isGameEnded()) { // 게임이 종료됨.
+//				gameOver();
+//				return;
+//			}
+//			curr = nextBlock;
+//			nextBlock = getRandomBlock.getRandomBlockMode(mode);
+//			x = 3;
+//			y = 0;
+//			nextBlockPane.drawNextBlockBoard(nextBlock);
+//		}
+//		score++;
+//		updateScore();
+//		gamePane.placeBlock(x,y,curr);
+//	}
 
 	protected void setNextBlock() {
 		this.curr = this.nextBlock;
@@ -119,48 +114,15 @@ public class itemGameBoard extends GameBoard {
 		}
 		x = 3;
 		y = 0;
-		drawNextBlockBoard();
+		nextBlockPane.drawNextBlockBoard(this.nextBlock);
 	}
 
-	@Override
-	public void drawGameBoard() {
-		StyledDocument doc = gamePane.getStyledDocument();
-		StringBuffer sb = new StringBuffer();
-		for (int t = 0; t < WIDTH + 2; t++)
-			sb.append(BORDER_CHAR);
-		sb.append("\n");
-		for (int i = 0; i < board.length; i++) {
-			sb.append(BORDER_CHAR);
-			for (int j = 0; j < board[i].length; j++) {
-				if (board[i][j] == 1) {
-					sb.append("O");
-				} else if (board[i][j] == 2) {
-					sb.append("L");
-				} else {
-					sb.append(" ");
-				}
-			}
-			sb.append(BORDER_CHAR);
-			sb.append("\n");
-		}
-		for (int t = 0; t < WIDTH + 2; t++)
-			sb.append(BORDER_CHAR);
-		gamePane.setText(sb.toString());
-		// Jtextpane
-
-		doc.setParagraphAttributes(0, doc.getLength(), styleSet, false);
-		for (int i = 0; i < HEIGHT; i++)
-			for (int j = 0; j < WIDTH; j++)
-				if (board[i][j] != 2)
-					doc.setCharacterAttributes(13 + i * (WIDTH + 3) + j + 1, 1, gamePane.getStyle(colorBoard[i][j]),false);
-		gamePane.setStyledDocument(doc);
-	}
 	
 	private void items() {
 		if (curr.getItem() == "weight") {
 			for (int i = x; i < x + curr.width(); i++) {
 				for (int j = 0; j < HEIGHT; j++) {
-					board[j][i] = 0;
+					gamePane.setBoard(j,i,0);
 				}
 			}
 			y = HEIGHT - 2;
@@ -182,21 +144,21 @@ public class itemGameBoard extends GameBoard {
 					break;
 				}
 		for (int i = 0; i < WIDTH; i++)
-			board[line + y][i] = 1;
+			gamePane.setBoard(line + y,i,1);
 	}
 	
 	private void crossItem() {
 		for(int i=0;i<WIDTH;i++)
-			board[y+1][i] = 1;
+			gamePane.setBoard(y+1,i,1);
 		for(int j=0;j<y+1;j++)
-			board[j][x+1] = 0;
+			gamePane.setBoard(j,x+1,0);
 		for(int j=y+2;j<HEIGHT;j++)
-			board[j][x+1] = 0;
+			gamePane.setBoard(j,x+1,0);
 	}
 	
 	private void bombItem() {
 		for(int i=x;i<Math.min(x+4,WIDTH);i++)
 			for(int j=y;j<Math.min(y+4,HEIGHT);j++)
-				board[j][i] = 0;
+				gamePane.setBoard(j,i,0);
 	}
 }

@@ -78,5 +78,4 @@ public class GetRandomBlock {
 			return new IBlock(); // 가중치 8
 		}
 	}
-
 }

@@ -21,6 +21,11 @@ public class Tetris {
         gameForm.setVisible(true);
     }
     
+    public static void itemGameStart(){
+        gameForm = new GameMenu(1);
+        gameForm.setVisible(true);
+    }
+    
     public static void disposeGameMenu() {
     	gameForm.dispose();
     }
