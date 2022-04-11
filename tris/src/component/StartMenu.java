@@ -290,8 +290,8 @@ public class StartMenu extends JFrame {
 				default:
 					JOptionPane alertNo = new JOptionPane();
 					alertNo.showMessageDialog(null,
-							"�넁 : START 踰꾪듉 �꽑�깮\n" + "�넀 : OPTION 踰꾪듉 �꽑�깮\n" + "�넂 : SCORE BOARD 踰꾪듉 �꽑�깮\n"
-									+ "�넃 : EXIT 踰꾪듉 �꽑�깮\n" + "Enter, Space Bar : �꽑�깮�맂 踰꾪듉 �떎�뻾",
+							"↑ : SELECT START \n" + "← : SELECT OPTION \n" + "→ : SELECT SCORE BOARD \n"
+ 		                           + "↓ : SELCET EXIT \n" + "Enter, Space Bar : EXCUTE SELECTED OPTION",
 							"Key Reminder", JOptionPane.PLAIN_MESSAGE);
 					break;
 				}
