@@ -35,7 +35,6 @@ public class GameBoard extends JPanel {
 	protected NextBlockPane nextBlockPane;
 	protected JTextPane label;
 	
-	protected KeyListener playerKeyListener;
 	protected SimpleAttributeSet styleSet;
 	protected Timer timer;
 	protected Block curr;
@@ -55,9 +54,8 @@ public class GameBoard extends JPanel {
 
 	public GameBoard() {
 		System.out.println("Normal mode");
-		setSize(380, 800);
 		setBackground(Color.WHITE);
-		setForeground(Color.BLACK);
+		setForeground(Color.WHITE);
 		setVisible(true);
 		settingItem = SettingItem.getInstance();
 		mode = settingItem.getMode();
@@ -77,6 +75,7 @@ public class GameBoard extends JPanel {
 		gamePane = new GamePane();
 		gamePane.setFontSize(settingItem.getFontSize());
 		nextBlockPane = new NextBlockPane();
+		nextBlockPane.setFontSize(settingItem.getFontSize());
 		JPanel scorePanel = new JPanel();
 		scorePanel.add(label);
 
@@ -336,19 +335,23 @@ public class GameBoard extends JPanel {
 		} else {
 			timer.stop();
 			label.setText("paused");
+			gamePane.setText("paused");
 		}
 	}
 	
 	protected boolean isGameEnded() {
-		for (int i = 0; i < WIDTH; i++)
-			if (gamePane.getBoard(0,i) != 0) return true;
+		for (int i = 0; i < WIDTH; i++) {
+			if (gamePane.getBoard(0,i) != 0) {
+				System.out.println("Game ended");
+				return true;
+			}
+		}
 		return false;
 	}
 
 	protected void gameOver() {
 		timer.stop();
-		removeKeyListener(playerKeyListener);
-		Tetris.disposeGameMenu();
+		this.setFocusable(false);
 		try {
 			ScoreBoardMenu sbf = new ScoreBoardMenu(score, mode.toString(),gameMode);
 			sbf.setVisible(true);
@@ -359,6 +362,7 @@ public class GameBoard extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		Tetris.disposeGameMenu();
 	}
 
 }

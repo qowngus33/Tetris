@@ -40,12 +40,12 @@ public class SettingMenu extends JFrame {
 	private int size = 1;
 
 	public SettingMenu() {
-
+		setUndecorated(true);
 		settingItem = SettingItem.getInstance();
 		settingfile = new SettingFile();
 
 		setTitle("설정메뉴");
-		setSize(600, 800);
+		setSize(500, 750);
 		setBackground(Color.WHITE);
 		setLocationRelativeTo(null);
 

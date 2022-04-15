@@ -46,7 +46,7 @@ public class ScoreBoardMenu extends JFrame {
 		this.level = level;
 		this.mode = mode;
 
-		setSize(380, 800);
+		setSize(380, 750);
 		scoreboard.setEditable(false);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);

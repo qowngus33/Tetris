@@ -59,7 +59,7 @@ import java.io.IOException;
 
      public void initSizeSetting(){
          boardWidth = 380;
-         boardHeight = 800;
+         boardHeight = 750;
          fontSize = 23;
      }
 
@@ -87,14 +87,14 @@ import java.io.IOException;
      // default
      public void btnMediumBtnActionPerformed() {
          boardWidth = 380;
-         boardHeight = 800;
+         boardHeight = 750;
          fontSize = 22;
      }
 
      public void btnLargeBtnActionPerformed() {
          boardWidth = 456;
-         boardHeight = 960;
-         fontSize = 24;
+         boardHeight = 750;
+         fontSize = 26;
      }
 
      /**
@@ -179,9 +179,6 @@ import java.io.IOException;
          initInterval = 800;
          mode = Mode.HARD;
      }
-
-
-
      /**
       * 설정 불러오기
       */

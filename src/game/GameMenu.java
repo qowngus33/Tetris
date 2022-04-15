@@ -16,7 +16,7 @@ package game;
 
          setSize(settingItem.getBoardWidth(), settingItem.getBoardHeight());
          setBackground(Color.WHITE);
-         setForeground(Color.BLACK);
+         setForeground(Color.WHITE);
          setLocationRelativeTo(null);
          setVisible(true);
          
@@ -29,6 +29,7 @@ package game;
          scoreBoardBtn.addActionListener(e -> btnScoreBoardActionPerformed());
 
          JPanel panel = new JPanel(new GridLayout(0,3));
+         panel.setBackground(Color.WHITE);
          panel.add(settingButton);
          panel.add(startMenuBtn);
          panel.add(scoreBoardBtn);
@@ -44,7 +45,7 @@ package game;
 
          setSize(settingItem.getBoardWidth(), settingItem.getBoardHeight());
          setBackground(Color.WHITE);
-         setForeground(Color.BLACK);
+         setForeground(Color.WHITE);
          setLocationRelativeTo(null);
          setVisible(true);
          

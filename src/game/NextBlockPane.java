@@ -54,4 +54,8 @@ public class NextBlockPane extends JTextPane {
 		doc.setCharacterAttributes(0, doc.getLength(), gamePane.getStyle(nextBlock.getColor()), false);
 		this.setStyledDocument(doc);
 	}
+	
+	public void setFontSize(int fontSize) {
+		StyleConstants.setFontSize(gamePane.getStyleSet(), fontSize);
+	}
 }

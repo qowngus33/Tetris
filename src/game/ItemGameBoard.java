@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.util.Random;
 import javax.swing.text.StyledDocument;
 
