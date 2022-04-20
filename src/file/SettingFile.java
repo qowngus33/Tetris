@@ -22,11 +22,15 @@ public class SettingFile extends FileClass {
 	}
 	
 	public int getSizeSetting() {
-		return Integer.parseInt(""+strings[0].charAt(0));
+		if(strings.length==2)
+			return Integer.parseInt(""+strings[0].charAt(0));
+		return 1;
 	}
 	
 	public int getLevelSetting() {
-		return Integer.parseInt(""+strings[0].charAt(1));
+		if(strings.length==2)
+			return Integer.parseInt(""+strings[0].charAt(0));
+		return 1;
 	}
 	
 }

@@ -28,6 +28,7 @@ import java.io.IOException;
      private boolean isColorBlind;
 
      private int initInterval;
+     private int reduceSpeed;
      private Mode mode;
 
      private ScoreBoardFile sb;
@@ -58,8 +59,8 @@ import java.io.IOException;
      }
 
      public void initSizeSetting(){
-         boardWidth = 380;
-         boardHeight = 750;
+         boardWidth = 350;
+         boardHeight = 583;
          fontSize = 23;
      }
 
@@ -69,6 +70,7 @@ import java.io.IOException;
 
      public void initInitInterval(){
          initInterval = 1000;
+         reduceSpeed = 100;
      }
 
      public void initMode() {
@@ -79,22 +81,22 @@ import java.io.IOException;
       * 화면 크기 조절
       */
      public void btnSmallBtnActionPerformed() {
-         boardWidth = 304;
-         boardHeight = 640;
-         fontSize = 20;
+         boardWidth = 300;
+         boardHeight = 500;
+         fontSize = 19;
      }
 
      // default
      public void btnMediumBtnActionPerformed() {
-         boardWidth = 380;
-         boardHeight = 750;
-         fontSize = 22;
+         boardWidth = 350;
+         boardHeight = 583;
+         fontSize = 23;
      }
 
      public void btnLargeBtnActionPerformed() {
-         boardWidth = 456;
-         boardHeight = 750;
-         fontSize = 26;
+         boardWidth = 400;
+         boardHeight = 666;
+         fontSize = 28;
      }
 
      /**
@@ -167,16 +169,19 @@ import java.io.IOException;
       */
      public void btnEasyModeActionPerformed(){
          initInterval = 1200;
+         reduceSpeed = 80;
          mode = Mode.EASY;
      }
 
      public void btnNormalModeActionPerformed(){
          initInterval = 1000;
+         reduceSpeed = 100;
          mode = Mode.NORMAL;
      }
 
      public void btnHardModeActionPerformed(){
          initInterval = 800;
+         reduceSpeed = 120;
          mode = Mode.HARD;
      }
      /**
@@ -251,6 +256,10 @@ import java.io.IOException;
 
      public int getInitInterval() {
          return initInterval;
+     }
+     
+     public int getReduceSpeed() {
+         return reduceSpeed;
      }
 
      public Mode getMode(){

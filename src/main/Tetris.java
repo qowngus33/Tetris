@@ -3,11 +3,10 @@ package main;
 import game.GameMenu;
 import scoreboard.ScoreBoardMenu;
 import setting.SettingMenu;
+import startmenu.StartMenu;
 
 import java.awt.*;
 import java.io.IOException;
-
-import component.StartMenu;
 
 public class Tetris {
 
@@ -31,7 +30,8 @@ public class Tetris {
     }
 
     public static void showStartMenu(){
-    	startmenu.setVisible(true);
+    	startmenu.dispose();
+    	startmenu = new StartMenu();
     }
 
     public static void showSettingMenu(){
@@ -39,15 +39,7 @@ public class Tetris {
     }
 
     public static void showScoreBoard(){
-    	try {
-			scoreBoardForm = new ScoreBoardMenu(-1,"","");
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	scoreBoardForm = new ScoreBoardMenu();
     	scoreBoardForm.setVisible(true);
     }
 
@@ -57,15 +49,6 @@ public class Tetris {
             public void run() {
             	startmenu = new StartMenu();
                 settingMenuForm = new SettingMenu();
-                try {
-					scoreBoardForm = new ScoreBoardMenu(-1,"","");
-				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
                 startmenu.setVisible(true);
             }
         });

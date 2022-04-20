@@ -14,6 +14,10 @@ import javax.swing.text.StyledDocument;
 import blocks.Block;
 
 public class GamePane extends JTextPane {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected SimpleAttributeSet styleSet;
 	public static final int HEIGHT = 20;
 	public static final int WIDTH = 10;
@@ -47,7 +51,7 @@ public class GamePane extends JTextPane {
 		StyleConstants.setForeground(w, Color.WHITE);
 		Style B = addStyle("BLACK", null);
 		StyleConstants.setForeground(B, Color.BLACK);
-
+		StyleConstants.setLineSpacing(styleSet, (float) -0.2);
 		StyleConstants.setFontSize(styleSet, 20);
 		StyleConstants.setFontFamily(styleSet, Font.MONOSPACED);
 		StyleConstants.setBold(styleSet, true);
@@ -66,6 +70,7 @@ public class GamePane extends JTextPane {
 	}
 	
 	public int getBoard(int i, int j) {
+		if(i<0 || i>=HEIGHT || j<0 || j>=WIDTH) return 1;
 		return board[i][j];
 	}
 	

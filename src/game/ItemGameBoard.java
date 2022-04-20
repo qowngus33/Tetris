@@ -10,20 +10,16 @@ public class ItemGameBoard extends GameBoard {
 
 	private static final long serialVersionUID = 1L;
 	private int lineChange = 10;
+	private int count = 1;
 
 	public ItemGameBoard() {
 		System.out.println("Item mode");
-		this.setFocusable(true);
-		this.mode = settingItem.getMode();
-		setNextBlock();
-		this.timer.start();
-		this.lineNum = 0;
 		this.gameMode = "item";
 	}
 
 	private Block getItemBlock() {
 		Random rnd = new Random(System.currentTimeMillis());
-		int block = rnd.nextInt(1000) % 4;
+		int block = rnd.nextInt(1000) % 5;
 		switch (block) {
 		case 0:
 			return new WBlock();
@@ -36,14 +32,17 @@ public class ItemGameBoard extends GameBoard {
 				for(int j=0;j<temp.height();j++) 
 					if(temp.getShape(i, j)==1) {
 						count++;
-						if(count==block)
+						if(count==block) {
 							temp.setShape(i, j, 2);
+							break;
+						}
 					}
-						
 			temp.setItem("L");
 			return temp;
 		case 2:
 			return new CBlock();
+		case 3:
+			return new EBlock();
 		}
 		return new BBlock();
 	}
@@ -55,8 +54,13 @@ public class ItemGameBoard extends GameBoard {
 			y++;
 			score++;
 		}
+		gamePane.placeBlock(x,y,curr);
+		eraseLine();
+		if (isGameEnded()) { // 게임이 종료됨.
+			gameOver();
+			return;
+		}
 		items();
-		if (curr.getItem() != "bomb") gamePane.placeBlock(x,y,curr);
 		eraseLine();
 		setNextBlock();
 		gamePane.placeBlock(x,y,curr);
@@ -78,38 +82,16 @@ public class ItemGameBoard extends GameBoard {
 			setNextBlock();
 		}
 		eraseLine();
-		score += 1;
-		updateScore();
 		gamePane.placeBlock(x,y,curr);
 	}
 	
-//	protected void moveDown() {
-//		gamePane.eraseCurr(x,y,curr);
-//		if (y < HEIGHT - curr.height() && !detectCrash('D'))
-//			y++;
-//		else {
-//			gamePane.placeBlock(x,y,curr); // 밑으로 내려가지 않게 고정
-//			//eraseLine();
-//			if (isGameEnded()) { // 게임이 종료됨.
-//				gameOver();
-//				return;
-//			}
-//			curr = nextBlock;
-//			nextBlock = getRandomBlock.getRandomBlockMode(mode);
-//			x = 3;
-//			y = 0;
-//			nextBlockPane.drawNextBlockBoard(nextBlock);
-//		}
-//		score++;
-//		updateScore();
-//		gamePane.placeBlock(x,y,curr);
-//	}
 
 	protected void setNextBlock() {
 		this.curr = this.nextBlock;
-		if (lineNum >= lineChange) {
+		//System.out.println(lineNum);
+		if (lineNum/count >= lineChange) {
+			count++;
 			this.nextBlock = this.getItemBlock();
-			lineNum = 0;
 		} else {
 			this.nextBlock = getRandomBlock.getRandomBlockMode(mode);
 		}
@@ -133,6 +115,8 @@ public class ItemGameBoard extends GameBoard {
 			bombItem();
 		} else if (curr.getItem() == "cross") {
 			crossItem();
+		} else if (curr.getItem() == "total") {
+			totalItem();
 		}
 	}
 
@@ -158,8 +142,14 @@ public class ItemGameBoard extends GameBoard {
 	}
 	
 	private void bombItem() {
-		for(int i=x;i<Math.min(x+4,WIDTH);i++)
-			for(int j=y;j<Math.min(y+4,HEIGHT);j++)
+		for(int i=Math.max(0,x-2);i<Math.min(x+4,WIDTH);i++)
+			for(int j=Math.max(0,y-2);j<Math.min(y+4,HEIGHT);j++)
+				gamePane.setBoard(j,i,0);
+	}
+	
+	private void totalItem() {
+		for(int i=0;i<WIDTH;i++)
+			for(int j=0;j<HEIGHT;j++)
 				gamePane.setBoard(j,i,0);
 	}
 }
