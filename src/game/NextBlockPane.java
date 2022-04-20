@@ -14,9 +14,9 @@ import javax.swing.text.StyledDocument;
 import blocks.Block;
 
 public class NextBlockPane extends JTextPane {
-	
+
 	private GamePane gamePane;
-	
+
 	public NextBlockPane() {
 		setEditable(false);
 		setBackground(Color.BLACK);
@@ -24,9 +24,18 @@ public class NextBlockPane extends JTextPane {
 				BorderFactory.createLineBorder(Color.DARK_GRAY, 5));
 		setBorder(border);
 		gamePane = new GamePane();
-		
 	}
-	
+
+	public NextBlockPane(int iii) {
+		setEditable(false);
+		setBackground(Color.BLACK);
+		CompoundBorder border = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.GRAY, 10),
+				BorderFactory.createLineBorder(Color.DARK_GRAY, 5));
+		setBorder(border);
+		gamePane = new GamePane(iii);
+
+	}
+
 	public void drawNextBlockBoard(Block nextBlock) {
 		StyledDocument doc = this.getStyledDocument();
 		StringBuffer sb = new StringBuffer();
@@ -37,7 +46,7 @@ public class NextBlockPane extends JTextPane {
 				if (nextBlock.width() > j && nextBlock.height() > i) {
 					if (nextBlock.getShape(j, i) == 1) {
 						sb.append("O");
-					} else if(nextBlock.getShape(j, i) == 2) {
+					} else if (nextBlock.getShape(j, i) == 2) {
 						sb.append("L");
 					} else {
 						sb.append(" ");
@@ -49,12 +58,12 @@ public class NextBlockPane extends JTextPane {
 			sb.append("\n");
 		}
 		this.setText(sb.toString());
-	
+
 		doc.setParagraphAttributes(0, doc.getLength(), gamePane.getStyleSet(), false);
 		doc.setCharacterAttributes(0, doc.getLength(), gamePane.getStyle(nextBlock.getColor()), false);
 		this.setStyledDocument(doc);
 	}
-	
+
 	public void setFontSize(int fontSize) {
 		StyleConstants.setFontSize(gamePane.getStyleSet(), fontSize);
 	}

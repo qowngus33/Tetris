@@ -141,11 +141,11 @@ import java.io.IOException;
       * 색맹 모드
       */
      public void btnColorBlindOnActionPerformed() {
-
+    	 isColorBlind = true;
      }
 
      public void btnColorBlindOffActionPerformed() {
-
+    	 isColorBlind = false;
      }
 
      /**

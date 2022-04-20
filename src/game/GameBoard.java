@@ -40,7 +40,7 @@ public class GameBoard extends JPanel {
 	protected JLabel levelLabel;
 	protected JLabel lineLabel;
 	protected ScoreBoardMenu sbf;
-	
+
 	protected SimpleAttributeSet styleSet;
 	protected Timer timer;
 	protected Block curr;
@@ -69,23 +69,23 @@ public class GameBoard extends JPanel {
 		gameMode = "regul";
 
 		// Side display
-		scoreLabel = new JLabel(score+"", JLabel.CENTER);
+		scoreLabel = new JLabel(score + "", JLabel.CENTER);
 		TitledBorder tborder = new TitledBorder("SCORE");
 		tborder.setTitlePosition(TitledBorder.ABOVE_TOP);// 지정한 위치에 타이틀을 나타내주는 보더...
 		tborder.setTitleJustification(TitledBorder.CENTER);// 자리맞춤을 가운데로 지정...
 		scoreLabel.setBorder(tborder);
 		scoreLabel.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 17));
 		scoreLabel.setBackground(Color.white);
-		
-		levelLabel = new JLabel(level+"", JLabel.CENTER);
+
+		levelLabel = new JLabel(level + "", JLabel.CENTER);
 		TitledBorder tborder2 = new TitledBorder("LEVEL");
 		tborder2.setTitlePosition(TitledBorder.ABOVE_TOP);// 지정한 위치에 타이틀을 나타내주는 보더...
 		tborder2.setTitleJustification(TitledBorder.CENTER);// 자리맞춤을 가운데로 지정...
 		levelLabel.setBorder(tborder2);
 		levelLabel.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 17));
 		levelLabel.setBackground(Color.white);
-		
-		lineLabel = new JLabel(lineNum+"", JLabel.CENTER);
+
+		lineLabel = new JLabel(lineNum + "", JLabel.CENTER);
 		TitledBorder tborder3 = new TitledBorder("LINE");
 		tborder3.setTitlePosition(TitledBorder.ABOVE_TOP);// 지정한 위치에 타이틀을 나타내주는 보더...
 		tborder3.setTitleJustification(TitledBorder.CENTER);// 자리맞춤을 가운데로 지정...
@@ -95,10 +95,23 @@ public class GameBoard extends JPanel {
 		updateScore();
 
 		// Main game display
-		gamePane = new GamePane();
+		if (settingItem.isColorBlind()) {
+			gamePane = new GamePane(1);
+		} else if(!settingItem.isColorBlind()) {
+			gamePane = new GamePane();
+		}
 		gamePane.setFontSize(settingItem.getFontSize());
-		nextBlockPane = new NextBlockPane();
-		nextBlockPane.setFontSize(settingItem.getFontSize());
+
+		if (settingItem.isColorBlind()) {
+			nextBlockPane = new NextBlockPane(1);
+		} else {
+			nextBlockPane = new NextBlockPane();
+		}
+
+//		gamePane = new GamePane();
+//		gamePane.setFontSize(settingItem.getFontSize());
+//		nextBlockPane = new NextBlockPane();
+//		nextBlockPane.setFontSize(settingItem.getFontSize());
 
 		// Additory panel for layout
 		JPanel eastPanel = new JPanel();
@@ -153,8 +166,8 @@ public class GameBoard extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (timer.isRunning()) {
-					if(curr.getItem() == "weight" && detectCrash('D')) {}
-					else {
+					if (curr.getItem() == "weight" && detectCrash('D')) {
+					} else {
 						moveRight();
 						gamePane.drawGameBoard();
 					}
@@ -165,8 +178,8 @@ public class GameBoard extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (timer.isRunning()) {
-					if(curr.getItem() == "weight" && detectCrash('D')) {}
-					else {
+					if (curr.getItem() == "weight" && detectCrash('D')) {
+					} else {
 						moveLeft();
 						gamePane.drawGameBoard();
 					}
@@ -211,19 +224,22 @@ public class GameBoard extends JPanel {
 
 	protected void moveRight() {
 		gamePane.eraseCurr(x, y, curr);
-		if (x < WIDTH - curr.width() && !detectCrash('R')) x++;
+		if (x < WIDTH - curr.width() && !detectCrash('R'))
+			x++;
 		gamePane.placeBlock(x, y, curr);
 	}
 
 	protected void moveLeft() {
 		gamePane.eraseCurr(x, y, curr);
-		if (x > 0 && !detectCrash('L')) x--;
+		if (x > 0 && !detectCrash('L'))
+			x--;
 		gamePane.placeBlock(x, y, curr);
 	}
 
 	protected void moveDown() {
 		gamePane.eraseCurr(x, y, curr);
-		if (y < HEIGHT - curr.height() && !detectCrash('D')) y++;
+		if (y < HEIGHT - curr.height() && !detectCrash('D'))
+			y++;
 		else {
 			gamePane.placeBlock(x, y, curr); // 밑으로 내려가지 않게 고정
 			if (isGameEnded()) { // 게임이 종료됨.
@@ -279,7 +295,7 @@ public class GameBoard extends JPanel {
 		y = 0;
 		gamePane.placeBlock(x, y, curr);
 	}
-	
+
 	protected void eraseLine() {
 		for (int i = 0; i < HEIGHT; i++) {
 			boolean lineClear = true;
@@ -310,10 +326,10 @@ public class GameBoard extends JPanel {
 		case 'L':
 			for (int i = 0; i < curr.height(); i++)
 				for (int j = 0; j < curr.width(); j++)
-					if (curr.getShape(j, i)!=0 && gamePane.getBoard(i + y, j + x - 1)!=0) {
+					if (curr.getShape(j, i) != 0 && gamePane.getBoard(i + y, j + x - 1) != 0) {
 						result = true;
 						break;
-					} else if(curr.getShape(j, i)!=0 && gamePane.getBoard(i + y, j + x - 1) == 0) {
+					} else if (curr.getShape(j, i) != 0 && gamePane.getBoard(i + y, j + x - 1) == 0) {
 						j = curr.width();
 					}
 			break;
@@ -323,7 +339,7 @@ public class GameBoard extends JPanel {
 					if (curr.getShape(j, i) != 0 && gamePane.getBoard(i + y, j + x + 1) != 0) {
 						result = true;
 						break;
-					} else if(curr.getShape(j, i)!=0 && gamePane.getBoard(i + y, j + x - 1) == 0) {
+					} else if (curr.getShape(j, i) != 0 && gamePane.getBoard(i + y, j + x - 1) == 0) {
 						j = -1;
 					}
 			break;
@@ -333,7 +349,7 @@ public class GameBoard extends JPanel {
 					if (curr.getShape(i, j) != 0 && gamePane.getBoard(j + y + 1, i + x) != 0) {
 						result = true;
 						break;
-					} else if (curr.getShape(i, j) != 0 && gamePane.getBoard(j + y + 1, i + x) == 0){
+					} else if (curr.getShape(i, j) != 0 && gamePane.getBoard(j + y + 1, i + x) == 0) {
 						j = -1;
 					}
 			break;
@@ -345,9 +361,9 @@ public class GameBoard extends JPanel {
 	}
 
 	protected void updateScore() {
-		scoreLabel.setText(String.format("%5s", score + "")+" ");
-		levelLabel.setText(String.format("%5s", level + "")+" ");
-		lineLabel.setText(String.format("%5s", lineNum + "")+" ");
+		scoreLabel.setText(String.format("%5s", score + "") + " ");
+		levelLabel.setText(String.format("%5s", level + "") + " ");
+		lineLabel.setText(String.format("%5s", lineNum + "") + " ");
 	}
 
 	protected void speedUp() {
