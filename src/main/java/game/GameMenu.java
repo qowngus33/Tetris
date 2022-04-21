@@ -1,87 +1,77 @@
 package game;
 
- import play.Tetris;
- import setting.SettingItem;
+import play.Tetris;
+import setting.SettingItem;
 
- import javax.swing.*;
- import java.awt.*;
- import java.io.IOException;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.IOException;
 
 public class GameMenu extends JFrame{
-     // private itemGameBoard gameBoard;
-     private SettingItem settingItem;
-     private GameBoard gameBoard;
+    // private itemGameBoard gameBoard;
+    private SettingItem settingItem;
+    private GameBoard gameBoard;
 
-     public GameMenu() throws IOException {
-         settingItem = SettingItem.getInstance();
+    public GameMenu() throws IOException {
+        super("Tetris");
+        gameBoard = new GameBoard();
+        init();
+    }
 
-         setSize(settingItem.getBoardWidth(), settingItem.getBoardHeight());
-         setBackground(Color.WHITE);
-         setForeground(Color.WHITE);
-         setLocationRelativeTo(null);
-         setVisible(true);
-         
-         JButton settingButton = new JButton("설정");
-         JButton startMenuBtn = new JButton("시작메뉴로");
-         JButton scoreBoardBtn = new JButton("스코어보드");
+    public GameMenu(int a) throws IOException {
+        super("Tetris");
+        gameBoard = new ItemGameBoard();
+        init();
+    }
 
-         settingButton.addActionListener(e -> btnSettingActionPerformed());
-         startMenuBtn.addActionListener(e -> btnStartMenuActionPerformed());
-         scoreBoardBtn.addActionListener(e -> btnScoreBoardActionPerformed());
+    private void init() throws IOException {
+        settingItem = SettingItem.getInstance();
+        setSize(settingItem.getBoardWidth(), settingItem.getBoardHeight());
+        setResizable(false);
+        setBackground(Color.WHITE);
+        setForeground(Color.WHITE);
+        setLocationRelativeTo(null);
+        setVisible(true);
 
-         JPanel panel = new JPanel(new GridLayout(0,3));
-         panel.setBackground(Color.WHITE);
-         panel.add(settingButton);
-         panel.add(startMenuBtn);
-         panel.add(scoreBoardBtn);
+        JButton settingButton = new JButton("설정");
+        JButton startMenuBtn = new JButton("시작메뉴로");
+        JButton scoreBoardBtn = new JButton("스코어보드");
 
-         gameBoard = new GameBoard();
-         this.add(gameBoard, BorderLayout.CENTER);
-         this.add(panel, BorderLayout.SOUTH);
-         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-     }
+        settingButton.addActionListener(e -> btnSettingActionPerformed());
+        startMenuBtn.addActionListener(e -> btnStartMenuActionPerformed());
+        scoreBoardBtn.addActionListener(e -> btnScoreBoardActionPerformed());
 
-     
-     public GameMenu(int a) throws IOException{
-         settingItem = SettingItem.getInstance();
+        JPanel innerPanel = new JPanel(new GridLayout(0,3));
+        innerPanel.add(settingButton);
+        innerPanel.add(startMenuBtn);
+        innerPanel.add(scoreBoardBtn);
 
-         setSize(settingItem.getBoardWidth(), settingItem.getBoardHeight());
-         setBackground(Color.WHITE);
-         setForeground(Color.WHITE);
-         setLocationRelativeTo(null);
-         setVisible(true);
-         
-         JButton settingButton = new JButton("설정");
-         JButton startMenuBtn = new JButton("시작메뉴로");
-         JButton scoreBoardBtn = new JButton("스코어보드");
+        JPanel outerPanel = new JPanel();
 
-         settingButton.addActionListener(e -> btnSettingActionPerformed());
-         startMenuBtn.addActionListener(e -> btnStartMenuActionPerformed());
-         scoreBoardBtn.addActionListener(e -> btnScoreBoardActionPerformed());
+        outerPanel.add(gameBoard);
+        outerPanel.add(innerPanel);
+        setContentPane(outerPanel);
+        outerPanel.setForeground(Color.WHITE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
-         JPanel panel = new JPanel(new GridLayout(0,3));
-         panel.add(settingButton);
-         panel.add(startMenuBtn);
-         panel.add(scoreBoardBtn);
+    private void btnSettingActionPerformed(){
+        gameBoard.stopTimer();
+        dispose();
+        Tetris.showSettingMenu();
+    }
 
-         gameBoard = new ItemGameBoard();
-         this.add(gameBoard, BorderLayout.CENTER);
-         this.add(panel, BorderLayout.SOUTH);
-         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-     }
-  
-     private void btnSettingActionPerformed(){
-         dispose();
-         Tetris.showSettingMenu();
-     }
+    private void btnStartMenuActionPerformed(){
+        gameBoard.stopTimer();
+        dispose();
+        Tetris.showStartMenu();
+    }
 
-     private void btnStartMenuActionPerformed(){
-         dispose();
-         Tetris.showStartMenu();
-     }
-
-     private void btnScoreBoardActionPerformed(){
-         dispose();
-         Tetris.showScoreBoard();
-     }
- }
+    private void btnScoreBoardActionPerformed(){
+        gameBoard.stopTimer();
+        dispose();
+        Tetris.showScoreBoard();
+    }
+}

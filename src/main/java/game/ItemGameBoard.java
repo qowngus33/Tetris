@@ -1,7 +1,6 @@
 package game;
 
 import java.awt.Color;
-import java.io.IOException;
 import java.util.Random;
 import javax.swing.text.StyledDocument;
 
@@ -10,11 +9,11 @@ import blocks.*;
 public class ItemGameBoard extends GameBoard {
 
 	private static final long serialVersionUID = 1L;
-	private int lineChange = 10;
+	private int lineChange = 1;
 	private int count = 1;
 
-	public ItemGameBoard() throws IOException {
-		super();
+	public ItemGameBoard() throws java.io.IOException {
+		System.out.println("Item mode");
 		this.gameMode = "item";
 	}
 
@@ -74,15 +73,16 @@ public class ItemGameBoard extends GameBoard {
 			y++;
 		else {
 			gamePane.placeBlock(x,y,curr);
-			eraseLine();
 			if (isGameEnded()) { // 게임이 종료됨.
 				gameOver();
 				return;
 			}
 			items();
+			eraseLine();
 			setNextBlock();
 		}
-		eraseLine();
+		score++;
+		updateScore();
 		gamePane.placeBlock(x,y,curr);
 	}
 

@@ -8,3 +8,4 @@ RT 2352 NORMAL item
 WR 1572 NORMAL item
 RR 109 NORMAL regul
 TT 1647 EASY regul
+wert 1602 NORMAL regul

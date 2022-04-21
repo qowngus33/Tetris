@@ -29,16 +29,16 @@ public class Tetris {
         gameForm.dispose();
     }
 
-    public static void showStartMenu() {
+    public static void showStartMenu(){
         startmenu.dispose();
         startmenu = new StartMenu();
     }
 
-    public static void showSettingMenu() {
+    public static void showSettingMenu(){
         settingMenuForm.setVisible(true);
     }
 
-    public static void showScoreBoard() {
+    public static void showScoreBoard(){
         scoreBoardForm = new ScoreBoardMenu();
         scoreBoardForm.setVisible(true);
     }

@@ -3,5 +3,7 @@ setting/ModeTest.java
 setting/LoadFileTest.java
  setting.LoadFileTest
  setting.LoadFileTest$1
-setting/KeySettingTest.java
- setting.KeySettingTest
+game/GameBoardTest.java
+ game.GameBoardTest
+game/KeySettingTest.java
+ game.KeySettingTest
