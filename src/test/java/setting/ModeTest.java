@@ -18,8 +18,6 @@ public class ModeTest {
         System.out.println();
 
         int[] countBlock = new int[7];
-        double iBlockRatio = 0.0;
-        double jBlockRatio = 0.0;
         int count = 7200;
 
         for (int i = 0; i < count; i++) {
@@ -66,8 +64,6 @@ public class ModeTest {
     public void getRandomBlockHardMode() {
 
         int[] countBlock = new int[7];
-        double iBlockRatio = 0.0;
-        double jBlockRatio = 0.0;
         int count = 6800;
 
         for (int i = 0; i < count; i++) {

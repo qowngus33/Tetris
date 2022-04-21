@@ -61,6 +61,7 @@ public class SettingItem {
          downKey = saveFile.get("downKey");
          rotateKey = saveFile.get("rotateKey");
          dropKey = saveFile.get("dropKey");
+         pauseKey = saveFile.get("pauseKey");
 
          boardWidth = Integer.parseInt(saveFile.get("boardWidth"));
          boardHeight = Integer.parseInt(saveFile.get("boardHeight"));
@@ -86,7 +87,7 @@ public class SettingItem {
      */
     public void btnSaveSettingActionPerformed() throws IOException {
 
-        SaveFile saveFile = new SaveFile(leftKey, rightKey, downKey, rotateKey, dropKey,
+        SaveFile saveFile = new SaveFile(leftKey, rightKey, downKey, rotateKey, dropKey, pauseKey,
                 initInterval, reduceSpeed, modeName, boardWidth, boardHeight, fontSize, isColorBlind);
         objectMapper.writeValue(new File("savefile.json"), saveFile);
     }
@@ -104,6 +105,7 @@ public class SettingItem {
          downKey = "DOWN";
          rotateKey = "UP";
          dropKey = "SPACE";
+         pauseKey = "P";
      }
 
      /**
