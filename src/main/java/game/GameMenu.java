@@ -16,12 +16,14 @@ public class GameMenu extends JFrame{
         super("Tetris");
         gameBoard = new GameBoard();
         init();
+        SettingItem.isItemMode = false;
     }
 
     public GameMenu(int a) throws IOException {
         super("Tetris");
         gameBoard = new ItemGameBoard();
         init();
+        SettingItem.isItemMode = true;
     }
 
     private void init() throws IOException {

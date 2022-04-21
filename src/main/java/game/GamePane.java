@@ -25,7 +25,6 @@ public class GamePane extends JTextPane {
 	protected SimpleAttributeSet styleSet;
 	public static final int HEIGHT = 20;
 	public static final int WIDTH = 10;
-	public static final char BORDER_CHAR = 'X';
 	protected int[][] board;
 	protected String[][] colorBoard;
 
