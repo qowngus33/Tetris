@@ -25,16 +25,16 @@ file/FileClass.java
  file.FileClass
 setting/SaveFile.java
  setting.SaveFile
-setting/KeySetting.java
- setting.KeySetting
+blocks/SBlock.java
+ blocks.SBlock
 blocks/WBlock.java
  blocks.WBlock
 setting/exception/EmptyKeyException.java
  setting.exception.EmptyKeyException
 blocks/GetRandomBlock.java
  blocks.GetRandomBlock
-setting/SettingMenu.java
- setting.SettingMenu
+blocks/BBlock.java
+ blocks.BBlock
 blocks/JBlock.java
  blocks.JBlock
 blocks/ZBlock.java
@@ -59,9 +59,8 @@ game/GamePane.java
  game.GamePane
 game/NextBlockPane.java
  game.NextBlockPane
-play/Tetris.java
- play.Tetris
- play.Tetris$1
+blocks/Block.java
+ blocks.Block
 component/StartMenu.java
  component.StartMenu
  component.StartMenu$1
@@ -73,9 +72,10 @@ component/StartMenu.java
  component.StartMenu$7
  component.StartMenu$8
  component.StartMenu$ImagePanel
-blocks/SBlock.java
- blocks.SBlock
-blocks/BBlock.java
- blocks.BBlock
-blocks/Block.java
- blocks.Block
+play/Tetris.java
+ play.Tetris
+ play.Tetris$1
+setting/SettingMenu.java
+ setting.SettingMenu
+setting/KeySetting.java
+ setting.KeySetting

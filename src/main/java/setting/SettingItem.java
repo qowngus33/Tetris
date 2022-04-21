@@ -233,6 +233,10 @@ public class SettingItem {
          return sb;
      }
 
+    public int getReduceSpeed() {
+        return reduceSpeed;
+    }
+
     public void setLeftKey(String leftKey) {
         this.leftKey = leftKey;
     }

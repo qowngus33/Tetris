@@ -86,7 +86,7 @@ public class SaveFile{
         return fontSize;
     }
 
-    public boolean isColorBlind() {
+    public boolean getIsColorBlind() {
         return isColorBlind;
     }
 }

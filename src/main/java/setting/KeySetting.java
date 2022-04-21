@@ -76,7 +76,7 @@ public class KeySetting extends JFrame{
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    private void btnKeyActionPerformed(String keyName) {
+    public void btnKeyActionPerformed(String keyName) {
         this.keyName = keyName;
         switch (keyType){
             case "LEFT":

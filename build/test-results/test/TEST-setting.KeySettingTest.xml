@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="setting.KeySettingTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-04-19T12:33:50" hostname="jeongda-eun-ui-MacBookPro.local" time="0.656">
+<testsuite name="setting.KeySettingTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-04-21T13:24:03" hostname="jeongda-eun-ui-MacBookPro.local" time="0.593">
   <properties/>
-  <testcase name="keySetting()" classname="setting.KeySettingTest" time="0.656"/>
+  <testcase name="keySetting()" classname="setting.KeySettingTest" time="0.593"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

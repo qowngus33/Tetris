@@ -1,7 +1,12 @@
-setting/ModeTest.java
- setting.ModeTest
-setting/LoadFileTest.java
- setting.LoadFileTest
- setting.LoadFileTest$1
+setting/BtnModeActionPerformedTest.java
+ setting.BtnModeActionPerformedTest
+setting/BtnSizeActionPerformedTest.java
+ setting.BtnSizeActionPerformedTest
+setting/BlockModeTest.java
+ setting.BlockModeTest
+setting/BtnColorBlindModeTest.java
+ setting.BtnColorBlindModeTest
+setting/SaveFileTest.java
+ setting.SaveFileTest
 setting/KeySettingTest.java
  setting.KeySettingTest

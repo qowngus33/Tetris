@@ -6,9 +6,10 @@ import blocks.IBlock;
 import game.GameBoard;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import setting.SettingItem;
 
-public class ModeTest {
+public class BlockModeTest {
 
     GetRandomBlock randomBlock = new GetRandomBlock();
 
@@ -56,8 +57,8 @@ public class ModeTest {
 
         double epsilon = 7200 * 0.05;
 
-        Assert.assertEquals(1200, countBlock[0], epsilon);
-        Assert.assertEquals(1000, countBlock[1], epsilon);
+        Assertions.assertEquals(1200, countBlock[0], epsilon);
+        Assertions.assertEquals(1000, countBlock[1], epsilon);
     }
 
     @Test
@@ -102,7 +103,7 @@ public class ModeTest {
 
         double epsilon = 6800 * 0.05;
 
-        Assert.assertEquals(800, countBlock[0], epsilon);
-        Assert.assertEquals(1000, countBlock[1], epsilon);
+        Assertions.assertEquals(800, countBlock[0], epsilon);
+        Assertions.assertEquals(1000, countBlock[1], epsilon);
     }
 }
