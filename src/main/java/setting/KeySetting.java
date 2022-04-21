@@ -1,5 +1,7 @@
 package setting;
 
+import play.Tetris;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -23,17 +25,17 @@ public class KeySetting extends JFrame{
 
         setSize(800, 200);
         setBackground(Color.WHITE);
-        setVisible(true);
+       // setVisible(true);
         setLocationRelativeTo(null);
 
         String[] keyNames = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
-                "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+                "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "SPACE"};
         int[] firstLineKey = {16, 22, 4, 17, 19, 24, 20, 8, 15};
         int[] secondLineKey = {0, 18, 3, 5, 6, 7, 9, 10, 11};
-        int[] thirdLineKey = {25, 23, 2, 21, 1, 13, 12};
+        int[] thirdLineKey = {25, 23, 2, 21, 1, 13, 12, 26};
 
-        JButton[] keyBtns = new JButton[26];
-        for (int i = 0; i < 26; i++) {
+        JButton[] keyBtns = new JButton[27];
+        for (int i = 0; i < 27; i++) {
             keyBtns[i] = new JButton(keyNames[i]);
         }
 
@@ -61,7 +63,7 @@ public class KeySetting extends JFrame{
         settingLine.add(cancelBtn);
         settingLine.add(saveBtn);
 
-        for(int i = 0; i < 26; i++){
+        for(int i = 0; i < 27; i++){
             int finalI = i;
             keyBtns[i].addActionListener(e -> btnKeyActionPerformed(keyNames[finalI]));
         }
@@ -98,10 +100,12 @@ public class KeySetting extends JFrame{
 
     public void btnCancelActionPerformed() {
         dispose();
+        Tetris.showSettingMenu();
     }
 
     public void btnSaveActionPerformed(){
         dispose();
+        Tetris.showSettingMenu();
     }
 
     public String getKeyName(){

@@ -2,6 +2,7 @@ package play;
 
 import game.GameMenu;
 import scoreboard.ScoreBoardMenu;
+import setting.KeySetting;
 import setting.SettingMenu;
 import component.StartMenu;
 
@@ -13,6 +14,7 @@ public class Tetris {
     private static GameMenu gameForm;
     private static StartMenu startmenu;
     private static SettingMenu settingMenuForm;
+    private static KeySetting keySetting;
     private static ScoreBoardMenu scoreBoardForm;
 
     public static void start() throws IOException {
@@ -43,6 +45,11 @@ public class Tetris {
     public static void showScoreBoard() {
         scoreBoardForm = new ScoreBoardMenu();
         scoreBoardForm.setVisible(true);
+    }
+
+    public static void showKeySetting(String keyType) throws IOException {
+        keySetting = new KeySetting(keyType);
+        keySetting.setVisible(true);
     }
 
     public static void main(String[] args) {

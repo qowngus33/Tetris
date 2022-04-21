@@ -249,23 +249,28 @@ public class SettingMenu extends JFrame {
 	}
 
 	public void btnDisplayLeftKeySettingActionPerformed(String keyType) throws IOException{
-		keySetting = new KeySetting(keyType);
+		this.dispose();
+		Tetris.showKeySetting(keyType);
 	}
 
 	public void btnDisplayRightKeySettingActionPerformed(String keyType) throws IOException{
-		keySetting = new KeySetting(keyType);
+		this.dispose();
+		Tetris.showKeySetting(keyType);
 	}
 
 	public void btnDisplayDownKeySettingActionPerformed(String keyType) throws IOException{
-		keySetting = new KeySetting(keyType);
+		this.dispose();
+		Tetris.showKeySetting(keyType);
 	}
 
 	public void btnDisplayDropKeySettingActionPerformed(String keyType) throws IOException{
-		keySetting = new KeySetting(keyType);
+		this.dispose();
+		Tetris.showKeySetting(keyType);
 	}
 
 	public void btnDisplayRotateKeySettingActionPerformed(String keyType) throws IOException{
-		keySetting = new KeySetting(keyType);
+		this.dispose();
+		Tetris.showKeySetting(keyType);
 	}
 
 	public void btnGameActionPerformed() throws IOException {

@@ -1,1 +1,1 @@
-{"leftKey":"LEFT","rightKey":"RIGHT","downKey":"DOWN","rotateKey":"UP","dropKey":"SPACE","initInterval":1000,"reduceSpeed":120,"modeName":"NORMAL","boardWidth":300,"boardHeight":500,"fontSize":19,"colorBlind":false}
+{"leftKey":"LEFT","rightKey":"RIGHT","downKey":"DOWN","rotateKey":"UP","dropKey":"SPACE","initInterval":1000,"reduceSpeed":100,"modeName":"NORMAL","boardWidth":350,"boardHeight":583,"fontSize":23,"colorBlind":false}
