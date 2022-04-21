@@ -21,7 +21,12 @@ import javax.swing.WindowConstants;
 import javax.swing.text.*;
 
 import file.ScoreBoardFile;
+<<<<<<< HEAD:src/main/java/scoreboard/ScoreBoardMenu.java
 import play.Tetris;
+=======
+import main.Tetris;
+import startmenu.ImagePanel;
+>>>>>>> 8a496d5bb699e85ce5949885ef89a95bc59f541a:src/scoreboard/ScoreBoardMenu.java
 
 public class ScoreBoardMenu extends JFrame {
 
@@ -40,16 +45,34 @@ public class ScoreBoardMenu extends JFrame {
 	private final int oneLineLength = 37;
 	private int score;
 	private String mode;
+<<<<<<< HEAD:src/main/java/scoreboard/ScoreBoardMenu.java
 
 	private String level = "normal";
 	private String scoreWriteText = "Game over. Enter your name within\nfour characters with alphabet and number.";
 
+=======
+	
+	private String level = "normal";
+	private String scoreWriteText = "Game over. Enter your name within\nfour characters with alphabet and number.";
+	
+	private Image screenImage;
+	private Graphics screenGraphic;
+	private Image scoreboardBackground = new ImageIcon(Tetris.class.getResource("../images/scoreboardBackground.png"))
+			.getImage();
+>>>>>>> 8a496d5bb699e85ce5949885ef89a95bc59f541a:src/scoreboard/ScoreBoardMenu.java
 
 	public ScoreBoardMenu() {
 		super("ScoreBoard"); // 타이틀
 		setResizable(false);
 		requestFocus();
+<<<<<<< HEAD:src/main/java/scoreboard/ScoreBoardMenu.java
 
+=======
+		JPanel imagepanel = new ImagePanel(scoreboardBackground);
+		imagepanel.setOpaque(false); 
+		//add(imagepanel);
+		
+>>>>>>> 8a496d5bb699e85ce5949885ef89a95bc59f541a:src/scoreboard/ScoreBoardMenu.java
 		setSize(350, 580);
 		scoreboard.setEditable(false);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -166,6 +189,26 @@ public class ScoreBoardMenu extends JFrame {
 			}
 		});
 	}
+	
+	private void setStyle() {
+		Style redStyle = scoreboard.addStyle("Red", null);
+		StyleConstants.setForeground(redStyle, Color.RED);
+		StyleConstants.setBold(redStyle, true);
+
+		Style boldStyle = scoreboard.addStyle("Bold", null);
+		StyleConstants.setBold(boldStyle, true);
+
+		StyledDocument doc = scoreboard.getStyledDocument();
+		SimpleAttributeSet mainAttribute = new SimpleAttributeSet();
+		StyleConstants.setFontFamily(mainAttribute, "Courier");
+		StyleConstants.setFontSize(mainAttribute, 15);
+		StyleConstants.setLineSpacing(mainAttribute, (float) 0.34);
+		doc.setParagraphAttributes(0, doc.getLength(), mainAttribute, false);
+		doc.setCharacterAttributes(0, oneLineLength * 3, scoreboard.getStyle("Bold"), true);
+
+		SimpleAttributeSet styleSet = new SimpleAttributeSet();
+		StyleConstants.setAlignment(styleSet, StyleConstants.ALIGN_CENTER);
+	}
 
 	private void setStyle() {
 		Style redStyle = scoreboard.addStyle("Red", null);
@@ -218,11 +261,31 @@ public class ScoreBoardMenu extends JFrame {
 			}
 		}
 	}
+<<<<<<< HEAD:src/main/java/scoreboard/ScoreBoardMenu.java
+=======
+	
+	public void paint(Graphics g) {
+		screenImage = createImage(350, 583);
+		screenGraphic = screenImage.getGraphics();
+		screenDraw(screenGraphic);
+		g.drawImage(screenImage, 0, 0, null);
+	}
+
+	public void screenDraw(Graphics g) {
+		g.drawImage(scoreboardBackground, 0, 0, null);
+		paintComponents(g);
+	}
+
+>>>>>>> 8a496d5bb699e85ce5949885ef89a95bc59f541a:src/scoreboard/ScoreBoardMenu.java
 	private void btnStartMenuActionPerformed() {
 		this.dispose();
 		Tetris.showStartMenu();
 	}
+<<<<<<< HEAD:src/main/java/scoreboard/ScoreBoardMenu.java
 
+=======
+	
+>>>>>>> 8a496d5bb699e85ce5949885ef89a95bc59f541a:src/scoreboard/ScoreBoardMenu.java
 	private boolean isAlphaOrDigit(String s) {
 		for(int i=0;i<s.length();i++) {
 			char ch = s.charAt(i);
@@ -231,4 +294,8 @@ public class ScoreBoardMenu extends JFrame {
 		}
 		return true;
 	}
+<<<<<<< HEAD:src/main/java/scoreboard/ScoreBoardMenu.java
 }
+=======
+}
+>>>>>>> 8a496d5bb699e85ce5949885ef89a95bc59f541a:src/scoreboard/ScoreBoardMenu.java

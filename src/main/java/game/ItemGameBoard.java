@@ -13,8 +13,13 @@ public class ItemGameBoard extends GameBoard {
 	private int lineChange = 10;
 	private int count = 1;
 
+<<<<<<< HEAD:src/main/java/game/ItemGameBoard.java
 	public ItemGameBoard() throws IOException {
 		super();
+=======
+	public ItemGameBoard() {
+		System.out.println("Item mode");
+>>>>>>> 8a496d5bb699e85ce5949885ef89a95bc59f541a:src/game/ItemGameBoard.java
 		this.gameMode = "item";
 	}
 
@@ -22,6 +27,7 @@ public class ItemGameBoard extends GameBoard {
 		Random rnd = new Random(System.currentTimeMillis());
 		int block = rnd.nextInt(1000) % 5;
 		switch (block) {
+<<<<<<< HEAD:src/main/java/game/ItemGameBoard.java
 			case 0:
 				return new WBlock();
 			case 1:
@@ -44,6 +50,30 @@ public class ItemGameBoard extends GameBoard {
 				return new CBlock();
 			case 3:
 				return new EBlock();
+=======
+		case 0:
+			return new WBlock();
+		case 1:
+			Block temp = getRandomBlock.getRandomBlockMode(mode);
+			rnd = new Random(System.currentTimeMillis());
+			block = rnd.nextInt(1000) % 4+1;
+			int count = 0;
+			for(int i=0;i<temp.width();i++)
+				for(int j=0;j<temp.height();j++) 
+					if(temp.getShape(i, j)==1) {
+						count++;
+						if(count==block) {
+							temp.setShape(i, j, 2);
+							break;
+						}
+					}
+			temp.setItem("L");
+			return temp;
+		case 2:
+			return new CBlock();
+		case 3:
+			return new EBlock();
+>>>>>>> 8a496d5bb699e85ce5949885ef89a95bc59f541a:src/game/ItemGameBoard.java
 		}
 		return new BBlock();
 	}
@@ -85,7 +115,11 @@ public class ItemGameBoard extends GameBoard {
 		eraseLine();
 		gamePane.placeBlock(x,y,curr);
 	}
+<<<<<<< HEAD:src/main/java/game/ItemGameBoard.java
 
+=======
+	
+>>>>>>> 8a496d5bb699e85ce5949885ef89a95bc59f541a:src/game/ItemGameBoard.java
 
 	protected void setNextBlock() {
 		this.curr = this.nextBlock;
@@ -147,7 +181,11 @@ public class ItemGameBoard extends GameBoard {
 			for(int j=Math.max(0,y-2);j<Math.min(y+4,HEIGHT);j++)
 				gamePane.setBoard(j,i,0);
 	}
+<<<<<<< HEAD:src/main/java/game/ItemGameBoard.java
 
+=======
+	
+>>>>>>> 8a496d5bb699e85ce5949885ef89a95bc59f541a:src/game/ItemGameBoard.java
 	private void totalItem() {
 		for(int i=0;i<WIDTH;i++)
 			for(int j=0;j<HEIGHT;j++)

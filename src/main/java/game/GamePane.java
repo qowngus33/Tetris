@@ -15,7 +15,11 @@ import blocks.Block;
 
 public class GamePane extends JTextPane {
 	/**
+<<<<<<< HEAD:src/main/java/game/GamePane.java
 	 *
+=======
+	 * 
+>>>>>>> 8a496d5bb699e85ce5949885ef89a95bc59f541a:src/game/GamePane.java
 	 */
 	private static final long serialVersionUID = 1L;
 	protected SimpleAttributeSet styleSet;

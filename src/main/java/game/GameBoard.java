@@ -106,6 +106,14 @@ public class GameBoard extends JPanel {
 		} else {
 			nextBlockPane = new NextBlockPane();
 		}
+<<<<<<< HEAD:src/main/java/game/GameBoard.java
+=======
+
+//		gamePane = new GamePane();
+//		gamePane.setFontSize(settingItem.getFontSize());
+//		nextBlockPane = new NextBlockPane();
+//		nextBlockPane.setFontSize(settingItem.getFontSize());
+>>>>>>> 8a496d5bb699e85ce5949885ef89a95bc59f541a:src/game/GameBoard.java
 
 		// Additory panel for layout
 		JPanel eastPanel = new JPanel();
@@ -132,8 +140,13 @@ public class GameBoard extends JPanel {
 		});
 
 		// Create the first block and draw.
+<<<<<<< HEAD:src/main/java/game/GameBoard.java
 		nextBlock = getRandomBlock.getRandomBlockMode(modeName);
 		curr = getRandomBlock.getRandomBlockMode(modeName);
+=======
+		nextBlock = getRandomBlock.getRandomBlockMode(mode);
+		curr = getRandomBlock.getRandomBlockMode(mode);
+>>>>>>> 8a496d5bb699e85ce5949885ef89a95bc59f541a:src/game/GameBoard.java
 
 		gamePane.placeBlock(x, y, curr);
 		gamePane.drawGameBoard();
@@ -317,6 +330,7 @@ public class GameBoard extends JPanel {
 	protected boolean detectCrash(char position) {
 		boolean result = false;
 		switch (position) {
+<<<<<<< HEAD:src/main/java/game/GameBoard.java
 			case 'L':
 				for (int i = 0; i < curr.height(); i++)
 					for (int j = 0; j < curr.width(); j++)
@@ -350,6 +364,41 @@ public class GameBoard extends JPanel {
 			default:
 				System.out.println("Wrong Character");
 				break;
+=======
+		case 'L':
+			for (int i = 0; i < curr.height(); i++)
+				for (int j = 0; j < curr.width(); j++)
+					if (curr.getShape(j, i) != 0 && gamePane.getBoard(i + y, j + x - 1) != 0) {
+						result = true;
+						break;
+					} else if (curr.getShape(j, i) != 0 && gamePane.getBoard(i + y, j + x - 1) == 0) {
+						j = curr.width();
+					}
+			break;
+		case 'R':
+			for (int i = 0; i < curr.height(); i++)
+				for (int j = curr.width() - 1; j >= 0; j--)
+					if (curr.getShape(j, i) != 0 && gamePane.getBoard(i + y, j + x + 1) != 0) {
+						result = true;
+						break;
+					} else if (curr.getShape(j, i) != 0 && gamePane.getBoard(i + y, j + x - 1) == 0) {
+						j = -1;
+					}
+			break;
+		case 'D':
+			for (int i = 0; i < curr.width(); i++)
+				for (int j = curr.height() - 1; j >= 0; j--)
+					if (curr.getShape(i, j) != 0 && gamePane.getBoard(j + y + 1, i + x) != 0) {
+						result = true;
+						break;
+					} else if (curr.getShape(i, j) != 0 && gamePane.getBoard(j + y + 1, i + x) == 0) {
+						j = -1;
+					}
+			break;
+		default:
+			System.out.println("Wrong Character");
+			break;
+>>>>>>> 8a496d5bb699e85ce5949885ef89a95bc59f541a:src/game/GameBoard.java
 		}
 		return result;
 	}
@@ -363,10 +412,15 @@ public class GameBoard extends JPanel {
 	protected void speedUp() {
 		if (lineNum / 7 >= level && initInterval > 120) {
 			level += 1;
+<<<<<<< HEAD:src/main/java/game/GameBoard.java
 			//To be edited ...
 			//initInterval -= settingItem.getReduceSpeed();
 			initInterval -= 100;
 			//System.out.println(settingItem.getReduceSpeed());
+=======
+			initInterval -= settingItem.getReduceSpeed();
+			System.out.println(settingItem.getReduceSpeed());
+>>>>>>> 8a496d5bb699e85ce5949885ef89a95bc59f541a:src/game/GameBoard.java
 			timer.stop();
 			timer = new Timer(initInterval, new ActionListener() {
 				@Override
@@ -411,7 +465,11 @@ public class GameBoard extends JPanel {
 		timer.stop();
 		this.setFocusable(false);
 		try {
+<<<<<<< HEAD:src/main/java/game/GameBoard.java
 			sbf = new ScoreBoardMenu(score, modeName.toString(), gameMode);
+=======
+			sbf = new ScoreBoardMenu(score, mode.toString(), gameMode);
+>>>>>>> 8a496d5bb699e85ce5949885ef89a95bc59f541a:src/game/GameBoard.java
 			sbf.setVisible(true);
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
@@ -427,4 +485,8 @@ public class GameBoard extends JPanel {
 		timer.stop();
 	}
 
+<<<<<<< HEAD:src/main/java/game/GameBoard.java
 }
+=======
+}
+>>>>>>> 8a496d5bb699e85ce5949885ef89a95bc59f541a:src/game/GameBoard.java
