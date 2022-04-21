@@ -1,10 +1,10 @@
 package setting;
 
 import play.Tetris;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.security.Key;
 
 public class SettingMenu extends JFrame {
 
@@ -30,21 +30,19 @@ public class SettingMenu extends JFrame {
 	private JRadioButton[] modeBtns;
 	private JPanel modePanel;
 	private JButton initKeySettingBtn;
-
 	private SettingItem settingItem;
 	private KeySetting keySetting;
-
 	private int size = 1;
 
 	public SettingMenu() throws IOException {
 		settingItem = SettingItem.getInstance();
 
 		setTitle("설정메뉴");
-		setSize(800, 600);
+		setSize(450, 720);
 		setBackground(Color.WHITE);
 		setLocationRelativeTo(null);
 
-		// 화면 크기 조절 버튼 & 이벤트 설정
+		// 화면 크기 조절
 		String[] sizeNames = { "SMALL", "MEDIUM", "LARGE" };
 		sizeLabel = new JLabel("화면 크기");
 		sizeBtns = new JRadioButton[3];
@@ -63,6 +61,18 @@ public class SettingMenu extends JFrame {
 		sizeBtns[0].addActionListener(e -> settingItem.btnSmallBtnActionPerformed());
 		sizeBtns[1].addActionListener(e -> settingItem.btnMediumBtnActionPerformed());
 		sizeBtns[2].addActionListener(e -> settingItem.btnLargeBtnActionPerformed());
+
+		switch (settingItem.getBoardWidth()){
+			case SettingItem.SMALL_WIDTH:
+				sizeBtns[0].setSelected(true);
+				break;
+			case SettingItem.MEDIUM_WIDTH:
+				sizeBtns[1].setSelected(true);
+				break;
+			case SettingItem.LARGE_WIDTH:
+				sizeBtns[2].setSelected(true);
+				break;
+		}
 			
 		// 조작키 설정
 		keyPanel = new JPanel(new BorderLayout());
@@ -90,6 +100,18 @@ public class SettingMenu extends JFrame {
 		modeBtns[1].addActionListener(e -> settingItem.btnNormalModeActionPerformed());
 		modeBtns[2].addActionListener(e -> settingItem.btnHardModeActionPerformed());
 
+		switch (settingItem.getModeName()){
+			case "EASY":
+				modeBtns[0].setSelected(true);
+				break;
+			case "NORMAL":
+				modeBtns[1].setSelected(true);
+				break;
+			case "HARD":
+				modeBtns[2].setSelected(true);
+				break;
+		}
+
 		// 색맹 모드 켜고 끄기
 		colorBlindLabel = new JLabel("색맹 모드");
 		colorBlindOnBtn = new JRadioButton("on");
@@ -106,6 +128,12 @@ public class SettingMenu extends JFrame {
 		colorBlindPanel.add(colorBlindLabel);
 		colorBlindPanel.add(colorBlindOnBtn);
 		colorBlindPanel.add(colorBlindOffBtn);
+
+		if(settingItem.isColorBlind()){
+			colorBlindOnBtn.setSelected(true);
+		}else {
+			colorBlindOffBtn.setSelected(true);
+		}
 
 		// 스코어 보드 기록 초기화
 		initScoreBoardBtn = new JButton("스코어 보드 기록 초기화");
@@ -136,6 +164,7 @@ public class SettingMenu extends JFrame {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			JOptionPane.showMessageDialog(initScoreBoardPanel, "설정이 저장되었습니다.");
 		});
 
 		settingBtnPanel = new JPanel(new GridLayout(5, 0));
@@ -164,7 +193,6 @@ public class SettingMenu extends JFrame {
 		JButton dropKey = new JButton("DROP");
 		JButton initKey = new JButton("초기화");
 
-		// btnKeyAction안에 String 값 전달만 하면 됨
 		leftKey.addActionListener(e -> {
 			try {
 				btnDisplayLeftKeySettingActionPerformed("LEFT");
@@ -203,6 +231,7 @@ public class SettingMenu extends JFrame {
 
 		initKey.addActionListener(e -> {
 			btnInitActionPerformed();
+			JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "키 초기화");
 		});
 
 		JPanel keySettingPanel = new JPanel();
@@ -212,7 +241,6 @@ public class SettingMenu extends JFrame {
 		keySettingPanel.add(rotateKey);
 		keySettingPanel.add(dropKey);
 		keySettingPanel.add(initKey);
-
 		return keySettingPanel;
 	}
 
@@ -242,7 +270,11 @@ public class SettingMenu extends JFrame {
 
 	public void btnGameActionPerformed() throws IOException {
 		dispose();
-		Tetris.start();
+		if(SettingItem.isItemMode){
+			Tetris.itemGameStart();
+		}else{
+			Tetris.start();
+		}
 	}
 
 	public void btnStartMenuActionPerformed() {
@@ -263,6 +295,7 @@ public class SettingMenu extends JFrame {
 		settingItem.btnNormalModeActionPerformed();
 		modeBtns[1].setSelected(true);
 
+		settingItem.initKeySetting();
 		JOptionPane.showMessageDialog(initScoreBoardPanel, "설정이 초기화되었습니다.");
 	}
 }

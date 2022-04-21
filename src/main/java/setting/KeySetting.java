@@ -14,7 +14,6 @@ public class KeySetting extends JFrame{
     private final JButton saveBtn;
     private String keyName;
     private final String keyType;
-
     private final SettingItem settingItem;
 
     public KeySetting(String keyType) throws IOException{
@@ -22,11 +21,10 @@ public class KeySetting extends JFrame{
         settingItem = SettingItem.getInstance();
         this.keyType = keyType;
 
-        setTitle("설정메뉴");
         setSize(800, 200);
         setBackground(Color.WHITE);
-        setLocationRelativeTo(null);
         setVisible(true);
+        setLocationRelativeTo(null);
 
         String[] keyNames = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
                 "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
@@ -68,11 +66,11 @@ public class KeySetting extends JFrame{
             keyBtns[i].addActionListener(e -> btnKeyActionPerformed(keyNames[finalI]));
         }
 
-        this.getContentPane().setLayout(new GridLayout(4, 0));
-        this.getContentPane().add(firstLine);
-        this.getContentPane().add(secondLine);
-        this.getContentPane().add(thirdLine);
-        this.getContentPane().add(settingLine);
+        this.setLayout(new GridLayout(4, 0));
+        this.add(firstLine);
+        this.add(secondLine);
+        this.add(thirdLine);
+        this.add(settingLine);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 

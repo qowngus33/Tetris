@@ -58,7 +58,7 @@ public class GameBoard extends JPanel {
 	protected String modeName;
 
 	public GameBoard() throws IOException{
-		System.out.println("Normal mode");
+		// System.out.println("Normal mode");
 		setBackground(Color.WHITE);
 		setForeground(Color.WHITE);
 		setVisible(true);

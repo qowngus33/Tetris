@@ -14,6 +14,7 @@ public class GameMenu extends JFrame{
 
      public GameMenu() throws IOException {
          settingItem = SettingItem.getInstance();
+         SettingItem.isItemMode = false;
 
          setSize(settingItem.getBoardWidth(), settingItem.getBoardHeight());
          setBackground(Color.WHITE);
@@ -44,6 +45,7 @@ public class GameMenu extends JFrame{
      
      public GameMenu(int a) throws IOException{
          settingItem = SettingItem.getInstance();
+         SettingItem.isItemMode = true;
 
          setSize(settingItem.getBoardWidth(), settingItem.getBoardHeight());
          setBackground(Color.WHITE);

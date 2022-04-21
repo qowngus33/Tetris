@@ -16,11 +16,13 @@ public class Tetris {
     private static ScoreBoardMenu scoreBoardForm;
 
     public static void start() throws IOException {
+        System.out.println("NORMAL MODE");
         gameForm = new GameMenu();
         gameForm.setVisible(true);
     }
 
     public static void itemGameStart() throws IOException {
+        System.out.println("ITEM MODE");
         gameForm = new GameMenu(1);
         gameForm.setVisible(true);
     }

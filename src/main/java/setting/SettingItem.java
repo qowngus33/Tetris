@@ -1,16 +1,15 @@
 package setting;
 
- import com.fasterxml.jackson.core.type.TypeReference;
- import com.fasterxml.jackson.databind.DeserializationFeature;
- import setting.exception.EmptyKeyException;
- import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import file.ScoreBoardFile;
 
- import javax.swing.*;
- import file.ScoreBoardFile;
- import java.io.File;
- import java.io.IOException;
- import java.util.HashMap;
- import java.util.Map;
+import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SettingItem {
 
@@ -38,17 +37,23 @@ public class SettingItem {
      private int initInterval;
      private String modeName;
      private boolean isColorBlind;
-
-    private int reduceSpeed;
-
+     private int reduceSpeed;
      private ScoreBoardFile sb;
+     public static boolean isItemMode;
 
-     private SettingItem() throws IOException {
-//         initKeySetting();
-//         initSizeSetting();
-//         initMode();
-//         initColorBlindMode();
+     public static final int SMALL_WIDTH = 300;
+     public static final int MEDIUM_WIDTH = 350;
+     public static final int LARGE_WIDTH = 400;
 
+     public static final int SMALL_HEIGHT = 500;
+     public static final int MEDIUM_HEIGHT = 583;
+     public static final int LARGE_HEIGHT = 666;
+
+     public static final int SMALL_FONT = 19;
+     public static final int MEDIUM_FONT = 23;
+     public static final int LARGE_FONT = 28;
+
+    private SettingItem() throws IOException {
          Map<String, String> saveFile = loadFile();
 
          leftKey = saveFile.get("leftKey");
@@ -56,13 +61,13 @@ public class SettingItem {
          downKey = saveFile.get("downKey");
          rotateKey = saveFile.get("rotateKey");
          dropKey = saveFile.get("dropKey");
-         pauseKey = saveFile.get("pauseKey");
 
          boardWidth = Integer.parseInt(saveFile.get("boardWidth"));
          boardHeight = Integer.parseInt(saveFile.get("boardHeight"));
          fontSize = Integer.parseInt(saveFile.get("fontSize"));
 
          initInterval = Integer.parseInt(saveFile.get("initInterval"));
+         reduceSpeed = Integer.parseInt(saveFile.get("reduceSpeed"));
          modeName = saveFile.get("modeName");
          isColorBlind = Boolean.parseBoolean(saveFile.get("isColorBlind"));
      }
@@ -81,8 +86,8 @@ public class SettingItem {
      */
     public void btnSaveSettingActionPerformed() throws IOException {
 
-        SaveFile saveFile = new SaveFile(leftKey, rightKey, downKey, rotateKey, dropKey, pauseKey,
-                initInterval, modeName, boardWidth, boardHeight, fontSize, isColorBlind);
+        SaveFile saveFile = new SaveFile(leftKey, rightKey, downKey, rotateKey, dropKey,
+                initInterval, reduceSpeed, modeName, boardWidth, boardHeight, fontSize, isColorBlind);
         objectMapper.writeValue(new File("savefile.json"), saveFile);
     }
 
@@ -99,44 +104,28 @@ public class SettingItem {
          downKey = "DOWN";
          rotateKey = "UP";
          dropKey = "SPACE";
-         pauseKey = "P";
-     }
-
-     public void initColorBlindMode(){
-         isColorBlind = false;
-     }
-
-     public void initMode(){
-         initInterval = 1000;
-         modeName = "NORMAL";
-     }
-
-     public void initSizeSetting(){
-         boardWidth = 380;
-         boardHeight = 750;
-         fontSize = 23;
      }
 
      /**
       * 화면 크기 조절
       */
      public void btnSmallBtnActionPerformed() {
-         boardWidth = 300;
-         boardHeight = 500;
-         fontSize = 19;
+         boardWidth = SMALL_WIDTH;
+         boardHeight = SMALL_HEIGHT;
+         fontSize = SMALL_FONT;
      }
 
      // default
      public void btnMediumBtnActionPerformed() {
-         boardWidth = 350;
-         boardHeight = 583;
-         fontSize = 23;
+         boardWidth = MEDIUM_WIDTH;
+         boardHeight = MEDIUM_HEIGHT;
+         fontSize = MEDIUM_FONT;
      }
 
      public void btnLargeBtnActionPerformed() {
-         boardWidth = 400;
-         boardHeight = 666;
-         fontSize = 28;
+         boardWidth = LARGE_WIDTH;
+         boardHeight = LARGE_HEIGHT;
+         fontSize = LARGE_FONT;
      }
 
      /**
@@ -170,16 +159,19 @@ public class SettingItem {
       */
      public void btnEasyModeActionPerformed(){
          initInterval = 1200;
+         reduceSpeed = 80;
          modeName = "EASY";
      }
 
      public void btnNormalModeActionPerformed(){
          initInterval = 1000;
+         reduceSpeed = 100;
          modeName = "NORMAL";
      }
 
      public void btnHardModeActionPerformed(){
          initInterval = 800;
+         reduceSpeed = 120;
          modeName = "HARD";
      }
 
@@ -259,7 +251,4 @@ public class SettingItem {
         this.dropKey = dropKey;
     }
 
-    public void setPauseKey(String pauseKey) {
-        this.pauseKey = pauseKey;
-    }
 }
