@@ -3,13 +3,17 @@ package scoreboard;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -33,19 +37,79 @@ public class ScoreBoardMenu extends JFrame {
 	private JButton startBtn = new JButton("Start Menu");
 	private JTextPane scoreboard = new JTextPane();
 	private JTextField nameEnter = new JTextField(10);
-	private int oneLineLength = 41;
+	private final int oneLineLength = 37;
 	private int score;
 	private String mode;
+
 	private String level = "normal";
+	private String scoreWriteText = "Game over. Enter your name within\nfour characters with alphabet and number.";
+
+
+	public ScoreBoardMenu() {
+		super("ScoreBoard"); // 타이틀
+		setResizable(false);
+		requestFocus();
+
+		setSize(350, 580);
+		scoreboard.setEditable(false);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+
+		// load scoreboard file
+		try {
+			sb = new ScoreBoardFile();
+			scoreboard.setText(sb.readScoreBoard());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		// set style
+		setStyle();
+
+		// set layout
+		upperPanel.setLayout(new BorderLayout());
+		upperPanel.add(startBtn, BorderLayout.EAST);
+		upperPanel.add(label, BorderLayout.CENTER);
+		upperPanel.add(exitBtn, BorderLayout.WEST);
+		label.setHorizontalAlignment(JLabel.CENTER);
+		lowerPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		lowerPanel.add(nameEnter);
+		lowerPanel.add(enterBtn);
+		outerPanel.setLayout(new BorderLayout());
+		scoreboard.setOpaque(true);
+		outerPanel.add(scoreboard, BorderLayout.CENTER);
+		outerPanel.add(lowerPanel, BorderLayout.SOUTH);
+		outerPanel.add(upperPanel, BorderLayout.NORTH);
+		add(outerPanel);
+
+		// button action
+		startBtn.addActionListener(e -> btnStartMenuActionPerformed());
+		enterBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tryWriteScoreboard();
+			}
+		});
+		exitBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		enterBtn.setEnabled(false);
+		nameEnter.setEditable(false);
+		label.setText("역대 테트리스 게임 점수");
+	}
 
 	public ScoreBoardMenu(int score, String level, String mode) throws NumberFormatException, IOException {
 		super("ScoreBoard"); // 타이틀
-		this.setResizable(false);
+		setResizable(false);
 		this.score = score;
 		this.level = level;
 		this.mode = mode;
+		requestFocus();
 
-		setSize(380, 750);
+		setSize(350, 580);
 		scoreboard.setEditable(false);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -58,8 +122,9 @@ public class ScoreBoardMenu extends JFrame {
 				enterBtn.setEnabled(false);
 				nameEnter.setEditable(false);
 				label.setText("역대 테트리스 게임 점수");
+				JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),"Game Over");
 			} else {
-				label.setText("Enter name in two alphabet.");
+				JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),scoreWriteText);
 			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
@@ -67,22 +132,7 @@ public class ScoreBoardMenu extends JFrame {
 		}
 
 		// set style
-		Style redStyle = scoreboard.addStyle("Red", null);
-		StyleConstants.setForeground(redStyle, Color.RED);
-		StyleConstants.setBold(redStyle, true);
-
-		Style boldStyle = scoreboard.addStyle("Bold", null);
-		StyleConstants.setBold(boldStyle, true);
-
-		StyledDocument doc = scoreboard.getStyledDocument();
-		SimpleAttributeSet mainAttribute = new SimpleAttributeSet();
-		StyleConstants.setFontFamily(mainAttribute, "Courier");
-		StyleConstants.setFontSize(mainAttribute, 15);
-		doc.setParagraphAttributes(0, doc.getLength(), mainAttribute, false);
-		doc.setCharacterAttributes(0, oneLineLength * 3, scoreboard.getStyle("Bold"), true);
-
-		SimpleAttributeSet styleSet = new SimpleAttributeSet();
-		StyleConstants.setAlignment(styleSet, StyleConstants.ALIGN_CENTER);
+		setStyle();
 
 		// set layout
 		upperPanel.setLayout(new BorderLayout());
@@ -117,6 +167,26 @@ public class ScoreBoardMenu extends JFrame {
 		});
 	}
 
+	private void setStyle() {
+		Style redStyle = scoreboard.addStyle("Red", null);
+		StyleConstants.setForeground(redStyle, Color.RED);
+		StyleConstants.setBold(redStyle, true);
+
+		Style boldStyle = scoreboard.addStyle("Bold", null);
+		StyleConstants.setBold(boldStyle, true);
+
+		StyledDocument doc = scoreboard.getStyledDocument();
+		SimpleAttributeSet mainAttribute = new SimpleAttributeSet();
+		StyleConstants.setFontFamily(mainAttribute, "Courier");
+		StyleConstants.setFontSize(mainAttribute, 15);
+		StyleConstants.setLineSpacing(mainAttribute, (float) 0.34);
+		doc.setParagraphAttributes(0, doc.getLength(), mainAttribute, false);
+		doc.setCharacterAttributes(0, oneLineLength * 3, scoreboard.getStyle("Bold"), true);
+
+		SimpleAttributeSet styleSet = new SimpleAttributeSet();
+		StyleConstants.setAlignment(styleSet, StyleConstants.ALIGN_CENTER);
+	}
+
 	public void reloadData() {
 		try {
 			scoreboard.setText(sb.readScoreBoard());
@@ -129,11 +199,11 @@ public class ScoreBoardMenu extends JFrame {
 	public void tryWriteScoreboard() {
 		String name = nameEnter.getText();
 		StyledDocument doc = scoreboard.getStyledDocument();
-		if (name.length() > 2 || name.length() < 2) {
-			label.setText("Enter name in two alphabet.");
-		} else {
-			label.setText("Name Entered.");
+		if (name.length() > 4 || name.isEmpty() || !isAlphaOrDigit(name)) {
 			nameEnter.setText("");
+		} else {
+			nameEnter.setText("");
+			nameEnter.setEditable(false);
 			try {
 				int temp = sb.writeScoreBoard(name, score, level, mode);
 				String scoreString = sb.readScoreBoard();
@@ -148,9 +218,17 @@ public class ScoreBoardMenu extends JFrame {
 			}
 		}
 	}
-
 	private void btnStartMenuActionPerformed() {
 		this.dispose();
 		Tetris.showStartMenu();
+	}
+
+	private boolean isAlphaOrDigit(String s) {
+		for(int i=0;i<s.length();i++) {
+			char ch = s.charAt(i);
+			if(!(ch >='A'&&ch<='Z')&& !(ch>='a'&&ch<='z') && !(ch>='0' && ch<='9'))
+				return false;
+		}
+		return true;
 	}
 }

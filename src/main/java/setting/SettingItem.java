@@ -39,6 +39,8 @@ public class SettingItem {
      private String modeName;
      private boolean isColorBlind;
 
+    private int reduceSpeed;
+
      private ScoreBoardFile sb;
 
      private SettingItem() throws IOException {
@@ -119,71 +121,33 @@ public class SettingItem {
       * 화면 크기 조절
       */
      public void btnSmallBtnActionPerformed() {
-         boardWidth = 304;
-         boardHeight = 640;
-         fontSize = 20;
+         boardWidth = 300;
+         boardHeight = 500;
+         fontSize = 19;
      }
 
      // default
      public void btnMediumBtnActionPerformed() {
-         boardWidth = 380;
-         boardHeight = 750;
-         fontSize = 22;
+         boardWidth = 350;
+         boardHeight = 583;
+         fontSize = 23;
      }
 
      public void btnLargeBtnActionPerformed() {
-         boardWidth = 456;
-         boardHeight = 750;
-         fontSize = 26;
-     }
-
-     /**
-      * 조작키 설정
-      */
-     public void btnLeftKeyActionPerformed(String keyName){
-         if(keyName == null){
-             throw new EmptyKeyException("LEFT 키 값이 없습니다.");
-         }
-         leftKey = keyName;
-     }
-
-     public void btnRightKeyActionPerformed(String keyName){
-         if(keyName == null){
-             throw new EmptyKeyException("RIGHT 키 값이 없습니다.");
-         }
-         rightKey = keyName;
-     }
-
-     public void btnDownKeyActionPerformed(String keyName){
-         if(keyName == null){
-             throw new EmptyKeyException("DOWN 키 값이 없습니다.");
-         }
-         downKey = keyName;
-     }
-
-     public void btnDropKeyActionPerformed(String keyName){
-         if(keyName == null){
-             throw new EmptyKeyException("DROP 키 값이 없습니다.");
-         }
-         dropKey = keyName;
-     }
-
-     public void btnRotateKeyActionPerformed(String keyName){
-         if(keyName == null){
-             throw new EmptyKeyException("ROTATE 키 값이 없습니다.");
-         }
-         rotateKey = keyName;
+         boardWidth = 400;
+         boardHeight = 666;
+         fontSize = 28;
      }
 
      /**
       * 색맹 모드
       */
      public void btnColorBlindOnActionPerformed() {
-
+        isColorBlind = true;
      }
 
      public void btnColorBlindOffActionPerformed() {
-
+         isColorBlind = false;
      }
 
      /**
@@ -199,7 +163,6 @@ public class SettingItem {
 			e.printStackTrace();
 		}
     	 JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "스코어보드가 초기화 되었습니다..");
-    	
      }
 
      /**
@@ -275,4 +238,28 @@ public class SettingItem {
      public ScoreBoardFile getSb() {
          return sb;
      }
- }
+
+    public void setLeftKey(String leftKey) {
+        this.leftKey = leftKey;
+    }
+
+    public void setRightKey(String rightKey) {
+        this.rightKey = rightKey;
+    }
+
+    public void setDownKey(String downKey) {
+        this.downKey = downKey;
+    }
+
+    public void setRotateKey(String rotateKey) {
+        this.rotateKey = rotateKey;
+    }
+
+    public void setDropKey(String dropKey) {
+        this.dropKey = dropKey;
+    }
+
+    public void setPauseKey(String pauseKey) {
+        this.pauseKey = pauseKey;
+    }
+}

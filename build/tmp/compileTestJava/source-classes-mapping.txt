@@ -3,3 +3,5 @@ setting/ModeTest.java
 setting/LoadFileTest.java
  setting.LoadFileTest
  setting.LoadFileTest$1
+setting/KeySettingTest.java
+ setting.KeySettingTest

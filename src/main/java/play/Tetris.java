@@ -1,74 +1,58 @@
 package play;
 
-import component.StartMenu;
 import game.GameMenu;
 import scoreboard.ScoreBoardMenu;
 import setting.SettingMenu;
+import component.StartMenu;
 
 import java.awt.*;
 import java.io.IOException;
 
 public class Tetris {
 
-    private static GameMenu gameMenu;
+    private static GameMenu gameForm;
     private static StartMenu startmenu;
-    private static SettingMenu settingMenu;
-    private static ScoreBoardMenu scoreBoardMenu;
+    private static SettingMenu settingMenuForm;
+    private static ScoreBoardMenu scoreBoardForm;
 
     public static void start() throws IOException {
-        gameMenu = new GameMenu();
-        gameMenu.setVisible(true);
+        gameForm = new GameMenu();
+        gameForm.setVisible(true);
     }
-    
-    public static void itemGameStart() throws IOException{
-        gameMenu = new GameMenu(1);
-        gameMenu.setVisible(true);
+
+    public static void itemGameStart() throws IOException {
+        gameForm = new GameMenu(1);
+        gameForm.setVisible(true);
     }
-    
+
     public static void disposeGameMenu() {
-    	gameMenu.dispose();
+        gameForm.dispose();
     }
 
-    public static void showStartMenu(){
-    	startmenu.setVisible(true);
+    public static void showStartMenu() {
+        startmenu.dispose();
+        startmenu = new StartMenu();
     }
 
-    public static void showSettingMenu(){
-        settingMenu.setVisible(true);
+    public static void showSettingMenu() {
+        settingMenuForm.setVisible(true);
     }
 
-    public static void showScoreBoard(){
-    	try {
-			scoreBoardMenu = new ScoreBoardMenu(-1,"","");
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	scoreBoardMenu.setVisible(true);
+    public static void showScoreBoard() {
+        scoreBoardForm = new ScoreBoardMenu();
+        scoreBoardForm.setVisible(true);
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-            	startmenu = new StartMenu();
+                startmenu = new StartMenu();
                 try {
-                    settingMenu = new SettingMenu();
+                    settingMenuForm = new SettingMenu();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    throw new RuntimeException(e);
                 }
-                try {
-					scoreBoardMenu = new ScoreBoardMenu(-1,"","");
-				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
                 startmenu.setVisible(true);
             }
         });

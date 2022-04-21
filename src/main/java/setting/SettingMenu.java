@@ -4,6 +4,7 @@ import play.Tetris;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.security.Key;
 
 public class SettingMenu extends JFrame {
 
@@ -28,8 +29,10 @@ public class SettingMenu extends JFrame {
 	private ButtonGroup modeBtnGroup;
 	private JRadioButton[] modeBtns;
 	private JPanel modePanel;
+	private JButton initKeySettingBtn;
 
 	private SettingItem settingItem;
+	private KeySetting keySetting;
 
 	private int size = 1;
 
@@ -51,7 +54,6 @@ public class SettingMenu extends JFrame {
 			sizeBtns[i] = new JRadioButton(sizeNames[i]);
 			sizeBtnGroup.add(sizeBtns[i]);
 		}
-		sizeBtns[1].setSelected(true);
 
 		sizePanel = new JPanel(new GridLayout(0, 4));
 		sizePanel.add(sizeLabel);
@@ -67,7 +69,6 @@ public class SettingMenu extends JFrame {
 		keySettingPanel = displayKeySetting();
 		keyPanel.add(new JLabel("조작키 설정"), BorderLayout.NORTH);
 		keyPanel.add(keySettingPanel, BorderLayout.CENTER);
-		// 키패드 추가 필요
 
 		// 난이도 설정
 		String[] modeNames = { "EASY", "NORMAL", "HARD" };
@@ -88,13 +89,11 @@ public class SettingMenu extends JFrame {
 		modeBtns[0].addActionListener(e -> settingItem.btnEasyModeActionPerformed());
 		modeBtns[1].addActionListener(e -> settingItem.btnNormalModeActionPerformed());
 		modeBtns[2].addActionListener(e -> settingItem.btnHardModeActionPerformed());
-		modeBtns[1].setSelected(true);
 
 		// 색맹 모드 켜고 끄기
 		colorBlindLabel = new JLabel("색맹 모드");
 		colorBlindOnBtn = new JRadioButton("on");
 		colorBlindOffBtn = new JRadioButton("off");
-		colorBlindOffBtn.setSelected(true);
 
 		colorBlindBtnGroup = new ButtonGroup();
 		colorBlindBtnGroup.add(colorBlindOnBtn);
@@ -153,7 +152,6 @@ public class SettingMenu extends JFrame {
 		this.getContentPane().add(initScoreBoardPanel);
 		this.getContentPane().add(colorBlindPanel);
 		this.getContentPane().add(settingBtnPanel);
-
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
@@ -164,13 +162,48 @@ public class SettingMenu extends JFrame {
 		JButton downKey = new JButton("DOWN");
 		JButton rotateKey = new JButton("ROTATE");
 		JButton dropKey = new JButton("DROP");
+		JButton initKey = new JButton("초기화");
 
 		// btnKeyAction안에 String 값 전달만 하면 됨
-		leftKey.addActionListener(e -> settingItem.btnLeftKeyActionPerformed("J"));
-		rightKey.addActionListener(e -> settingItem.btnRightKeyActionPerformed("L"));
-		downKey.addActionListener(e -> settingItem.btnDownKeyActionPerformed("K"));
-		rotateKey.addActionListener(e -> settingItem.btnRotateKeyActionPerformed("I"));
-		dropKey.addActionListener(e -> settingItem.btnDropKeyActionPerformed("SPACE"));
+		leftKey.addActionListener(e -> {
+			try {
+				btnDisplayLeftKeySettingActionPerformed("LEFT");
+			} catch (IOException ioException) {
+				ioException.printStackTrace();
+			}
+		});
+		rightKey.addActionListener(e -> {
+			try {
+				btnDisplayRightKeySettingActionPerformed("RIGHT");
+			} catch (IOException ioException) {
+				ioException.printStackTrace();
+			}
+		});
+		downKey.addActionListener(e -> {
+			try {
+				btnDisplayDownKeySettingActionPerformed("DOWN");
+			} catch (IOException ioException) {
+				ioException.printStackTrace();
+			}
+		});
+		rotateKey.addActionListener(e -> {
+			try {
+				btnDisplayRotateKeySettingActionPerformed("ROTATE");
+			} catch (IOException ioException) {
+				ioException.printStackTrace();
+			}
+		});
+		dropKey.addActionListener(e -> {
+			try {
+				btnDisplayDropKeySettingActionPerformed("DROP");
+			} catch (IOException ioException) {
+				ioException.printStackTrace();
+			}
+		});
+
+		initKey.addActionListener(e -> {
+			btnInitActionPerformed();
+		});
 
 		JPanel keySettingPanel = new JPanel();
 		keySettingPanel.add(leftKey);
@@ -178,8 +211,33 @@ public class SettingMenu extends JFrame {
 		keySettingPanel.add(downKey);
 		keySettingPanel.add(rotateKey);
 		keySettingPanel.add(dropKey);
+		keySettingPanel.add(initKey);
 
 		return keySettingPanel;
+	}
+
+	private void btnInitActionPerformed() {
+		settingItem.initKeySetting();
+	}
+
+	public void btnDisplayLeftKeySettingActionPerformed(String keyType) throws IOException{
+		keySetting = new KeySetting(keyType);
+	}
+
+	public void btnDisplayRightKeySettingActionPerformed(String keyType) throws IOException{
+		keySetting = new KeySetting(keyType);
+	}
+
+	public void btnDisplayDownKeySettingActionPerformed(String keyType) throws IOException{
+		keySetting = new KeySetting(keyType);
+	}
+
+	public void btnDisplayDropKeySettingActionPerformed(String keyType) throws IOException{
+		keySetting = new KeySetting(keyType);
+	}
+
+	public void btnDisplayRotateKeySettingActionPerformed(String keyType) throws IOException{
+		keySetting = new KeySetting(keyType);
 	}
 
 	public void btnGameActionPerformed() throws IOException {
