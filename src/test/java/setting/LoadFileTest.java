@@ -14,6 +14,10 @@ import java.util.Map;
 
 public class LoadFileTest {
 
+    /**
+     * 파일 어떻게 출력되는지 보려고 만든 용도(실제 테스트 x)
+     */
+
     SettingItem settingItem = SettingItem.getInstance();
     ObjectMapper objectMapper = new ObjectMapper()
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);

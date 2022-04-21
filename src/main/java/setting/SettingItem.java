@@ -38,17 +38,11 @@ public class SettingItem {
      private int initInterval;
      private String modeName;
      private boolean isColorBlind;
-
-    private int reduceSpeed;
+     private int reduceSpeed;
 
      private ScoreBoardFile sb;
 
      private SettingItem() throws IOException {
-//         initKeySetting();
-//         initSizeSetting();
-//         initMode();
-//         initColorBlindMode();
-
          Map<String, String> saveFile = loadFile();
 
          leftKey = saveFile.get("leftKey");
@@ -56,13 +50,13 @@ public class SettingItem {
          downKey = saveFile.get("downKey");
          rotateKey = saveFile.get("rotateKey");
          dropKey = saveFile.get("dropKey");
-         pauseKey = saveFile.get("pauseKey");
 
          boardWidth = Integer.parseInt(saveFile.get("boardWidth"));
          boardHeight = Integer.parseInt(saveFile.get("boardHeight"));
          fontSize = Integer.parseInt(saveFile.get("fontSize"));
 
          initInterval = Integer.parseInt(saveFile.get("initInterval"));
+         reduceSpeed = Integer.parseInt(saveFile.get("reduceSpeed"));
          modeName = saveFile.get("modeName");
          isColorBlind = Boolean.parseBoolean(saveFile.get("isColorBlind"));
      }
@@ -82,7 +76,7 @@ public class SettingItem {
     public void btnSaveSettingActionPerformed() throws IOException {
 
         SaveFile saveFile = new SaveFile(leftKey, rightKey, downKey, rotateKey, dropKey, pauseKey,
-                initInterval, modeName, boardWidth, boardHeight, fontSize, isColorBlind);
+                initInterval, reduceSpeed, modeName, boardWidth, boardHeight, fontSize, isColorBlind);
         objectMapper.writeValue(new File("savefile.json"), saveFile);
     }
 
@@ -91,30 +85,6 @@ public class SettingItem {
              return new SettingItem();
          }
          return instance;
-     }
-
-     public void initKeySetting(){
-         leftKey = "LEFT";
-         rightKey = "RIGHT";
-         downKey = "DOWN";
-         rotateKey = "UP";
-         dropKey = "SPACE";
-         pauseKey = "P";
-     }
-
-     public void initColorBlindMode(){
-         isColorBlind = false;
-     }
-
-     public void initMode(){
-         initInterval = 1000;
-         modeName = "NORMAL";
-     }
-
-     public void initSizeSetting(){
-         boardWidth = 380;
-         boardHeight = 750;
-         fontSize = 23;
      }
 
      /**
@@ -170,20 +140,34 @@ public class SettingItem {
       */
      public void btnEasyModeActionPerformed(){
          initInterval = 1200;
+         reduceSpeed = 80;
          modeName = "EASY";
      }
 
      public void btnNormalModeActionPerformed(){
          initInterval = 1000;
+         reduceSpeed = 100;
          modeName = "NORMAL";
      }
 
      public void btnHardModeActionPerformed(){
          initInterval = 800;
+         reduceSpeed = 120;
          modeName = "HARD";
      }
 
-     public ObjectMapper getObjectMapper() {
+    /**
+     * 키 초기화
+     */
+    public void initKeySetting(){
+        leftKey = "LEFT";
+        rightKey = "RIGHT";
+        downKey = "DOWN";
+        dropKey = "DROP";
+        rotateKey = "ROTATE";
+    }
+
+    public ObjectMapper getObjectMapper() {
          return objectMapper;
      }
 
@@ -259,7 +243,4 @@ public class SettingItem {
         this.dropKey = dropKey;
     }
 
-    public void setPauseKey(String pauseKey) {
-        this.pauseKey = pauseKey;
-    }
 }

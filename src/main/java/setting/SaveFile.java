@@ -9,6 +9,7 @@ public class SaveFile{
     private String dropKey;
     private String pauseKey;
     private Integer initInterval;
+    private Integer reduceSpeed;
     private String modeName;
     private Integer boardWidth;
     private Integer boardHeight;
@@ -20,7 +21,7 @@ public class SaveFile{
     }
 
     public SaveFile(String leftKey, String rightKey, String downKey, String rotateKey, String dropKey, String pauseKey,
-                    int initInterval, String modeName, int boardWidth, int boardHeight, int fontSize, boolean isColorBlind) {
+                    Integer initInterval, Integer reduceSpeed, String modeName, Integer boardWidth, Integer boardHeight, Integer fontSize, boolean isColorBlind) {
 
         this.leftKey = leftKey;
         this.rightKey = rightKey;
@@ -29,6 +30,7 @@ public class SaveFile{
         this.dropKey = dropKey;
         this.pauseKey = pauseKey;
         this.initInterval = initInterval;
+        this.reduceSpeed = reduceSpeed;
         this.modeName = modeName;
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
@@ -62,6 +64,10 @@ public class SaveFile{
 
     public Integer getInitInterval() {
         return initInterval;
+    }
+
+    public Integer getReduceSpeed() {
+        return reduceSpeed;
     }
 
     public String getModeName() {

@@ -30,17 +30,19 @@ public class SettingMenu extends JFrame {
 	private JRadioButton[] modeBtns;
 	private JPanel modePanel;
 	private JButton initKeySettingBtn;
-
 	private SettingItem settingItem;
 	private KeySetting keySetting;
-
 	private int size = 1;
+
+	/**
+	 * 설정되있는걸로 버튼 클릭되어있게
+	 */
 
 	public SettingMenu() throws IOException {
 		settingItem = SettingItem.getInstance();
 
 		setTitle("설정메뉴");
-		setSize(800, 600);
+		setSize(450, 720);
 		setBackground(Color.WHITE);
 		setLocationRelativeTo(null);
 
