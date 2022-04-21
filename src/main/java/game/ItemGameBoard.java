@@ -9,7 +9,7 @@ import blocks.*;
 public class ItemGameBoard extends GameBoard {
 
 	private static final long serialVersionUID = 1L;
-	private int lineChange = 1;
+	private int lineChange = 10;
 	private int count = 1;
 
 	public ItemGameBoard() throws java.io.IOException {
@@ -86,7 +86,6 @@ public class ItemGameBoard extends GameBoard {
 		gamePane.placeBlock(x,y,curr);
 	}
 
-
 	protected void setNextBlock() {
 		this.curr = this.nextBlock;
 		//System.out.println(lineNum);
@@ -147,7 +146,6 @@ public class ItemGameBoard extends GameBoard {
 			for(int j=Math.max(0,y-2);j<Math.min(y+4,HEIGHT);j++)
 				gamePane.setBoard(j,i,0);
 	}
-
 	private void totalItem() {
 		for(int i=0;i<WIDTH;i++)
 			for(int j=0;j<HEIGHT;j++)

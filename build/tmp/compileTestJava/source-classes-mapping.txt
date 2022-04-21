@@ -1,9 +1,11 @@
+setting/GamePaneTest.java
+ game.GamePaneTest
 setting/ModeTest.java
  setting.ModeTest
 setting/LoadFileTest.java
  setting.LoadFileTest
  setting.LoadFileTest$1
-game/GameBoardTest.java
- game.GameBoardTest
 game/KeySettingTest.java
  game.KeySettingTest
+game/GameBoardTest.java
+ game.GameBoardTest

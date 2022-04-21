@@ -15,7 +15,11 @@ import blocks.Block;
 
 public class GamePane extends JTextPane {
 	/**
+<<<<<<< HEAD:src/main/java/game/GamePane.java
 	 *
+=======
+	 * 
+>>>>>>> master:src/game/GamePane.java
 	 */
 	private static final long serialVersionUID = 1L;
 	protected SimpleAttributeSet styleSet;
@@ -93,7 +97,6 @@ public class GamePane extends JTextPane {
 		Style B = addStyle("BLACK", null);
 		StyleConstants.setForeground(B, Color.BLACK);
 	}
-
 	private void colorBlindColor(){
 		System.out.println("색 맹 ");
 		Style r = addStyle("RED", null);
@@ -115,7 +118,6 @@ public class GamePane extends JTextPane {
 		Style B = addStyle("BLACK", null);
 		StyleConstants.setForeground(B, Color.BLACK);
 	}
-
 	public SimpleAttributeSet getStyleSet() {
 		return styleSet;
 	}
@@ -174,6 +176,7 @@ public class GamePane extends JTextPane {
 					}
 		}
 	}
+
 	protected void eraseCurr(int x, int y, Block curr) {
 		for (int i = x; i < x + curr.width(); i++) {
 			for (int j = y; j < y + curr.height(); j++) {
@@ -184,7 +187,8 @@ public class GamePane extends JTextPane {
 			}
 		}
 	}
-	public void resetBoard() {
+
+	public void resetBoard(){
 		//To be edited ...
-	}
+		}
 }

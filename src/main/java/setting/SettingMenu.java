@@ -1,10 +1,9 @@
 package setting;
 
-import play.Tetris;
+import main.Tetris;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.security.Key;
 
 public class SettingMenu extends JFrame {
 

@@ -1,12 +1,10 @@
 package game;
 
-import play.Tetris;
+import main.Tetris;
 import setting.SettingItem;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 
 public class GameMenu extends JFrame{

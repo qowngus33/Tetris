@@ -1,4 +1,4 @@
-package play;
+package main;
 
 import game.GameMenu;
 import scoreboard.ScoreBoardMenu;

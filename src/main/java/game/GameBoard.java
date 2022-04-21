@@ -19,7 +19,7 @@ import javax.swing.text.*;
 
 import blocks.Block;
 import blocks.GetRandomBlock;
-import play.Tetris;
+import main.Tetris;
 import scoreboard.ScoreBoardMenu;
 import setting.SettingItem;
 
@@ -425,5 +425,4 @@ public class GameBoard extends JPanel {
 	public void stopTimer() {
 		timer.stop();
 	}
-
 }

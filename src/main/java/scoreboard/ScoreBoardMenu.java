@@ -3,13 +3,10 @@ package scoreboard;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,7 +18,7 @@ import javax.swing.WindowConstants;
 import javax.swing.text.*;
 
 import file.ScoreBoardFile;
-import play.Tetris;
+import main.Tetris;
 
 public class ScoreBoardMenu extends JFrame {
 
@@ -44,12 +41,10 @@ public class ScoreBoardMenu extends JFrame {
 	private String level = "normal";
 	private String scoreWriteText = "Game over. Enter your name within\nfour characters with alphabet and number.";
 
-
 	public ScoreBoardMenu() {
 		super("ScoreBoard"); // 타이틀
 		setResizable(false);
 		requestFocus();
-
 		setSize(350, 580);
 		scoreboard.setEditable(false);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -122,9 +117,9 @@ public class ScoreBoardMenu extends JFrame {
 				enterBtn.setEnabled(false);
 				nameEnter.setEditable(false);
 				label.setText("역대 테트리스 게임 점수");
-				JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),"Game Over");
+				JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Game Over");
 			} else {
-				JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),scoreWriteText);
+				JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), scoreWriteText);
 			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
@@ -186,7 +181,6 @@ public class ScoreBoardMenu extends JFrame {
 		SimpleAttributeSet styleSet = new SimpleAttributeSet();
 		StyleConstants.setAlignment(styleSet, StyleConstants.ALIGN_CENTER);
 	}
-
 	public void reloadData() {
 		try {
 			scoreboard.setText(sb.readScoreBoard());
@@ -218,15 +212,16 @@ public class ScoreBoardMenu extends JFrame {
 			}
 		}
 	}
+
 	private void btnStartMenuActionPerformed() {
 		this.dispose();
 		Tetris.showStartMenu();
 	}
 
 	private boolean isAlphaOrDigit(String s) {
-		for(int i=0;i<s.length();i++) {
+		for (int i = 0; i < s.length(); i++) {
 			char ch = s.charAt(i);
-			if(!(ch >='A'&&ch<='Z')&& !(ch>='a'&&ch<='z') && !(ch>='0' && ch<='9'))
+			if (!(ch >= 'A' && ch <= 'Z') && !(ch >= 'a' && ch <= 'z') && !(ch >= '0' && ch <= '9'))
 				return false;
 		}
 		return true;

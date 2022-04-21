@@ -6,7 +6,7 @@ public class BBlock extends Block {
 	public BBlock() {
 		shape = new int[][] {
 				{1,1},
-				{1,1}
+				{1,1},
 		};
 		item = "bomb";
 		color = "WHITE";

@@ -1,3 +1,5 @@
+component/ImagePanel.java
+ component.ImagePanel
 setting/SettingItem.java
  setting.SettingItem
  setting.SettingItem$1
@@ -59,9 +61,9 @@ game/GamePane.java
  game.GamePane
 game/NextBlockPane.java
  game.NextBlockPane
-play/Tetris.java
- play.Tetris
- play.Tetris$1
+main/Tetris.java
+ main.Tetris
+ main.Tetris$1
 component/StartMenu.java
  component.StartMenu
  component.StartMenu$1
@@ -72,7 +74,6 @@ component/StartMenu.java
  component.StartMenu$6
  component.StartMenu$7
  component.StartMenu$8
- component.StartMenu$ImagePanel
 blocks/SBlock.java
  blocks.SBlock
 blocks/BBlock.java

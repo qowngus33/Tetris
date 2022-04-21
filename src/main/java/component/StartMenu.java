@@ -1,10 +1,9 @@
 package component;
 
 
-import play.Tetris;
+import main.Tetris;
 
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
@@ -68,7 +67,7 @@ public class StartMenu extends JFrame {
 		JPanel imagepanel = new ImagePanel(tetrisBackground);
 		add(imagepanel);
 		setTitle("Tetris Game");
-		setSize(380, 720);
+		setSize(350, 700);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,7 +84,7 @@ public class StartMenu extends JFrame {
 		setVisible(true);
 		menuStart.requestFocus();
 
-		itemStart.setBounds(130, 335, 130, 40);
+		itemStart.setBounds(115, 335, 130, 40);
 		itemStart.setBorderPainted(false);
 		itemStart.setContentAreaFilled(false);
 		itemStart.setFocusPainted(false);
@@ -119,7 +118,7 @@ public class StartMenu extends JFrame {
 			}
 		});
 
-		normalStart.setBounds(130, 380, 130, 40);
+		normalStart.setBounds(115, 380, 130, 40);
 		normalStart.setBorderPainted(false);
 		normalStart.setContentAreaFilled(false);
 		normalStart.setFocusPainted(false);
@@ -154,7 +153,7 @@ public class StartMenu extends JFrame {
 		});
 
 		// start menu
-		menuStart.setBounds(130, 425, 130, 40);
+		menuStart.setBounds(115, 425, 130, 40);
 		menuStart.setBorderPainted(false);
 		menuStart.setContentAreaFilled(false);
 		menuStart.setFocusPainted(false);
@@ -344,11 +343,11 @@ public class StartMenu extends JFrame {
 					}
 					if (menuOption.getIcon() == menuOptionClicked) {
 						dispose();
-						play.Tetris.showSettingMenu();
+						main.Tetris.showSettingMenu();
 					}
 					if (menuSB.getIcon() == menuSBClicked) {
 						dispose();
-						play.Tetris.showScoreBoard();
+						main.Tetris.showScoreBoard();
 					}
 					if (menuExit.getIcon() == menuExitClicked) {
 						System.exit(1);
@@ -358,7 +357,7 @@ public class StartMenu extends JFrame {
 		});
 
 		// options menu
-		menuOption.setBounds(25, 500, 130, 40);
+		menuOption.setBounds(10, 490, 130, 40);
 		menuOption.setBorderPainted(false);
 		menuOption.setContentAreaFilled(false);
 		menuOption.setFocusPainted(false);
@@ -381,12 +380,12 @@ public class StartMenu extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				setVisible(false);
-				play.Tetris.showSettingMenu();
+				main.Tetris.showSettingMenu();
 			}
 		});
 
 		// tetrisIcon
-		icon.setBounds(175, 500, 40, 40);
+		icon.setBounds(160, 490, 40, 40);
 		icon.setBorderPainted(false);
 		icon.setContentAreaFilled(false);
 		icon.setFocusPainted(false);
@@ -403,7 +402,7 @@ public class StartMenu extends JFrame {
 		});
 
 		// score_board menu
-		menuSB.setBounds(235, 500, 130, 40);
+		menuSB.setBounds(220, 490, 130, 40);
 		menuSB.setBorderPainted(false);
 		menuSB.setContentAreaFilled(false);
 		menuSB.setFocusPainted(false);
@@ -425,12 +424,12 @@ public class StartMenu extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				setVisible(false);
-				play.Tetris.showScoreBoard();
+				main.Tetris.showScoreBoard();
 			}
 		});
 
 		// exit menu
-		menuExit.setBounds(130, 575, 130, 40);
+		menuExit.setBounds(115, 555, 130, 40);
 		menuExit.setBorderPainted(false);
 		menuExit.setContentAreaFilled(false);
 		menuExit.setFocusPainted(false);
@@ -466,20 +465,5 @@ public class StartMenu extends JFrame {
 	public void screenDraw(Graphics g) {
 		g.drawImage(tetrisBackground, 0, 0, null);
 		paintComponents(g);
-	}
-
-	class ImagePanel extends JPanel {
-		private Image img;
-
-		public ImagePanel(Image img) {
-			this.img = img;
-			setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
-			setPreferredSize(new Dimension(img.getWidth(null), img.getHeight(null)));
-			setLayout(null);
-		}
-
-		public void paintComponent(Graphics g) {
-			g.drawImage(img, 3, 0, null);
-		}
 	}
 }
