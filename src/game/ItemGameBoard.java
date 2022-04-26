@@ -12,7 +12,7 @@ public class ItemGameBoard extends GameBoard {
 	public ItemGameBoard() throws java.io.IOException {
 	}
 
-	private Block getItemBlock() {
+	protected Block getItemBlock() {
 		Random rnd = new Random(System.currentTimeMillis());
 		int block = rnd.nextInt(1000) % 5;
 		switch (block) {
@@ -21,16 +21,16 @@ public class ItemGameBoard extends GameBoard {
 			case 1:
 				Block temp = getRandomBlock.getRandomBlockMode(modeName);
 				rnd = new Random(System.currentTimeMillis());
-				block = rnd.nextInt(1000) % 4+1;
+				block = rnd.nextInt(1000) % 4;
 				int count = 0;
 				for(int i=0;i<temp.width();i++)
 					for(int j=0;j<temp.height();j++)
 						if(temp.getShape(i, j)==1) {
-							count++;
 							if(count==block) {
 								temp.setShape(i, j, 2);
 								break;
 							}
+							count++;
 						}
 				temp.setItem("L");
 				return temp;

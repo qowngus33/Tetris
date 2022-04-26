@@ -1,5 +1,4 @@
 package blocks;
-import java.awt.Color;
 
 public class LBlock extends Block {
 	
