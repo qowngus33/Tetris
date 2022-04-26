@@ -6,7 +6,7 @@ import blocks.*;
 public class ItemGameBoard extends GameBoard {
 
 	private static final long serialVersionUID = 1L;
-	private int lineChange = 10;
+	private int lineChange = 1;
 	private int count = 1;
 
 	public ItemGameBoard() throws java.io.IOException {
@@ -28,7 +28,8 @@ public class ItemGameBoard extends GameBoard {
 						if(temp.getShape(i, j)==1) {
 							if(count==block) {
 								temp.setShape(i, j, 2);
-								break;
+								temp.setItem("L");
+								return temp;
 							}
 							count++;
 						}
@@ -41,11 +42,38 @@ public class ItemGameBoard extends GameBoard {
 		}
 		return new BBlock();
 	}
+	
+	@Override
+	protected void moveDown() {
+		gamePane.eraseCurr(x, y, curr);
+		if (!detectCrash('D')) {
+			y++;
+			score++;
+		} else {
+			gamePane.placeBlock(x, y, curr);
+			items();
+			newBlock();
+		}
+		gamePane.placeBlock(x, y, curr);
+		gamePane.draw();
+	}
+
+	@Override
+	protected void dropBlock() {
+		gamePane.eraseCurr(x, y, curr);
+		while (!detectCrash('D')) {
+			y++;
+			score++;
+		}
+		gamePane.placeBlock(x, y, curr);
+		items();
+		newBlock();
+		gamePane.placeBlock(x, y, curr);
+		gamePane.draw();
+	}
 
 	@Override
 	protected void newBlock() {
-		items();
-		gamePane.placeBlock(x, y, curr); // 밑으로 내려가지 않게 고정
 		curr = nextBlock;
 		if (isGameEnded()) {
 			gameEnded = true;
@@ -60,7 +88,6 @@ public class ItemGameBoard extends GameBoard {
 		x = 3;
 		y = 0;
 	}
-
 
 	private void items() {
 		if (curr.getItem() == "weight") {

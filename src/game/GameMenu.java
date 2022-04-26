@@ -255,16 +255,19 @@ public class GameMenu extends JFrame {
 	}
 
 	private void btnScoreBoardActionPerformed() {
+		timer.stop();
 		dispose();
 		Tetris.showScoreBoard();
 	}
 
 	private void btnSettingActionPerformed() {
+		timer.stop();
 		dispose();
 		Tetris.showSettingMenu();
 	}
 
 	private void btnStartMenuActionPerformed() {
+		timer.stop();
 		dispose();
 		Tetris.showStartMenu();
 	}
