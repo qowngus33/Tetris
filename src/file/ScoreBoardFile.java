@@ -27,7 +27,7 @@ public class ScoreBoardFile extends FileClass {
 			if (strings[i] != null) {
 				String[] splited = strings[i].split(" ");
 				if (splited.length == 4 && splited[1].matches("[+-]?\\d*(\\.\\d+)?")) {
-					Pair p = new Pair(splited[0], Integer.parseInt(splited[1]), splited[2],splited[3]);
+					Pair p = new Pair(splited[0], Integer.parseInt(splited[1]), splited[2], splited[3]);
 					v.add(p);
 				}
 			}
@@ -38,14 +38,18 @@ public class ScoreBoardFile extends FileClass {
 	public String readScoreBoard() throws IOException {
 		String sb = new String();
 		for (int i = 0; i < Math.min(v.size(), 20); i++) {
-			sb += (" " + String.format("%02d", i + 1) +"|   "+ String.format("%-4s", v.get(i).name) + "   "
-					+ String.format("%05d", v.get(i).score) + "   "+ String.format("%-7s", v.get(i).level) + String.format("%7s",v.get(i).mode) + "\n");
+			sb += (" " + String.format("%02d", i + 1) + "|   " + String.format("%-4s", v.get(i).name) + "   "
+					+ String.format("%05d", v.get(i).score) + "   " + String.format("%-7s", v.get(i).level)
+					+ String.format("%7s", v.get(i).mode) + "\n");
 		}
 		return sb;
 	}
 
-	public int writeScoreBoard(String name, int score, String level,String mode) throws IOException {
-		v.add(new Pair(name, score, level,mode));
+	public int writeScoreBoard(String name, int score, String level, String mode) throws IOException {
+		if (name == null || score <= 0 || level == null || mode == null) {
+			throw new IOException();
+		}
+		v.add(new Pair(name, score, level, mode));
 		Collections.sort(v, new PairComparator());
 		for (int i = 0; i < Math.min(v.size(), 20); i++) {
 			if (v.get(i).name == name && v.get(i).score == score)
@@ -101,7 +105,7 @@ class Pair {
 		this.mode = "";
 	}
 
-	public Pair(String name, Integer score, String level,String mode) {
+	public Pair(String name, Integer score, String level, String mode) {
 		this.name = name;
 		this.score = score;
 		this.level = level;

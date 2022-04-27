@@ -24,7 +24,7 @@ public abstract class Block {
 	}
 
 	public void setShape(int x, int y, int value) {
-		shape[y][x] = value;
+		getShape()[y][x] = value;
 	}
 
 	public void setItem(String item) {
@@ -33,13 +33,13 @@ public abstract class Block {
 
 	public void rotate() {
 		// Rotate the block 90 deg. clockwise
-		int m = shape.length;
-		int n = shape[0].length;
+		int m = getShape().length;
+		int n = getShape()[0].length;
 		int[][] rotated = new int[n][m];
 
 		for (int i = 0; i < m; i++) {
 			for (int j = 0; j < n; j++) {
-				rotated[j][m - i - 1] = shape[i][j];
+				rotated[j][m - i - 1] = getShape()[i][j];
 			}
 		}
 
@@ -48,12 +48,16 @@ public abstract class Block {
 	}
 
 	public int height() {
-		return shape.length;
+		return getShape().length;
 	}
 
 	public int width() {
-		if (shape.length > 0)
-			return shape[0].length;
+		if (getShape().length > 0)
+			return getShape()[0].length;
 		return 0;
+	}
+
+	public int[][] getShape() {
+		return shape;
 	}
 }

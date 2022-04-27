@@ -8,3 +8,8 @@ aaaa 1221 NORMAL regul
 qwea 2959 NORMAL regul
 qwe 115 NORMAL regul
 qq 5621 NORMAL regul
+jh34 2006 NORMAL regul
+null 0 null null
+null 0 null null
+gh 120 NORMAL item
+gh 120 NORMAL item

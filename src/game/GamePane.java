@@ -122,7 +122,7 @@ public class GamePane extends JTextPane {
 		}
 	}
 
-	protected void eraseCurr(int x, int y, Block curr) {
+	public void eraseCurr(int x, int y, Block curr) {
 		for (int i = x; i < x+curr.width(); i++) {
 			for (int j = y; j < y+curr.height(); j++) {
 				if (curr.getShape(i-x, j-y) != 0 && i < WIDTH && j < HEIGHT) {
