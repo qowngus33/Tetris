@@ -21,6 +21,29 @@ public class GamePane extends JTextPane {
 	protected static final int WIDTH = 10;
 	protected int[][] board;
 	protected String[][] colorBoard;
+	
+	public GamePane() {
+		setEditable(false);
+		setBackground(Color.BLACK);
+		CompoundBorder border = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.GRAY, 4),
+				BorderFactory.createLineBorder(Color.white, 1));
+		setBorder(border);
+
+		styleSet = new SimpleAttributeSet();
+		sideColor();
+		StyleConstants.setLineSpacing(styleSet, (float) -0.5);
+		StyleConstants.setFontSize(styleSet, 10);
+		StyleConstants.setFontFamily(styleSet, Font.MONOSPACED);
+		StyleConstants.setBold(styleSet, true);
+		StyleConstants.setForeground(styleSet, Color.WHITE);
+		StyleConstants.setAlignment(styleSet, StyleConstants.ALIGN_CENTER);
+
+		board = new int[HEIGHT][WIDTH];
+		colorBoard = new String[HEIGHT + 2][WIDTH + 2];
+		for (int i = 0; i < HEIGHT + 2; i++)
+			for (int j = 0; j < WIDTH + 2; j++)
+				colorBoard[i][j] = "BLACK";
+	}
 
 	public GamePane(boolean isColorBlindMode) {
 		setEditable(false);
@@ -89,6 +112,27 @@ public class GamePane extends JTextPane {
 		StyleConstants.setForeground(B, Color.BLACK);
 	}
 	
+	private void sideColor() {
+		Style r = addStyle("RED", null);
+		StyleConstants.setForeground(r, Color.gray);
+		Style c = addStyle("CYAN", null);
+		StyleConstants.setForeground(c, Color.gray);
+		Style b = addStyle("BLUE", null);
+		StyleConstants.setForeground(b, Color.gray);
+		Style o = addStyle("ORANGE", null);
+		StyleConstants.setForeground(o, Color.gray);
+		Style y = addStyle("YELLOW", null);
+		StyleConstants.setForeground(y, Color.gray);
+		Style g = addStyle("GREEN", null);
+		StyleConstants.setForeground(g, Color.gray);
+		Style m = addStyle("MAGENTA", null);
+		StyleConstants.setForeground(m, Color.gray);
+		Style w = addStyle("WHITE", null);
+		StyleConstants.setForeground(w, Color.gray);
+		Style B = addStyle("BLACK", null);
+		StyleConstants.setForeground(B, Color.BLACK);
+	}
+	
 	public void draw() {
 		StyledDocument doc = this.getStyledDocument();
 		StringBuffer sb = new StringBuffer();
@@ -132,21 +176,17 @@ public class GamePane extends JTextPane {
 			}
 		}
 	}
-
-	public void settext(String string) {
-		String letter = "";
-		for (int i = 0; i < 9; i++)
-			letter += "          \n";
-		int num = 10-string.length();
-		for(int i=0;i<num/2;i++)
-			letter += " ";
-		letter += string;
-		for(int i=0;i<num/2;i++)
-			letter += " ";
-		letter += "\n";
-		for (int i = 0; i < 9; i++)
-			letter += "          \n";
-		setText(letter);
+	
+	public void setLines(int [][] lines) {
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < lines.length; i++) {
+			for (int j = 0; j < lines[i].length; j++) {
+				if (lines[i][j] == 1) sb.append("O");
+				else sb.append(" ");
+			}
+			if (i != lines.length-1) sb.append("\n");
+		}
+		setText(sb.toString());
 	}
 
 	public SimpleAttributeSet getStyleSet() {

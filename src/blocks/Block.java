@@ -12,6 +12,8 @@ public abstract class Block {
 	}
 
 	public int getShape(int x, int y) {
+		if(x<0||y<0||y>=shape.length||x>=shape[0].length)
+			return 0;
 		return shape[y][x];
 	}
 

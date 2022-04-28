@@ -48,7 +48,7 @@ public class GameMenu extends JFrame {
 			gameMode = "regul";
 		}
 		gameBoard.gamePane.setFontSize(settingItem.getFontSize());
-		gameBoard.gamePane.draw();
+		gameBoard.drawBoard();
 
 		setResizable(false);
 		setBackground(Color.WHITE);
@@ -226,16 +226,10 @@ public class GameMenu extends JFrame {
 	public void pause() {
 		if (!timer.isRunning()) {
 			timer.start();
-			gameBoard.gamePane.draw();
+			gameBoard.drawBoard();
 		} else {
 			timer.stop();
-			String pause = "";
-			for (int i = 0; i < 9; i++)
-				pause += "          \n";
-			pause += "  PAUSED  \n";
-			for (int i = 0; i < 9; i++)
-				pause += "          \n";
-			gameBoard.gamePane.setText(pause);
+			gameBoard.setGameBoardText("PAUSE");
 		}
 	}
 
