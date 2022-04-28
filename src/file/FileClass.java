@@ -19,10 +19,6 @@ public abstract class FileClass {
 	}
 
 	public void getFile(String filename) {
-		String BASE_PATH = new File("").getAbsolutePath();
-		String RESOURCE_PATH = "/src/resource";
-		String FILE_NAME = "/sample-data.txt";
-		 String FILE_PATH;
 		fileName = filename;
 		file = new File(filename);
 		strings = new String[100];

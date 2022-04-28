@@ -133,6 +133,22 @@ public class GamePane extends JTextPane {
 		}
 	}
 
+	public void settext(String string) {
+		String letter = "";
+		for (int i = 0; i < 9; i++)
+			letter += "          \n";
+		int num = 10-string.length();
+		for(int i=0;i<num/2;i++)
+			letter += " ";
+		letter += string;
+		for(int i=0;i<num/2;i++)
+			letter += " ";
+		letter += "\n";
+		for (int i = 0; i < 9; i++)
+			letter += "          \n";
+		setText(letter);
+	}
+
 	public SimpleAttributeSet getStyleSet() {
 		return styleSet;
 	}
