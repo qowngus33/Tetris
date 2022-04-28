@@ -200,12 +200,15 @@ public class FightMenu extends JFrame implements KeyListener {
 
 	protected void gameOver() {
 		timer.stop();
-		if (gameBoard1.getScore() > gameBoard2.getScore()) {
+		if (gameBoard2.getGameEnded()&&!gameBoard1.getGameEnded()) {
 			gameBoard1.setGameBoardText("WIN!");
 			gameBoard2.setGameBoardText("LOSE");
-		} else {
+		} else if (gameBoard1.getGameEnded()&&!gameBoard2.getGameEnded()){
 			gameBoard1.setGameBoardText("LOSE");
 			gameBoard2.setGameBoardText("WIN!");
+		} else {
+			gameBoard1.setGameBoardText("DRAW!");
+			gameBoard2.setGameBoardText("DRAW!");
 		}
 	}
 

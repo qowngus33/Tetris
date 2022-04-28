@@ -11,7 +11,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Tetris {
-    private static GameMenu gameForm;
+    private static FightMenu gameForm;
     private static StartMenu startmenu;
     private static SettingMenu settingMenuForm;
     private static KeySetting keySetting;
@@ -19,13 +19,13 @@ public class Tetris {
 
     public static void start() throws IOException {
         System.out.println("NORMAL MODE");
-        gameForm = new GameMenu(false);
+        gameForm = new FightMenu(false);
         gameForm.setVisible(true);
     }
 
     public static void itemGameStart() throws IOException {
         System.out.println("ITEM MODE");
-        gameForm = new GameMenu(true);
+        //gameForm = new GameMenu(true);
         gameForm.setVisible(true);
     }
 
