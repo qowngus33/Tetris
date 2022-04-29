@@ -27,11 +27,14 @@ public class FightMenu extends JFrame implements KeyListener {
 	private GameBoard gameBoard2;;
 	private GamePane gamePane1;
 	private GamePane gamePane2;
+	private int loser;
+	
 	protected static int initInterval;
 	protected JLabel scoreLabel1;
 	protected JLabel scoreLabel2;
 	protected String gameMode;
 	protected Timer timer;
+	
 
 	public FightMenu(boolean isItemMode) throws IOException {
 		super("Tetris Fight");
@@ -70,7 +73,6 @@ public class FightMenu extends JFrame implements KeyListener {
 		gameBoard1.drawBoard();
 		gameBoard2.gamePane.setFontSize(settingItem.getFontSize());
 		gameBoard2.drawBoard();
-
 		gameBoard1.nextBlockPane.drawNextBlockBoard(gameBoard1.getNextBlock());
 		gameBoard2.nextBlockPane.drawNextBlockBoard(gameBoard2.getNextBlock());
 
@@ -167,14 +169,10 @@ public class FightMenu extends JFrame implements KeyListener {
 			timer.stop();
 			setTimer();
 		}
-		if (gameBoard1.getErasedLine().length > 1) {
+		if (gameBoard1.getErasedLine().length > 1)
 			gamePane2.setLines(gameBoard1.getErasedLine());
-			// gameBoard1.resetErasedLine();
-		}
-		if (gameBoard2.getErasedLine().length > 1) {
+		if (gameBoard2.getErasedLine().length > 1)
 			gamePane1.setLines(gameBoard2.getErasedLine());
-			// gameBoard2.resetErasedLine();
-		}
 	}
 
 	public void pause() {
@@ -201,16 +199,23 @@ public class FightMenu extends JFrame implements KeyListener {
 	protected void newBlock(GameBoard gameBoard) {
 		gameBoard.placeBlock(); // 밑으로 내려가지 않게 고정
 		if (gameBoard.isGameEnded()) {
+			timer.stop();
+			if(gameBoard==gameBoard1) {
+				loser = 1;
+			} else {
+				loser = 2;
+			}
 			gameOver();
-			gameBoard.setGameBoardText("LOSE");
 			return;
 		}
 		if(gameBoard==gameBoard1) {
 			gameBoard.gamePane.addLines(gameBoard2.erasedLine);
 			gameBoard2.resetErasedLine();
+			gamePane1.setLines(gameBoard2.getErasedLine());
 		} else {
 			gameBoard.gamePane.addLines(gameBoard1.erasedLine);
 			gameBoard1.resetErasedLine();
+			gamePane2.setLines(gameBoard1.getErasedLine());
 		}
 		gameBoard.eraseLine();
 		gameBoard.curr = gameBoard.nextBlock;
@@ -218,11 +223,15 @@ public class FightMenu extends JFrame implements KeyListener {
 		gameBoard.x = 3;
 		gameBoard.y = 0;
 	}
-
-	protected void gameOver() {
-		gameBoard2.setGameBoardText("WIN!");
-		gameBoard1.setGameBoardText("WIN!");
-		timer.stop();
+	
+	private void gameOver() {
+		if(loser==1) {
+			gameBoard1.setGameBoardText("LOSE");
+			gameBoard2.setGameBoardText("WIN!");
+		} else {
+			gameBoard2.setGameBoardText("LOSE");
+			gameBoard1.setGameBoardText("WIN!");
+		}
 	}
 
 	private void btnScoreBoardActionPerformed() {

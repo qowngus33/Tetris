@@ -44,9 +44,9 @@ public class GamePane extends JTextPane {
 		StyleConstants.setForeground(styleSet, Color.WHITE);
 		StyleConstants.setAlignment(styleSet, StyleConstants.ALIGN_CENTER);
 
-		board = new int[HEIGHT][WIDTH];
-		colorBoard = new String[HEIGHT + 2][WIDTH + 2];
-		for (int i = 0; i < HEIGHT + 2; i++)
+		board = new int[10][WIDTH];
+		colorBoard = new String[10 + 2][WIDTH + 2];
+		for (int i = 0; i < 10 + 2; i++)
 			for (int j = 0; j < WIDTH + 2; j++)
 				colorBoard[i][j] = "BLACK";
 	}
@@ -146,9 +146,9 @@ public class GamePane extends JTextPane {
 		}
 		setText(sb.toString());
 		doc.setParagraphAttributes(0, doc.getLength(), styleSet, false);
-		for (int i = 0; i < HEIGHT; i++)
-			for (int j = 0; j < WIDTH; j++)
-				doc.setCharacterAttributes(i * (WIDTH + 1) + j, 1, getStyle(colorBoard[i][j]), false);
+		for (int i = 0; i < board.length; i++)
+			for (int j = 0; j < board[i].length; j++)
+				doc.setCharacterAttributes(i * (board[i].length + 1) + j, 1, getStyle(colorBoard[i][j]), false);
 		setStyledDocument(doc);
 	}
 
@@ -179,7 +179,7 @@ public class GamePane extends JTextPane {
 	
 	public void setLines(int [][] lines) {
 		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < HEIGHT-lines.length; i++) {
+		for (int i = 0; i < 10-lines.length; i++) {
 			sb.append("          \n");
 		}
 		for (int i = 0; i < lines.length; i++) {
