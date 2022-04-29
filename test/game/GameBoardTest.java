@@ -59,7 +59,6 @@ public class GameBoardTest {
     @Test
     public void newBlock() {
     	Block block = gameBoard.curr;
-    	gameBoard.newBlock();
     	Assert.assertNotSame(block, gameBoard.curr);
     	
     }

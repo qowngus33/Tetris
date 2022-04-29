@@ -27,6 +27,7 @@ public class GameBoard extends JPanel {
 	protected SimpleAttributeSet styleSet;
 	protected Block curr;
 	protected Block nextBlock;
+	protected NextBlockPane nextBlockPane;
 	protected int score = 0;
 	protected int level = 1;
 	protected int lineNum = 0;
@@ -35,7 +36,6 @@ public class GameBoard extends JPanel {
 	protected int y = 0;
 	protected String modeName;
 	protected int[][] erasedLine;
-	protected int lineNumForFightMode = 0;
 
 	public GameBoard() throws IOException {
 		setBackground(Color.WHITE);
@@ -46,6 +46,8 @@ public class GameBoard extends JPanel {
 
 		getRandomBlock = new GetRandomBlock();
 		nextBlock = getRandomBlock.getRandomBlockMode(modeName);
+		nextBlockPane = new NextBlockPane(settingItem.isColorBlind());
+		nextBlockPane.setFontSize(settingItem.getFontSize());
 		gamePane = new GamePane(settingItem.isColorBlind());
 
 		// Create the first block and draw.
@@ -97,15 +99,14 @@ public class GameBoard extends JPanel {
 		}
 	}
 
-	protected void moveDown() {
+	protected boolean moveDown() {
 		gamePane.eraseCurr(x, y, curr);
 		if (!detectCrash('D')) {
 			y++;
 			score++;
-		} else
-			newBlock();
-		gamePane.placeBlock(x, y, curr);
-		gamePane.draw();
+			return true;
+		}
+		return false;
 	}
 
 	protected void dropBlock() {
@@ -114,25 +115,15 @@ public class GameBoard extends JPanel {
 			y++;
 			score++;
 		}
-		newBlock();
-		gamePane.placeBlock(x, y, curr);
-		gamePane.draw();
-	}
-
-	protected void newBlock() {
-		gamePane.placeBlock(x, y, curr); // 밑으로 내려가지 않게 고정
-		if (isGameEnded())
-			gameEnded = true;
-		eraseLine();
-		curr = nextBlock;
-		nextBlock = getRandomBlock.getRandomBlockMode(modeName);
-		x = 3;
-		y = 0;
 	}
 
 	protected void eraseLine() {
 		int temp = 0;
 		int[][] lines = new int[HEIGHT][WIDTH];
+		for (int j = 0; j < erasedLine.length; j++)
+			for (int i = 0; i < WIDTH; i++)
+				lines[j][i] = erasedLine[j][i];
+
 		for (int i = 0; i < HEIGHT; i++) {
 			boolean lineClear = true;
 			for (int j = 0; j < WIDTH; j++) {
@@ -143,10 +134,10 @@ public class GameBoard extends JPanel {
 			}
 			if (lineClear) {
 				for (int k = 0; k < WIDTH; k++) {
-					if(curr.getShape(k-x, i-y) == 0)
-						lines[temp][k] = gamePane.getBoard(i, k);
+					if (curr.getShape(k - x, i - y) == 0)
+						lines[erasedLine.length + temp][k] = gamePane.getBoard(i, k);
 					else
-						lines[temp][k] = 0;
+						lines[erasedLine.length + temp][k] = 0;
 				}
 				for (int k = i; k > 1; k--) {
 					for (int l = 0; l < WIDTH; l++) {
@@ -159,21 +150,15 @@ public class GameBoard extends JPanel {
 				temp++;
 			}
 		}
-		
+
 		if (temp > 0) {
 			audio();
-			erasedLine = new int[HEIGHT][WIDTH];
-			for (int j = 0; j < HEIGHT-temp; j++) {
-				for (int i = 0; i < WIDTH; i++) {
-					erasedLine[j][i] = 0;
-				}
+			if (temp > 1) {
+				erasedLine = new int[Math.min(10, erasedLine.length + temp)][WIDTH];
+				for (int j = 0; j < erasedLine.length; j++)
+					for (int i = 0; i < WIDTH; i++)
+						erasedLine[j][i] = lines[j][i];
 			}
-			for (int j = HEIGHT-temp; j < HEIGHT; j++) {
-				for (int i = 0; i < WIDTH; i++) {
-					erasedLine[j][i] = lines[j-(HEIGHT-temp)][i];
-				}
-			}
-			lineNumForFightMode = temp;
 		}
 		gamePane.draw();
 	}
@@ -184,11 +169,6 @@ public class GameBoard extends JPanel {
 
 	protected void resetErasedLine() {
 		erasedLine = new int[0][0];
-		lineNumForFightMode = 0;
-	}
-	
-	protected int getLineNumForFightMode() {
-		return lineNumForFightMode;
 	}
 
 	protected void rotateBlock() {
@@ -269,6 +249,10 @@ public class GameBoard extends JPanel {
 		}
 		return false;
 	}
+	
+	public void placeBlock() {
+		gamePane.placeBlock(x, y, curr);
+	}
 
 	public int getScore() {
 		return score;
@@ -292,10 +276,6 @@ public class GameBoard extends JPanel {
 
 	public String getModeName() {
 		return modeName.toString();
-	}
-
-	public boolean getGameEnded() {
-		return gameEnded;
 	}
 
 }

@@ -6,8 +6,8 @@ import blocks.*;
 public class ItemGameBoard extends GameBoard {
 
 	private static final long serialVersionUID = 1L;
-	private int lineChange = 1;
-	private int count = 1;
+	protected int lineChange = 1;
+	protected int count = 1;
 
 	public ItemGameBoard() throws java.io.IOException {
 	}
@@ -42,54 +42,9 @@ public class ItemGameBoard extends GameBoard {
 		}
 		return new BBlock();
 	}
-	
-	@Override
-	protected void moveDown() {
-		gamePane.eraseCurr(x, y, curr);
-		if (!detectCrash('D')) {
-			y++;
-			score++;
-		} else {
-			gamePane.placeBlock(x, y, curr);
-			items();
-			newBlock();
-		}
-		gamePane.placeBlock(x, y, curr);
-		gamePane.draw();
-	}
 
-	@Override
-	protected void dropBlock() {
-		gamePane.eraseCurr(x, y, curr);
-		while (!detectCrash('D')) {
-			y++;
-			score++;
-		}
-		gamePane.placeBlock(x, y, curr);
-		items();
-		newBlock();
-		gamePane.placeBlock(x, y, curr);
-		gamePane.draw();
-	}
 
-	@Override
-	protected void newBlock() {
-		curr = nextBlock;
-		if (isGameEnded()) {
-			gameEnded = true;
-		}
-		if (lineNum/count >= lineChange) {
-			count++;
-			nextBlock = getItemBlock();
-		} else {
-			nextBlock = getRandomBlock.getRandomBlockMode(modeName);
-		}
-		eraseLine();
-		x = 3;
-		y = 0;
-	}
-
-	private void items() {
+	protected void items() {
 		if (curr.getItem() == "weight") {
 			for (int i = x; i < x + curr.width(); i++) {
 				for (int j = 0; j < HEIGHT; j++) {

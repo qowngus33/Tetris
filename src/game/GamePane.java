@@ -31,7 +31,13 @@ public class GamePane extends JTextPane {
 
 		styleSet = new SimpleAttributeSet();
 		sideColor();
-		StyleConstants.setLineSpacing(styleSet, (float) -0.5);
+		Style w = addStyle("WHITE", null);
+		StyleConstants.setForeground(w, Color.WHITE);
+		Style B = addStyle("BLACK", null);
+		StyleConstants.setForeground(B, Color.BLACK);
+		Style G = addStyle("GRAY", null);
+		StyleConstants.setForeground(G, Color.gray);
+		StyleConstants.setLineSpacing(styleSet, (float) -0.3);
 		StyleConstants.setFontSize(styleSet, 10);
 		StyleConstants.setFontFamily(styleSet, Font.MONOSPACED);
 		StyleConstants.setBold(styleSet, true);
@@ -55,6 +61,12 @@ public class GamePane extends JTextPane {
 		styleSet = new SimpleAttributeSet();
 		if (isColorBlindMode) colorBlindColor();
 		else simpleColor();
+		Style w = addStyle("WHITE", null);
+		StyleConstants.setForeground(w, Color.WHITE);
+		Style B = addStyle("BLACK", null);
+		StyleConstants.setForeground(B, Color.BLACK);
+		Style G = addStyle("GRAY", null);
+		StyleConstants.setForeground(G, Color.gray);
 
 		StyleConstants.setLineSpacing(styleSet, (float) -0.2);
 		StyleConstants.setFontSize(styleSet, 20);
@@ -85,10 +97,6 @@ public class GamePane extends JTextPane {
 		StyleConstants.setForeground(g, new Color(141, 200, 60));
 		Style m = addStyle("MAGENTA", null);
 		StyleConstants.setForeground(m, new Color(180, 57, 160));
-		Style w = addStyle("WHITE", null);
-		StyleConstants.setForeground(w, Color.WHITE);
-		Style B = addStyle("BLACK", null);
-		StyleConstants.setForeground(B, Color.BLACK);
 	}
 
 	private void colorBlindColor() {
@@ -106,10 +114,6 @@ public class GamePane extends JTextPane {
 		StyleConstants.setForeground(g, new Color(13, 152, 186));
 		Style m = addStyle("MAGENTA", null);
 		StyleConstants.setForeground(m, new Color(149, 53, 83));
-		Style w = addStyle("WHITE", null);
-		StyleConstants.setForeground(w, Color.WHITE);
-		Style B = addStyle("BLACK", null);
-		StyleConstants.setForeground(B, Color.BLACK);
 	}
 	
 	private void sideColor() {
@@ -127,10 +131,6 @@ public class GamePane extends JTextPane {
 		StyleConstants.setForeground(g, Color.gray);
 		Style m = addStyle("MAGENTA", null);
 		StyleConstants.setForeground(m, Color.gray);
-		Style w = addStyle("WHITE", null);
-		StyleConstants.setForeground(w, Color.gray);
-		Style B = addStyle("BLACK", null);
-		StyleConstants.setForeground(B, Color.BLACK);
 	}
 	
 	public void draw() {
@@ -179,6 +179,9 @@ public class GamePane extends JTextPane {
 	
 	public void setLines(int [][] lines) {
 		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < HEIGHT-lines.length; i++) {
+			sb.append("          \n");
+		}
 		for (int i = 0; i < lines.length; i++) {
 			for (int j = 0; j < lines[i].length; j++) {
 				if (lines[i][j] == 1) sb.append("O");
@@ -187,6 +190,25 @@ public class GamePane extends JTextPane {
 			if (i != lines.length-1) sb.append("\n");
 		}
 		setText(sb.toString());
+	}
+	
+	public void addLines(int [][] lines) {
+		int [][] tempList = new int[HEIGHT][WIDTH];
+		String [][] tempColorList = new String[HEIGHT][WIDTH];
+		for (int i = board.length-1; i >=lines.length; i--) {
+			for (int j = 0; j < board[i].length; j++) {
+				tempList[i-lines.length][j] = board[i][j];
+				tempColorList[i-lines.length][j] = colorBoard[i][j];
+			}
+		}
+		for (int i = board.length-lines.length; i <board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				tempList[i][j] = lines[i-board.length+lines.length][j];
+				tempColorList[i][j] = "GRAY";
+			}
+		}
+		board = tempList;
+		colorBoard = tempColorList;
 	}
 
 	public SimpleAttributeSet getStyleSet() {

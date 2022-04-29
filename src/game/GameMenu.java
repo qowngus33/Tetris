@@ -22,7 +22,7 @@ public class GameMenu extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private SettingItem settingItem;
 	private GameBoard gameBoard;
 	protected NextBlockPane nextBlockPane;
@@ -39,7 +39,7 @@ public class GameMenu extends JFrame {
 		settingItem = SettingItem.getInstance();
 		setSize(settingItem.getBoardWidth(), settingItem.getBoardHeight());
 		SettingItem.isItemMode = isItemMode;
-		
+
 		if (isItemMode) {
 			gameBoard = new ItemGameBoard();
 			gameMode = "item";
@@ -56,11 +56,11 @@ public class GameMenu extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		nextBlockPane = new NextBlockPane(settingItem.isColorBlind());
 		nextBlockPane.setFontSize(settingItem.getFontSize());
 		nextBlockPane.drawNextBlockBoard(gameBoard.getNextBlock());
-		
+
 		// Side display
 		scoreLabel = new JLabel(gameBoard.getScore() + "", JLabel.CENTER);
 		TitledBorder tborder = new TitledBorder("SCORE");
@@ -97,17 +97,17 @@ public class GameMenu extends JFrame {
 		rightPanel.setAlignmentX(LEFT_ALIGNMENT);
 		rightPanel.setBackground(Color.WHITE);
 
-		//upper panel
+		// upper panel
 		JPanel upperPanel = new JPanel();
 		upperPanel.add(gameBoard);
 		upperPanel.add(rightPanel);
 		upperPanel.setBackground(Color.white);
-		
-		//lower panel
+
+		// lower panel
 		JButton settingButton = new JButton("Settings");
 		JButton startMenuBtn = new JButton("Startmenu");
 		JButton scoreBoardBtn = new JButton("Scoreboard");
-		
+
 		settingButton.addActionListener(e -> btnSettingActionPerformed());
 		startMenuBtn.addActionListener(e -> btnStartMenuActionPerformed());
 		scoreBoardBtn.addActionListener(e -> btnScoreBoardActionPerformed());
@@ -117,7 +117,7 @@ public class GameMenu extends JFrame {
 		lowerPanel.add(startMenuBtn);
 		lowerPanel.add(scoreBoardBtn);
 
-		//outer panel
+		// outer panel
 		JPanel outerPanel = new JPanel();
 		outerPanel.add(upperPanel);
 		outerPanel.add(lowerPanel);
@@ -135,8 +135,8 @@ public class GameMenu extends JFrame {
 	protected void initControls() {
 		JRootPane rootPane = this.getRootPane();
 		InputMap im = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-		ActionMap am=  rootPane.getActionMap();
-	
+		ActionMap am = rootPane.getActionMap();
+
 		im.put(KeyStroke.getKeyStroke(settingItem.getRightKey()), "right");
 		im.put(KeyStroke.getKeyStroke(settingItem.getLeftKey()), "left");
 		im.put(KeyStroke.getKeyStroke(settingItem.getRotateKey()), "up");
@@ -173,7 +173,7 @@ public class GameMenu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (timer.isRunning()) {
 					nextBlockPane.drawNextBlockBoard(gameBoard.getNextBlock());
-					gameBoard.moveDown();
+					moveDown();
 				}
 			}
 		});
@@ -182,7 +182,13 @@ public class GameMenu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (timer.isRunning()) {
 					gameBoard.dropBlock();
-					nextBlockPane.drawNextBlockBoard(gameBoard.getNextBlock());
+					if(SettingItem.isItemMode)
+						((ItemGameBoard) gameBoard).items();
+					newBlock();
+					gameBoard.placeBlock();
+					gameBoard.drawBoard();
+					gameBoard.nextBlockPane.drawNextBlockBoard(gameBoard.getNextBlock());
+					gameBoard.drawBoard();
 				}
 			}
 		});
@@ -193,12 +199,39 @@ public class GameMenu extends JFrame {
 			}
 		});
 	}
-	
+
+	protected void moveDown() {
+		if (!gameBoard.moveDown()) {
+			if(SettingItem.isItemMode) {
+				newItemBlock();
+			} else {
+				newBlock();
+			}
+			if(SettingItem.isItemMode)
+				((ItemGameBoard) gameBoard).items();
+			gameBoard.gamePane.placeBlock(gameBoard.x, gameBoard.y, gameBoard.curr);
+			gameBoard.drawBoard();
+		}
+	}
+
+	protected void newBlock() {
+		gameBoard.placeBlock(); // 밑으로 내려가지 않게 고정
+		if (gameBoard.isGameEnded()) {
+			gameOver();
+			return;
+		}
+		gameBoard.eraseLine();
+		gameBoard.curr = gameBoard.nextBlock;
+		gameBoard.nextBlock = gameBoard.getRandomBlock.getRandomBlockMode(gameBoard.modeName);
+		gameBoard.x = 3;
+		gameBoard.y = 0;
+	}
+
 	protected void setTimer() {
 		timer = new Timer(initInterval, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gameBoard.moveDown();
+				moveDown();
 				nextBlockPane.drawNextBlockBoard(gameBoard.getNextBlock());
 				updateScore();
 			}
@@ -217,10 +250,27 @@ public class GameMenu extends JFrame {
 			timer.stop();
 			setTimer();
 		}
-		if (gameBoard.getGameEnded()) { // 게임이 종료됨.
+		if (gameBoard.isGameEnded()) { // 게임이 종료됨.
 			gameOver();
 			return;
 		}
+	}
+
+	protected void newItemBlock() {
+		gameBoard.curr = gameBoard.nextBlock;
+		if (gameBoard.isGameEnded()) {
+			gameOver();
+			return;
+		}
+		if (gameBoard.lineNum / ((ItemGameBoard)gameBoard).count >= ((ItemGameBoard)gameBoard).lineChange) {
+			((ItemGameBoard)gameBoard).count = ((ItemGameBoard)gameBoard).count+1;
+			gameBoard.nextBlock = ((ItemGameBoard) gameBoard).getItemBlock();
+		} else {
+			gameBoard.nextBlock = gameBoard.getRandomBlock.getRandomBlockMode(gameBoard.modeName);
+		}
+		gameBoard.eraseLine();
+		gameBoard.x = 3;
+		gameBoard.y = 0;
 	}
 
 	public void pause() {
