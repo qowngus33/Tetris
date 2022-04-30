@@ -2,6 +2,7 @@ package main;
 
 import game.FightMenu;
 import game.GameMenu;
+import game.ItemGameBoard;
 import scoreboard.ScoreBoardMenu;
 import setting.KeySetting;
 import setting.SettingMenu;
@@ -12,6 +13,7 @@ import java.io.IOException;
 
 public class Tetris {
     private static FightMenu gameForm;
+    private static GameMenu gameMenu;
     private static StartMenu startmenu;
     private static SettingMenu settingMenuForm;
     private static KeySetting keySetting;
@@ -25,8 +27,8 @@ public class Tetris {
 
     public static void itemGameStart() throws IOException {
         System.out.println("ITEM MODE");
-        //gameForm = new GameMenu(true);
-        gameForm.setVisible(true);
+        gameMenu = new GameMenu(false);
+        gameMenu.setVisible(true);
     }
 
     public static void disposeGameMenu() {

@@ -99,7 +99,6 @@ public class KeySetting extends JFrame{
     public void btnCancelActionPerformed() {
         dispose();
     }
-
     public void btnSaveActionPerformed(){
         dispose();
     }

@@ -147,12 +147,12 @@ public class SettingItem {
     public void btnInitScoreBoardActionPerformed(){
         // score board init logic
         sb = new ScoreBoardFile();
-        try {
-            sb.eraseFile();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+//        try {
+//            //sb.eraseFile();
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
         JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "스코어보드가 초기화 되었습니다..");
     }
 

@@ -43,7 +43,6 @@ public class ItemGameBoard extends GameBoard {
 		return new BBlock();
 	}
 
-
 	protected void items() {
 		if (curr.getItem() == "weight") {
 			for (int i = x; i < x + curr.width(); i++) {

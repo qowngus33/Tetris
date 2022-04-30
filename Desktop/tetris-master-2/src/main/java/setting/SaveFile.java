@@ -17,7 +17,6 @@ public class SaveFile{
     private boolean isColorBlind;
 
     public SaveFile(){
-
     }
 
     public SaveFile(String leftKey, String rightKey, String downKey, String rotateKey, String dropKey, String pauseKey,
