@@ -1,2 +1,8 @@
-Normal mode
-Normal mode
+È{boardWidth=350, rotateKey=UP, modeName=HARD, pauseKey=P, downKey=DOWN, rightKey=RIGHT, initInterval=800, boardHeight=593, colorBlind=false, leftKey=LEFT, dropKey=SPACE, fontSize=23, reduceSpeed=120}
+
+
+Easy Mode
+<[0] 1223 [1] 973 [2] 998 [3] 1033 [4] 1027 [5] 998 [6] 948 
+
+Hard Mode
+<[0] 812 [1] 997 [2] 1038 [3] 904 [4] 1023 [5] 964 [6] 1062 

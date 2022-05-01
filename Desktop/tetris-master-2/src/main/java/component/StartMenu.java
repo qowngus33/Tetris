@@ -25,6 +25,7 @@ public class StartMenu extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private Image screenImage;
 	private Graphics screenGraphic;
+	private ClassLoader cl = this.getClass().getClassLoader();
 
 	private Image tetrisBackground = new ImageIcon("images/tetrisBackground.png")
 			.getImage();

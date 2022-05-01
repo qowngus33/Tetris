@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="setting.ModeTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-05-01T06:59:00" hostname="MacBook-Pro-2.local" time="0.013">
+  <properties/>
+  <testcase name="getRandomBlockEasyMode" classname="setting.ModeTest" time="0.01"/>
+  <testcase name="getRandomBlockHardMode" classname="setting.ModeTest" time="0.003"/>
+  <system-out><![CDATA[
+Easy Mode
+[0] 1223 [1] 973 [2] 998 [3] 1033 [4] 1027 [5] 998 [6] 948 
+Hard Mode
+[0] 812 [1] 997 [2] 1038 [3] 904 [4] 1023 [5] 964 [6] 1062 
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
