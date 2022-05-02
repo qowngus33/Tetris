@@ -22,7 +22,6 @@ public class GameMenu extends JFrame {
      *
      */
     private static final long serialVersionUID = 1L;
-
     private SettingItem settingItem;
     private GameBoard gameBoard;
     protected NextBlockPane nextBlockPane;
@@ -175,8 +174,6 @@ public class GameMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (timer.isRunning()) {
                     gameBoard.dropBlock();
-                    if(SettingItem.isItemMode)
-                        ((ItemGameBoard) gameBoard).items();
                     newBlock();
                     gameBoard.placeBlock();
                     gameBoard.drawBoard();
@@ -229,14 +226,8 @@ public class GameMenu extends JFrame {
 
     protected void moveDown() {
         if (!gameBoard.moveDown()) {
-            if(SettingItem.isItemMode) {
-                newItemBlock();
-            } else {
-                newBlock();
-            }
+            newBlock();
         }
-        if(SettingItem.isItemMode)
-            ((ItemGameBoard) gameBoard).items();
         gameBoard.placeBlock();
         gameBoard.drawBoard();
     }
@@ -249,26 +240,12 @@ public class GameMenu extends JFrame {
         }
         gameBoard.eraseLine();
         gameBoard.curr = gameBoard.nextBlock;
-        gameBoard.nextBlock = gameBoard.getRandomBlock.getRandomBlockMode(gameBoard.modeName);
-        gameBoard.x = 3;
-        gameBoard.y = 0;
-    }
-
-
-
-    protected void newItemBlock() {
-        gameBoard.curr = gameBoard.nextBlock;
-        if (gameBoard.isGameEnded()) {
-            gameOver();
-            return;
-        }
-        if (gameBoard.lineNum / ((ItemGameBoard)gameBoard).count >= ((ItemGameBoard)gameBoard).lineChange) {
-            ((ItemGameBoard)gameBoard).count = ((ItemGameBoard)gameBoard).count+1;
-            gameBoard.nextBlock = ((ItemGameBoard) gameBoard).getItemBlock();
+        if(SettingItem.isItemMode && (gameBoard.lineNum/gameBoard.count >= gameBoard.lineChange)) {
+            gameBoard.nextBlock = gameBoard.getRandomBlock.getItemBlock(gameBoard.modeName);
+            gameBoard.count = gameBoard.count+1;
         } else {
             gameBoard.nextBlock = gameBoard.getRandomBlock.getRandomBlockMode(gameBoard.modeName);
         }
-        gameBoard.eraseLine();
         gameBoard.x = 3;
         gameBoard.y = 0;
     }

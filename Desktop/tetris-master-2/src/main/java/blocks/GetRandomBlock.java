@@ -76,4 +76,35 @@ public class GetRandomBlock {
 			return new IBlock(); // 가중치 8
 		}
 	}
+
+	public Block getItemBlock(String modeName) {
+		Random rnd = new Random(System.currentTimeMillis());
+		int block = rnd.nextInt(1000) % 5;
+		switch (block) {
+			case 0:
+				return new WBlock();
+			case 1:
+				Block temp = getRandomBlockMode(modeName);
+				rnd = new Random(System.currentTimeMillis());
+				block = rnd.nextInt(1000) % 4;
+				int count = 0;
+				for(int i=0;i<temp.width();i++)
+					for(int j=0;j<temp.height();j++)
+						if(temp.getShape(i, j)==1) {
+							if(count==block) {
+								temp.setShape(i, j, 2);
+								temp.setItem("L");
+								return temp;
+							}
+							count++;
+						}
+				temp.setItem("L");
+				return temp;
+			case 2:
+				return new CBlock();
+			case 3:
+				return new EBlock();
+		}
+		return new BBlock();
+	}
 }

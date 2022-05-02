@@ -63,7 +63,6 @@ game/NextBlockPane.java
  game.NextBlockPane
 main/Tetris.java
  main.Tetris
- main.Tetris$1
 component/StartMenu.java
  component.StartMenu
  component.StartMenu$1

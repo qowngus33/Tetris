@@ -36,6 +36,8 @@ public class GameBoard extends JPanel {
 	protected int y = 0;
 	protected String modeName;
 	protected int[][] erasedLine;
+	protected int lineChange = 10;
+	protected int count = 1;
 
 	public GameBoard() throws IOException {
 		setBackground(Color.WHITE);
@@ -150,7 +152,6 @@ public class GameBoard extends JPanel {
 				temp++;
 			}
 		}
-
 		if (temp > 0) {
 			audio();
 			if (temp > 1) {

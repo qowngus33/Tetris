@@ -6,42 +6,59 @@ import blocks.*;
 public class ItemGameBoard extends GameBoard {
 
 	private static final long serialVersionUID = 1L;
-	protected int lineChange = 1;
-	protected int count = 1;
 
 	public ItemGameBoard() throws java.io.IOException {
 	}
 
-	protected Block getItemBlock() {
-		Random rnd = new Random(System.currentTimeMillis());
-		int block = rnd.nextInt(1000) % 5;
-		switch (block) {
-			case 0:
-				return new WBlock();
-			case 1:
-				Block temp = getRandomBlock.getRandomBlockMode(modeName);
-				rnd = new Random(System.currentTimeMillis());
-				block = rnd.nextInt(1000) % 4;
-				int count = 0;
-				for(int i=0;i<temp.width();i++)
-					for(int j=0;j<temp.height();j++)
-						if(temp.getShape(i, j)==1) {
-							if(count==block) {
-								temp.setShape(i, j, 2);
-								temp.setItem("L");
-								return temp;
-							}
-							count++;
-						}
-				temp.setItem("L");
-				return temp;
-			case 2:
-				return new CBlock();
-			case 3:
-				return new EBlock();
+
+
+	@Override
+	protected void eraseLine() {
+		items();
+		int temp = 0;
+		int[][] lines = new int[HEIGHT][WIDTH];
+		for (int j = 0; j < erasedLine.length; j++)
+			for (int i = 0; i < WIDTH; i++)
+				lines[j][i] = erasedLine[j][i];
+
+		for (int i = 0; i < HEIGHT; i++) {
+			boolean lineClear = true;
+			for (int j = 0; j < WIDTH; j++) {
+				if (gamePane.getBoard(i, j) == 0) {
+					lineClear = false;
+					j = WIDTH;
+				}
+			}
+			if (lineClear) {
+				for (int k = 0; k < WIDTH; k++) {
+					if (curr.getShape(k - x, i - y) == 0)
+						lines[erasedLine.length + temp][k] = gamePane.getBoard(i, k);
+					else
+						lines[erasedLine.length + temp][k] = 0;
+				}
+				for (int k = i; k > 1; k--) {
+					for (int l = 0; l < WIDTH; l++) {
+						gamePane.setBoard(k, l, gamePane.getBoard(k - 1, l));
+						gamePane.setColorBoard(k, l, gamePane.getColorBoard(k - 1, l));
+					}
+				}
+				score += 10 * level;
+				lineNum++;
+				temp++;
+			}
 		}
-		return new BBlock();
+		if (temp > 0) {
+			audio();
+			if (temp > 1) {
+				erasedLine = new int[Math.min(10, erasedLine.length + temp)][WIDTH];
+				for (int j = 0; j < erasedLine.length; j++)
+					for (int i = 0; i < WIDTH; i++)
+						erasedLine[j][i] = lines[j][i];
+			}
+		}
+		gamePane.draw();
 	}
+
 
 	protected void items() {
 		if (curr.getItem() == "weight") {
