@@ -7,16 +7,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 import main.Tetris;
 import setting.SettingItem;
+
+import static java.lang.System.currentTimeMillis;
 
 public class FightMenu extends JFrame implements KeyListener {
 
@@ -25,20 +22,23 @@ public class FightMenu extends JFrame implements KeyListener {
 	private GameBoard gameBoard2;
 	private GamePane gamePane1;
 	private GamePane gamePane2;
-	private int loser;
 	
 	protected static int initInterval;
 	protected JLabel scoreLabel1;
 	protected JLabel scoreLabel2;
 	protected String gameMode;
 	protected Timer timer;
-	
+	protected long startTime;
+	protected final long exitTime = 60000;
+	protected boolean isTimeAttackMode;
 
-	public FightMenu(boolean isItemMode) throws IOException {
+
+	public FightMenu(boolean isItemMode,boolean isTimeAttackMode) throws IOException {
 		super("Tetris Fight");
 		settingItem = SettingItem.getInstance();
 		setSize(settingItem.getBoardWidth() * 2, settingItem.getBoardHeight());
 		SettingItem.isItemMode = isItemMode;
+		this.isTimeAttackMode = isTimeAttackMode;
 		setResizable(false);
 		setBackground(Color.WHITE);
 		setForeground(Color.WHITE);
@@ -139,6 +139,8 @@ public class FightMenu extends JFrame implements KeyListener {
 
 		// Set timer for block drops.
 		initInterval = settingItem.getInitInterval();
+		JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "PLAYER1: A←,S↓,D→,W(rotate),SPACE BAR(drop)\nPLAYER2: Arrow keys, ENTER(drop)");
+		startTime = currentTimeMillis();
 		addKeyListener(this);
 		setTimer();
 		setFocusable(true);
@@ -193,12 +195,8 @@ public class FightMenu extends JFrame implements KeyListener {
 
 	protected void newBlock(GameBoard gameBoard) {
 		gameBoard.placeBlock(); // 밑으로 내려가지 않게 고정
-		if (gameBoard.isGameEnded()) {
-			if(gameBoard==gameBoard1) {
-				loser = 1;
-			} else {
-				loser = 2;
-			}
+		System.out.println(currentTimeMillis()-startTime);
+		if (gameBoard.isGameEnded() || (isTimeAttackMode && currentTimeMillis()-startTime>exitTime)) {
 			gameOver();
 			return;
 		}
@@ -220,12 +218,26 @@ public class FightMenu extends JFrame implements KeyListener {
 	
 	private void gameOver() {
 		timer.stop();
-		if(loser==1) {
+		if(gameBoard1.isGameEnded() && !gameBoard2.isGameEnded()) {
 			gameBoard1.setGameBoardText("LOSE");
 			gameBoard2.setGameBoardText("WIN!");
-		} else {
+		} else if(!gameBoard1.isGameEnded() && gameBoard2.isGameEnded()){
 			gameBoard2.setGameBoardText("LOSE");
 			gameBoard1.setGameBoardText("WIN!");
+		} else if(gameBoard1.isGameEnded() && gameBoard2.isGameEnded()){
+			gameBoard2.setGameBoardText("DRAW!");
+			gameBoard1.setGameBoardText("DRAW!");
+		} else{
+			if(gameBoard1.score>gameBoard2.score){
+				gameBoard2.setGameBoardText("LOSE");
+				gameBoard1.setGameBoardText("WIN!");
+			} else if(gameBoard1.score<gameBoard2.score){
+				gameBoard1.setGameBoardText("LOSE");
+				gameBoard2.setGameBoardText("WIN!");
+			} else{
+				gameBoard2.setGameBoardText("DRAW!");
+				gameBoard1.setGameBoardText("DRAW!");
+			}
 		}
 	}
 

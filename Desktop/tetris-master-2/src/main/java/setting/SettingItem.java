@@ -76,7 +76,7 @@ public class SettingItem {
      * 설정 불러오기
      */
     public Map<String, String> loadFile() throws IOException {
-        TypeReference<HashMap<String, String>> typeReference = new TypeReference<>() {
+        TypeReference<HashMap<String, String>> typeReference = new TypeReference<HashMap<String, String>>() {
         };
         return objectMapper.readValue(new File("savefile.json"), typeReference);
     }

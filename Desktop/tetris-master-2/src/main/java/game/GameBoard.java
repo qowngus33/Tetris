@@ -62,13 +62,17 @@ public class GameBoard extends JPanel {
 
 	protected void setGameBoardText(String string) {
 		StringBuilder letter = new StringBuilder();
-		letter.append("          \n".repeat(9));
+		for(int i=0;i<9;i++)
+			letter.append("          \n");
 		int num = 10 - string.length();
-		letter.append(" ".repeat(Math.max(0, num / 2)));
+		for(int i=0;i<num / 2;i++)
+			letter.append(" ");
 		letter.append(string);
-		letter.append(" ".repeat(Math.max(0, num / 2)));
+		for(int i=0;i<num / 2;i++)
+			letter.append(" ");
 		letter.append("\n");
-		letter.append("          \n".repeat(9));
+		for(int i=0;i<9;i++)
+			letter.append("          \n");
 		gamePane.setText(letter.toString());
 	}
 
