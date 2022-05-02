@@ -23,8 +23,14 @@ public class WBlockTest {
 		block.rotate();
 		block.rotate();
 		block.rotate();
+
 		for(int i=0;i<block2.height();i++)
 			for(int j=0;j<block2.width();j++)
 				Assert.assertEquals(block2.getShape(i,j),block.getShape(i,j));
 	}
+	@Test
+	public void getItem(){
+		Assert.assertEquals("weight",block.getItem());
+	}
+
 }

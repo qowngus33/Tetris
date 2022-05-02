@@ -9,8 +9,6 @@ public class ItemGameBoard extends GameBoard {
 	public ItemGameBoard() throws java.io.IOException {
 	}
 
-
-
 	@Override
 	protected void eraseLine() {
 		items();
@@ -18,15 +16,13 @@ public class ItemGameBoard extends GameBoard {
 		int[][] lines = new int[HEIGHT][WIDTH];
 		for (int j = 0; j < erasedLine.length; j++)
 			System.arraycopy(erasedLine[j], 0, lines[j], 0, WIDTH);
-
 		for (int i = 0; i < HEIGHT; i++) {
 			boolean lineClear = true;
-			for (int j = 0; j < WIDTH; j++) {
+			for (int j = 0; j < WIDTH; j++)
 				if (gamePane.getBoard(i, j) == 0) {
 					lineClear = false;
 					j = WIDTH;
 				}
-			}
 			if (lineClear) {
 				for (int k = 0; k < WIDTH; k++) {
 					if (curr.getShape(k - x, i - y) == 0)
@@ -55,7 +51,6 @@ public class ItemGameBoard extends GameBoard {
 		}
 		gamePane.draw();
 	}
-
 
 	protected void items() {
 		if (Objects.equals(curr.getItem(), "weight")) {

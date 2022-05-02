@@ -15,6 +15,13 @@ public class BBlockTest {
 	}
 
 	@Test
+	public void setShape(){
+		block.setShape(100,100,1);
+		Assert.assertEquals(0,block.getShape(100,100));
+	}
+
+
+	@Test
 	public void rotate() {
 		// Rotate the block 90 deg. clockwise
 		block.rotate();

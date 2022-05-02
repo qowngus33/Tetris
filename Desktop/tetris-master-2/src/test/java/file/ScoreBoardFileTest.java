@@ -56,5 +56,31 @@ class ScoreBoardFileTest {
 			e.printStackTrace();
 		}
 	}
+	@Test
+	public void eraseFile(){
+		try {
+			scoreBoardFile.writeScoreBoard("kkk", 3000, "HARD", "item");
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		String previous = null;
+		String later = null;
+		try {
+			previous = scoreBoardFile.readScoreBoard();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		scoreBoardFile.eraseFile();
+		try {
+			later = scoreBoardFile.readScoreBoard();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Assert.assertNotEquals(previous, later);
+		Assert.assertEquals("",later);
+	}
 
 }

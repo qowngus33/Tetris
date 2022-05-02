@@ -38,23 +38,22 @@ public class GetRandomBlock {
 
 	// normal mode
 	public Block getRandomBlockNormalMode() {
-		Random rnd = new Random(System.currentTimeMillis());
-		int block = rnd.nextInt(1000) % 7;
-		switch (block) {
-		case 0:
-			return new IBlock();
-		case 1:
+		int random = (int) (Math.random() * 70);
+		if (random < 10) {
 			return new JBlock();
-		case 2:
+		} else if (random < 20) {
 			return new LBlock();
-		case 3:
+		} else if (random < 30) {
 			return new ZBlock();
-		case 4:
+		} else if (random < 40) {
 			return new SBlock();
-		case 5:
+		} else if (random < 50) {
 			return new TBlock();
+		} else if (random < 60) {
+			return new OBlock();
+		} else {
+			return new IBlock(); // 가중치 12
 		}
-		return new OBlock();
 	}
 
 	// hard mode
@@ -78,32 +77,29 @@ public class GetRandomBlock {
 	}
 
 	public Block getItemBlock(String modeName) {
+		int random = (int) (Math.random() * 50);
 		Random rnd = new Random(System.currentTimeMillis());
-		int block = rnd.nextInt(1000) % 5;
-		switch (block) {
-			case 0:
-				return new WBlock();
-			case 1:
-				Block temp = getRandomBlockMode(modeName);
-				rnd = new Random(System.currentTimeMillis());
-				block = rnd.nextInt(1000) % 4;
-				int count = 0;
-				for(int i=0;i<temp.width();i++)
-					for(int j=0;j<temp.height();j++)
-						if(temp.getShape(i, j)==1) {
-							if(count==block) {
-								temp.setShape(i, j, 2);
-								temp.setItem("L");
-								return temp;
-							}
-							count++;
+		if (random < 10) {
+			return new WBlock();
+		} else if (random < 20) {
+			Block temp = getRandomBlockMode(modeName);
+			rnd = new Random(System.currentTimeMillis());
+			int block = rnd.nextInt(1000) % 4;
+			int count = 0;
+			for (int i = 0; i < temp.width(); i++)
+				for (int j = 0; j < temp.height(); j++)
+					if (temp.getShape(i, j) == 1) {
+						if (count == block) {
+							temp.setShape(i, j, 2);
+							temp.setItem("L");
+							return temp;
 						}
-				temp.setItem("L");
-				return temp;
-			case 2:
-				return new CBlock();
-			case 3:
-				return new EBlock();
+						count++;
+					}
+		} else if (random < 30) {
+			return new CBlock();
+		} else if (random < 40) {
+			return new EBlock();
 		}
 		return new BBlock();
 	}

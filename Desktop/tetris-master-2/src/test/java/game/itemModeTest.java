@@ -9,10 +9,11 @@ import org.junit.jupiter.api.Test;
 import blocks.Block;
 
 class itemModeTest {
+	ItemGameBoard itemGameBoard;
+	
 	@Test
 	public void getItemBlockEasy() {
 
-		ItemGameBoard itemGameBoard = null;
 		GetRandomBlock getRandomBlock = new GetRandomBlock();
 		try {
 			itemGameBoard = new ItemGameBoard();
@@ -267,6 +268,47 @@ class itemModeTest {
 		}
 
 		Assert.assertEquals(LItemNum, LItemNumCompare, 5);
+	}
+	
+	@Test
+	public void eraseLine() {
+		GetRandomBlock getRandomBlock = new GetRandomBlock();
+		try {
+			itemGameBoard = new ItemGameBoard();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		itemGameBoard.gamePane.eraseCurr(itemGameBoard.x,itemGameBoard.y,itemGameBoard.curr);
+		itemGameBoard.drawBoard();
+		String temp = itemGameBoard.gamePane.getText();
+		int lines [][] = new int[10][10];
+		for(int i=0;i<10;i++)
+			for(int j=0;j<10;j++)
+				lines[i][j] = 1;
+		itemGameBoard.gamePane.addLines(lines);
+		itemGameBoard.eraseLine();
+		Assert.assertEquals(temp, itemGameBoard.gamePane.getText());
+
+		for(int i=0;i<100;i++){
+			itemGameBoard.x = 5;
+			itemGameBoard.y = 10;
+			itemGameBoard.curr = getRandomBlock.getItemBlock("EASY");
+			itemGameBoard.drawBoard();
+			itemGameBoard.gamePane.addLines(lines);
+			itemGameBoard.eraseLine();
+		}
+	}
+
+	@Test
+	public void setLines(){
+		try {
+			itemGameBoard = new ItemGameBoard();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

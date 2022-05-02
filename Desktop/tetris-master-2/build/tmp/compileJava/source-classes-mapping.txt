@@ -5,59 +5,10 @@ setting/SettingItem.java
  setting.SettingItem$1
 blocks/EBlock.java
  blocks.EBlock
-game/ItemGameBoard.java
- game.ItemGameBoard
+blocks/BBlock.java
+ blocks.BBlock
 blocks/IBlock.java
  blocks.IBlock
-game/GameBoard.java
- game.GameBoard
-blocks/CBlock.java
- blocks.CBlock
-file/Score.java
- file.Score
- file.ScoreComparator
-blocks/TBlock.java
- blocks.TBlock
-file/FileClass.java
- file.FileClass
-setting/SaveFile.java
- setting.SaveFile
-setting/KeySetting.java
- setting.KeySetting
-blocks/WBlock.java
- blocks.WBlock
-setting/exception/EmptyKeyException.java
- setting.exception.EmptyKeyException
-blocks/GetRandomBlock.java
- blocks.GetRandomBlock
-setting/SettingMenu.java
- setting.SettingMenu
-blocks/JBlock.java
- blocks.JBlock
-blocks/ZBlock.java
- blocks.ZBlock
-blocks/OBlock.java
- blocks.OBlock
-file/ScoreBoardFile.java
- file.ScoreBoardFile
-game/GameMenu.java
- game.GameMenu
- game.GameMenu$1
- game.GameMenu$2
- game.GameMenu$3
- game.GameMenu$4
- game.GameMenu$5
- game.GameMenu$6
-scoreboard/ScoreBoardMenu.java
- scoreboard.ScoreBoardMenu
-blocks/LBlock.java
- blocks.LBlock
-game/GamePane.java
- game.GamePane
-game/NextBlockPane.java
- game.NextBlockPane
-main/Tetris.java
- main.Tetris
 component/StartMenu.java
  component.StartMenu
  component.StartMenu$1
@@ -68,11 +19,58 @@ component/StartMenu.java
  component.StartMenu$6
  component.StartMenu$7
  component.StartMenu$8
+blocks/CBlock.java
+ blocks.CBlock
+file/Score.java
+ file.Score
+ file.ScoreComparator
+blocks/TBlock.java
+ blocks.TBlock
+setting/SaveFile.java
+ setting.SaveFile
+setting/KeySetting.java
+ setting.KeySetting
+blocks/WBlock.java
+ blocks.WBlock
+setting/exception/EmptyKeyException.java
+ setting.exception.EmptyKeyException
 blocks/SBlock.java
  blocks.SBlock
-blocks/BBlock.java
- blocks.BBlock
+setting/SettingMenu.java
+ setting.SettingMenu
+blocks/JBlock.java
+ blocks.JBlock
+blocks/ZBlock.java
+ blocks.ZBlock
+blocks/OBlock.java
+ blocks.OBlock
+file/ScoreBoardFile.java
+ file.ScoreBoardFile
 blocks/Block.java
  blocks.Block
+game/GameBoard.java
+ game.GameBoard
+blocks/LBlock.java
+ blocks.LBlock
+game/GamePane.java
+ game.GamePane
+game/NextBlockPane.java
+ game.NextBlockPane
 game/FightMenu.java
  game.FightMenu
+game/ItemGameBoard.java
+ game.ItemGameBoard
+blocks/GetRandomBlock.java
+ blocks.GetRandomBlock
+main/Tetris.java
+ main.Tetris
+game/GameMenu.java
+ game.GameMenu
+ game.GameMenu$1
+ game.GameMenu$2
+ game.GameMenu$3
+ game.GameMenu$4
+ game.GameMenu$5
+ game.GameMenu$6
+scoreboard/ScoreBoardMenu.java
+ scoreboard.ScoreBoardMenu

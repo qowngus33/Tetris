@@ -61,6 +61,8 @@ public class GameBoard extends JPanel {
 	}
 
 	protected void setGameBoardText(String string) {
+		if(string.length()>10)
+			return;
 		StringBuilder letter = new StringBuilder();
 		for(int i=0;i<9;i++)
 			letter.append("          \n");

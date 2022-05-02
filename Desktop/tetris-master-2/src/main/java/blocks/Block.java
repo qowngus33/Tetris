@@ -26,9 +26,10 @@ public abstract class Block {
 	}
 
 	public void setShape(int x, int y, int value) {
-		getShape()[y][x] = value;
+		if(x>=shape[0].length||y>=shape.length)
+			return;
+		shape[y][x] = value;
 	}
-
 	public void setItem(String item) {
 		this.item = item;
 	}
@@ -44,8 +45,6 @@ public abstract class Block {
 				rotated[j][m - i - 1] = getShape()[i][j];
 			}
 		}
-
-		this.shape = new int[n][m];
 		shape = rotated;
 	}
 

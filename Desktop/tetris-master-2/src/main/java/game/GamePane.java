@@ -192,6 +192,8 @@ public class GamePane extends JTextPane {
 	}
 
 	public void addLines(int [][] lines) {
+		if(lines[0].length>10||lines[0].length<10)
+			return;
 		int [][] tempList = new int[HEIGHT][WIDTH];
 		String [][] tempColorList = new String[HEIGHT][WIDTH];
 		for (int i = board.length-1; i >=lines.length; i--) {
@@ -224,10 +226,14 @@ public class GamePane extends JTextPane {
 	}
 
 	public String getColorBoard(int i, int j) {
+		if(j>=colorBoard[0].length||i>= colorBoard.length)
+			return null;
 		return colorBoard[i][j];
 	}
 
 	public void setColorBoard(int i, int j, String value) {
+		if(j>=colorBoard[0].length||i>= colorBoard.length)
+			return;
 		colorBoard[i][j] = value;
 	}
 
