@@ -60,6 +60,4 @@ public class KeySettingTest {
         gameBoard2.dropBlock();
         assertEquals(gameBoard.gamePane, gameBoard2.gamePane);
     }
-
-
 }
