@@ -1,23 +1,16 @@
 component/ImagePanel.java
  component.ImagePanel
-component/StartMenu.java
- component.StartMenu
- component.StartMenu$1
- component.StartMenu$2
- component.StartMenu$3
- component.StartMenu$4
- component.StartMenu$5
- component.StartMenu$6
- component.StartMenu$7
- component.StartMenu$8
+setting/SettingItem.java
+ setting.SettingItem
+ setting.SettingItem$1
 blocks/EBlock.java
  blocks.EBlock
-blocks/Block.java
- blocks.Block
+game/ItemGameBoard.java
+ game.ItemGameBoard
 blocks/IBlock.java
  blocks.IBlock
-blocks/SBlock.java
- blocks.SBlock
+game/GameBoard.java
+ game.GameBoard
 blocks/CBlock.java
  blocks.CBlock
 file/Score.java
@@ -45,8 +38,8 @@ blocks/ZBlock.java
  blocks.ZBlock
 blocks/OBlock.java
  blocks.OBlock
-blocks/BBlock.java
- blocks.BBlock
+file/ScoreBoardFile.java
+ file.ScoreBoardFile
 game/GameMenu.java
  game.GameMenu
  game.GameMenu$1
@@ -55,24 +48,31 @@ game/GameMenu.java
  game.GameMenu$4
  game.GameMenu$5
  game.GameMenu$6
-main/Tetris.java
- main.Tetris
+scoreboard/ScoreBoardMenu.java
+ scoreboard.ScoreBoardMenu
 blocks/LBlock.java
  blocks.LBlock
 game/GamePane.java
  game.GamePane
 game/NextBlockPane.java
  game.NextBlockPane
-setting/SettingItem.java
- setting.SettingItem
- setting.SettingItem$1
-game/ItemGameBoard.java
- game.ItemGameBoard
-file/ScoreBoardFile.java
- file.ScoreBoardFile
-game/GameBoard.java
- game.GameBoard
+main/Tetris.java
+ main.Tetris
+component/StartMenu.java
+ component.StartMenu
+ component.StartMenu$1
+ component.StartMenu$2
+ component.StartMenu$3
+ component.StartMenu$4
+ component.StartMenu$5
+ component.StartMenu$6
+ component.StartMenu$7
+ component.StartMenu$8
+blocks/SBlock.java
+ blocks.SBlock
+blocks/BBlock.java
+ blocks.BBlock
+blocks/Block.java
+ blocks.Block
 game/FightMenu.java
  game.FightMenu
-scoreboard/ScoreBoardMenu.java
- scoreboard.ScoreBoardMenu

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="setting.LoadFileTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-05-01T06:59:00" hostname="MacBook-Pro-2.local" time="0.002">
-  <properties/>
-  <testcase name="loadFileTest()" classname="setting.LoadFileTest" time="0.002"/>
-  <system-out><![CDATA[{boardWidth=350, rotateKey=UP, modeName=HARD, pauseKey=P, downKey=DOWN, rightKey=RIGHT, initInterval=800, boardHeight=593, colorBlind=false, leftKey=LEFT, dropKey=SPACE, fontSize=23, reduceSpeed=120}
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

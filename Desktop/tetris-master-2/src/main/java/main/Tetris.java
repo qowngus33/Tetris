@@ -21,11 +21,17 @@ public class Tetris {
 
     public static void start() throws IOException {
         System.out.println("NORMAL MODE");
-        gameForm = new FightMenu(false);
+        gameForm = new FightMenu(false,true);
         gameForm.setVisible(true);
     }
 
     public static void itemGameStart() throws IOException {
+        System.out.println("ITEM MODE");
+        gameMenu = new GameMenu(true);
+        gameMenu.setVisible(true);
+    }
+
+    public static void fightModeStart() throws IOException {
         System.out.println("ITEM MODE");
         gameMenu = new GameMenu(true);
         gameMenu.setVisible(true);

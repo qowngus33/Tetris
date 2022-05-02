@@ -179,7 +179,8 @@ public class GamePane extends JTextPane {
 
 	public void setLines(int [][] lines) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("          \n".repeat(Math.max(0, 10 - lines.length)));
+		for(int i=0;i<Math.max(0, 10 - lines.length);i++)
+			sb.append("          \n");
 		for (int i = 0; i < lines.length; i++) {
 			for (int j = 0; j < lines[i].length; j++) {
 				if (lines[i][j] == 1) sb.append("O");
