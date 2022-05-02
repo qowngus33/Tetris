@@ -27,7 +27,7 @@ public class Tetris {
 
     public static void itemGameStart() throws IOException {
         System.out.println("ITEM MODE");
-        gameMenu = new GameMenu(false);
+        gameMenu = new GameMenu(true);
         gameMenu.setVisible(true);
     }
 
@@ -55,17 +55,14 @@ public class Tetris {
     }
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                startmenu = new StartMenu();
-                try {
-                    settingMenuForm = new SettingMenu();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                startmenu.setVisible(true);
+        EventQueue.invokeLater(() -> {
+            startmenu = new StartMenu();
+            try {
+                settingMenuForm = new SettingMenu();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
+            startmenu.setVisible(true);
         });
     }
 }
