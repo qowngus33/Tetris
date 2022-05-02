@@ -10,11 +10,12 @@ import java.util.*;
 public class ScoreBoardFile {
 
 	private List<Score> list;
-	private ObjectMapper mapper = new ObjectMapper()
-			.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+	private ObjectMapper mapper;
 
 	public ScoreBoardFile(){
 		list = new ArrayList<>();
+		mapper = new ObjectMapper()
+				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		try {
 			getScoreBoard();
 		} catch (IOException e) {
@@ -28,6 +29,8 @@ public class ScoreBoardFile {
 	}
 
 	public int writeScoreBoard(String name, int score, String level, String mode) throws IOException {
+		if(name==null||score<0||level==null||mode==null)
+			return -1;
 		Score p = new Score(name,score,level,mode);
 		ArrayList<Score> List = new ArrayList<Score>(list);
 		List.add(p);

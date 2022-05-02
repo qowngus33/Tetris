@@ -10,5 +10,4 @@ public class OBlock extends Block {
 		};
 		color = "YELLOW";
 	}
-	
 }

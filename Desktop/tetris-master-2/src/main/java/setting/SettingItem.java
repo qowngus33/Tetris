@@ -69,7 +69,7 @@ public class SettingItem {
         initInterval = Integer.parseInt(saveFile.get("initInterval"));
         reduceSpeed = Integer.parseInt(saveFile.get("reduceSpeed"));
         modeName = saveFile.get("modeName");
-        isColorBlind = Boolean.parseBoolean(saveFile.get("isColorBlind"));
+        isColorBlind = Boolean.parseBoolean(saveFile.get("colorBlind"));
     }
 
     /**

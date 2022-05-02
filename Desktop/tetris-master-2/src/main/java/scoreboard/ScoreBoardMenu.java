@@ -31,7 +31,7 @@ public class ScoreBoardMenu extends JFrame {
 	private JButton exitBtn = new JButton("Exit");
 	private JButton startBtn = new JButton("Start Menu");
 	private JTextPane scoreboard = new JTextPane();
-	private JTextField nameEnter = new JTextField(10);
+	protected JTextField nameEnter = new JTextField(10);
 	private final int oneLineLength = 37;
 	private int score;
 	private String mode;
@@ -188,7 +188,7 @@ public class ScoreBoardMenu extends JFrame {
 		Tetris.showStartMenu();
 	}
 
-	private boolean isAlphaOrDigit(String s) {
+	public boolean isAlphaOrDigit(String s) {
 		for (int i = 0; i < s.length(); i++) {
 			char ch = s.charAt(i);
 			if (!(ch >= 'A' && ch <= 'Z') && !(ch >= 'a' && ch <= 'z') && !(ch >= '0' && ch <= '9'))

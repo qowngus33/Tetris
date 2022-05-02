@@ -18,8 +18,6 @@ file/Score.java
  file.ScoreComparator
 blocks/TBlock.java
  blocks.TBlock
-file/FileClass.java
- file.FileClass
 setting/SaveFile.java
  setting.SaveFile
 setting/KeySetting.java

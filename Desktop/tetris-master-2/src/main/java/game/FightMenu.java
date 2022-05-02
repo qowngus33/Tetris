@@ -31,6 +31,7 @@ public class FightMenu extends JFrame implements KeyListener {
 	protected long startTime;
 	protected final long exitTime = 60000;
 	protected boolean isTimeAttackMode;
+	protected boolean isGameEnded;
 
 
 	public FightMenu(boolean isItemMode,boolean isTimeAttackMode) throws IOException {
@@ -189,6 +190,8 @@ public class FightMenu extends JFrame implements KeyListener {
 			newBlock(gameBoard);
 			gameBoard.nextBlockPane.drawNextBlockBoard(gameBoard.getNextBlock());
 		}
+		if(isGameEnded)
+			return;
 		gameBoard.placeBlock();
 		gameBoard.drawBoard();
 	}
@@ -197,9 +200,12 @@ public class FightMenu extends JFrame implements KeyListener {
 		gameBoard.placeBlock(); // 밑으로 내려가지 않게 고정
 		System.out.println(currentTimeMillis()-startTime);
 		if (gameBoard.isGameEnded() || (isTimeAttackMode && currentTimeMillis()-startTime>exitTime)) {
+			timer.stop();
+			isGameEnded = true;
 			gameOver();
 			return;
 		}
+
 		if(gameBoard==gameBoard1) {
 			gameBoard.gamePane.addLines(gameBoard2.erasedLine);
 			gameBoard2.resetErasedLine();
@@ -217,28 +223,33 @@ public class FightMenu extends JFrame implements KeyListener {
 	}
 	
 	private void gameOver() {
-		timer.stop();
+		String text = "draw";
 		if(gameBoard1.isGameEnded() && !gameBoard2.isGameEnded()) {
 			gameBoard1.setGameBoardText("LOSE");
 			gameBoard2.setGameBoardText("WIN!");
+			text = "player2 win";
 		} else if(!gameBoard1.isGameEnded() && gameBoard2.isGameEnded()){
-			gameBoard2.setGameBoardText("LOSE");
 			gameBoard1.setGameBoardText("WIN!");
+			gameBoard2.setGameBoardText("LOSE");
+			text = "player1 win";
 		} else if(gameBoard1.isGameEnded() && gameBoard2.isGameEnded()){
-			gameBoard2.setGameBoardText("DRAW!");
 			gameBoard1.setGameBoardText("DRAW!");
+			gameBoard2.setGameBoardText("DRAW!");
 		} else{
 			if(gameBoard1.score>gameBoard2.score){
-				gameBoard2.setGameBoardText("LOSE");
 				gameBoard1.setGameBoardText("WIN!");
+				gameBoard2.setGameBoardText("LOSE");
+				text = "player1 win";
 			} else if(gameBoard1.score<gameBoard2.score){
 				gameBoard1.setGameBoardText("LOSE");
 				gameBoard2.setGameBoardText("WIN!");
+				text = "player2 win";
 			} else{
-				gameBoard2.setGameBoardText("DRAW!");
 				gameBoard1.setGameBoardText("DRAW!");
+				gameBoard2.setGameBoardText("DRAW!");
 			}
 		}
+		JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), text);
 	}
 
 	private void btnScoreBoardActionPerformed() {
@@ -279,10 +290,12 @@ public class FightMenu extends JFrame implements KeyListener {
 			if (timer.isRunning()) {
 				gameBoard2.dropBlock();
 				newBlock(gameBoard2);
-				gameBoard2.placeBlock();
-				gameBoard2.drawBoard();
-				gameBoard2.nextBlockPane.drawNextBlockBoard(gameBoard2.getNextBlock());
-				gameBoard2.drawBoard();
+				if(!isGameEnded) {
+					gameBoard2.placeBlock();
+					gameBoard2.drawBoard();
+					gameBoard2.nextBlockPane.drawNextBlockBoard(gameBoard2.getNextBlock());
+					gameBoard2.drawBoard();
+				}
 			}
 		} else if (e.getKeyCode() == KeyEvent.VK_D) {
 			if (timer.isRunning())
@@ -300,10 +313,12 @@ public class FightMenu extends JFrame implements KeyListener {
 			if (timer.isRunning()) {
 				gameBoard1.dropBlock();
 				newBlock(gameBoard1);
-				gameBoard1.placeBlock();
-				gameBoard1.drawBoard();
-				gameBoard1.nextBlockPane.drawNextBlockBoard(gameBoard1.getNextBlock());
-				gameBoard1.drawBoard();
+				if(!isGameEnded){
+					gameBoard1.placeBlock();
+					gameBoard1.drawBoard();
+					gameBoard1.nextBlockPane.drawNextBlockBoard(gameBoard1.getNextBlock());
+					gameBoard1.drawBoard();
+				}
 			}
 		} else if (e.getKeyCode() == KeyEvent.VK_P) {
 			pause();

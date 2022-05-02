@@ -176,8 +176,6 @@ public class GameMenu extends JFrame {
                     newBlock();
                     gameBoard.placeBlock();
                     gameBoard.drawBoard();
-                    gameBoard.nextBlockPane.drawNextBlockBoard(gameBoard.getNextBlock());
-                    gameBoard.drawBoard();
                 }
             }
         });
@@ -244,6 +242,7 @@ public class GameMenu extends JFrame {
         }
         gameBoard.x = 3;
         gameBoard.y = 0;
+        gameBoard.nextBlockPane.drawNextBlockBoard(gameBoard.getNextBlock());
     }
 
     protected void gameOver() {

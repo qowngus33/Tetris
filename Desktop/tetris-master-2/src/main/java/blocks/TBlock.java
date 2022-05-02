@@ -10,5 +10,4 @@ public class TBlock extends Block {
 		};
 		color = "MAGENTA";
 	}
-	
 }

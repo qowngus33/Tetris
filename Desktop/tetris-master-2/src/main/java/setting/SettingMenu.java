@@ -131,7 +131,7 @@ public class SettingMenu extends JFrame {
 
 		if(settingItem.isColorBlind()){
 			colorBlindOnBtn.setSelected(true);
-		}else {
+		} else {
 			colorBlindOffBtn.setSelected(true);
 		}
 
