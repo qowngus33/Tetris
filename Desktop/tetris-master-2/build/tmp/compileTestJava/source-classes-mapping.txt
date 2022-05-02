@@ -43,3 +43,5 @@ game/GameBoardTest.java
  game.GameBoardTest
 file/ScoreBoardFileTest.java
  file.ScoreBoardFileTest
+setting/SettingMenuTest.java
+ setting.SettingMenuTest
