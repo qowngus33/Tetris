@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="game.KeySettingTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2022-05-02T15:37:32" hostname="MacBook-Pro-2.local" time="0.07">
+  <properties/>
+  <testcase name="dropKeysettingTest" classname="game.KeySettingTest" time="0.01"/>
+  <testcase name="rightKeysettingTest" classname="game.KeySettingTest" time="0.018"/>
+  <testcase name="downKeysettingTest" classname="game.KeySettingTest" time="0.009"/>
+  <testcase name="leftKeysettingTest" classname="game.KeySettingTest" time="0.015"/>
+  <testcase name="upKeysettingTest" classname="game.KeySettingTest" time="0.016"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

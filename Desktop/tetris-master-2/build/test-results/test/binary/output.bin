@@ -1,0 +1,79 @@
+
+NORMAL
+
+countBlock: 
+
+t[0] 28559 [1] 28784 [2] 28275 [3] 28751 [4] 28882 [5] 28712 [6] 28659 [7] 200756 [8] 199216 [9] 199647 [10] 199759 
+
+countPositionBlock: 
+
+4[0] 51832 [1] 49880 [2] 48397 [3] 50513 [4] 0 [5] 0 
+NORMAL
+
+countBlock: 
+
+t[0] 28658 [1] 28345 [2] 28595 [3] 28583 [4] 28469 [5] 28448 [6] 28530 [7] 200146 [8] 199915 [9] 200078 [10] 200233 
+
+countPositionBlock: 
+
+4[0] 49217 [1] 50236 [2] 49520 [3] 50655 [4] 0 [5] 0 
+NORMAL
+
+countBlock: 
+
+t[0] 28574 [1] 28751 [2] 28765 [3] 28365 [4] 28186 [5] 28796 [6] 28686 [7] 199646 [8] 200193 [9] 199664 [10] 200374 
+
+countPositionBlock: 
+
+4[0] 49227 [1] 49847 [2] 50241 [3] 50808 [4] 0 [5] 0 Ë{boardWidth=350, rotateKey=UP, modeName=NORMAL, pauseKey=P, downKey=DOWN, rightKey=RIGHT, initInterval=1000, boardHeight=593, colorBlind=false, leftKey=LEFT, dropKey=SPACE, fontSize=23, reduceSpeed=100}
+HK          
+HK          
+HK          
+HK          
+HK          
+HK          
+HK          
+HK          
+HK          
+HK
+  hello  
+HK          
+HK          
+HK          
+HK          
+HK          
+HK          
+HK          
+HK          
+HK          
+HK
+HK          
+HK          
+HK          
+HK          
+HK          
+HK          
+HK          
+HK          
+HK          
+HK
+  hello  
+HK          
+HK          
+HK          
+HK          
+HK          
+HK          
+HK          
+HK          
+HK          
+HK
+UTNormal Mode
+UT;[0] 951 [1] 926 [2] 924 [3] 1007 [4] 972 [5] 989 [6] 1031 
+UV
+UV
+Easy Mode
+UV>[0] 1145 [1] 995 [2] 1002 [3] 1019 [4] 1048 [5] 981 [6] 1010 
+UW
+Hard Mode
+UW=[0] 817 [1] 1017 [2] 1001 [3] 1021 [4] 1002 [5] 977 [6] 965 

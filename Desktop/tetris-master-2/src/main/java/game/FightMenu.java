@@ -22,7 +22,7 @@ public class FightMenu extends JFrame implements KeyListener {
 	private GameBoard gameBoard2;
 	private GamePane gamePane1;
 	private GamePane gamePane2;
-	
+
 	protected static int initInterval;
 	protected JLabel scoreLabel1;
 	protected JLabel scoreLabel2;
@@ -221,7 +221,7 @@ public class FightMenu extends JFrame implements KeyListener {
 		gameBoard.x = 3;
 		gameBoard.y = 0;
 	}
-	
+
 	private void gameOver() {
 		String text = "draw";
 		if(gameBoard1.isGameEnded() && !gameBoard2.isGameEnded()) {
