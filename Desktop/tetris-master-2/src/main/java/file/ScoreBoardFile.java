@@ -69,10 +69,10 @@ public class ScoreBoardFile {
 		return 0;
 	}
 	public void eraseFile() {
-		list.clear();
+		list = new ArrayList<>();
 		try {
-			String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(list);
-		} catch (JsonProcessingException e) {
+			mapper.writeValue(new File("scoreBoardFile.json"), list);
+		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}

@@ -1,13 +1,9 @@
 package game;
 
 import java.awt.Color;
-import java.awt.Font;
-
 import javax.swing.BorderFactory;
 import javax.swing.JTextPane;
 import javax.swing.border.CompoundBorder;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
@@ -28,7 +24,7 @@ public class NextBlockPane extends JTextPane {
 
 	public void drawNextBlockBoard(Block nextBlock) {
 		StyledDocument doc = this.getStyledDocument();
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append("\n");
 		for (int i = 0; i < 3; i++) {
 			sb.append("  ");

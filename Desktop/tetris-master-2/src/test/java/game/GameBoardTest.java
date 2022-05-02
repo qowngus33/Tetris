@@ -30,8 +30,5 @@ public class GameBoardTest {
         gameBoard.moveDown();
         gameBoard2.moveDown();
         assertSame(gameBoard, gameBoard2);
-
     }
-
-
 }

@@ -24,7 +24,6 @@ public class GameMenu extends JFrame {
     private static final long serialVersionUID = 1L;
     private SettingItem settingItem;
     private GameBoard gameBoard;
-    protected NextBlockPane nextBlockPane;
     protected static int initInterval;
     protected JLabel scoreLabel;
     protected JLabel levelLabel;
@@ -191,12 +190,9 @@ public class GameMenu extends JFrame {
     }
 
     protected void setTimer() {
-        timer = new Timer(initInterval, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                moveDown();
-                updateScore();
-            }
+        timer = new Timer(initInterval, e -> {
+            moveDown();
+            updateScore();
         });
         timer.start();
     }
@@ -255,10 +251,7 @@ public class GameMenu extends JFrame {
         try {
             scoreBoardMenu = new ScoreBoardMenu(gameBoard.getScore(), gameBoard.getModeName(), gameMode);
             scoreBoardMenu.setVisible(true);
-        } catch (NumberFormatException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (NumberFormatException | IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

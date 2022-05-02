@@ -1,7 +1,6 @@
 package game;
 
-import java.util.Random;
-import blocks.*;
+import java.util.Objects;
 
 public class ItemGameBoard extends GameBoard {
 
@@ -18,8 +17,7 @@ public class ItemGameBoard extends GameBoard {
 		int temp = 0;
 		int[][] lines = new int[HEIGHT][WIDTH];
 		for (int j = 0; j < erasedLine.length; j++)
-			for (int i = 0; i < WIDTH; i++)
-				lines[j][i] = erasedLine[j][i];
+			System.arraycopy(erasedLine[j], 0, lines[j], 0, WIDTH);
 
 		for (int i = 0; i < HEIGHT; i++) {
 			boolean lineClear = true;
@@ -52,8 +50,7 @@ public class ItemGameBoard extends GameBoard {
 			if (temp > 1) {
 				erasedLine = new int[Math.min(10, erasedLine.length + temp)][WIDTH];
 				for (int j = 0; j < erasedLine.length; j++)
-					for (int i = 0; i < WIDTH; i++)
-						erasedLine[j][i] = lines[j][i];
+					System.arraycopy(lines[j], 0, erasedLine[j], 0, WIDTH);
 			}
 		}
 		gamePane.draw();
@@ -61,20 +58,20 @@ public class ItemGameBoard extends GameBoard {
 
 
 	protected void items() {
-		if (curr.getItem() == "weight") {
+		if (Objects.equals(curr.getItem(), "weight")) {
 			for (int i = x; i < x + curr.width(); i++) {
 				for (int j = 0; j < HEIGHT; j++) {
 					gamePane.setBoard(j,i,0);
 				}
 			}
 			y = HEIGHT - 2;
-		} else if (curr.getItem() == "L") {
+		} else if (Objects.equals(curr.getItem(), "L")) {
 			lItem();
-		} else if (curr.getItem() == "bomb") {
+		} else if (Objects.equals(curr.getItem(), "bomb")) {
 			bombItem();
-		} else if (curr.getItem() == "cross") {
+		} else if (Objects.equals(curr.getItem(), "cross")) {
 			crossItem();
-		} else if (curr.getItem() == "total") {
+		} else if (Objects.equals(curr.getItem(), "total")) {
 			totalItem();
 		}
 	}

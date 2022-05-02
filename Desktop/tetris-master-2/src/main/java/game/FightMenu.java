@@ -3,8 +3,6 @@ package game;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
@@ -24,7 +22,7 @@ public class FightMenu extends JFrame implements KeyListener {
 
 	private SettingItem settingItem;
 	private GameBoard gameBoard1;
-	private GameBoard gameBoard2;;
+	private GameBoard gameBoard2;
 	private GamePane gamePane1;
 	private GamePane gamePane2;
 	private int loser;
@@ -148,13 +146,10 @@ public class FightMenu extends JFrame implements KeyListener {
 	}
 
 	protected void setTimer() {
-		timer = new Timer(initInterval, new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				moveDown(gameBoard1);
-				moveDown(gameBoard2);
-				updateScore();
-			}
+		timer = new Timer(initInterval, e -> {
+			moveDown(gameBoard1);
+			moveDown(gameBoard2);
+			updateScore();
 		});
 		timer.start();
 	}
