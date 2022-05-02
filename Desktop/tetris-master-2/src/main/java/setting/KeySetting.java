@@ -102,8 +102,4 @@ public class KeySetting extends JFrame{
     public void btnSaveActionPerformed(){
         dispose();
     }
-
-    public String getKeyName(){
-        return keyName;
-    }
 }

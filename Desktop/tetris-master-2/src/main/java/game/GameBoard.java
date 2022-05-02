@@ -3,12 +3,11 @@ package game;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.JPanel;
-
-import javax.swing.text.SimpleAttributeSet;
 
 import blocks.Block;
 import blocks.GetRandomBlock;
@@ -24,14 +23,12 @@ public class GameBoard extends JPanel {
 	protected SettingItem settingItem;
 	protected GamePane gamePane;
 
-	protected SimpleAttributeSet styleSet;
 	protected Block curr;
 	protected Block nextBlock;
 	protected NextBlockPane nextBlockPane;
 	protected int score = 0;
 	protected int level = 1;
 	protected int lineNum = 0;
-	protected boolean gameEnded = false;
 	protected int x = 3; // Default Position.
 	protected int y = 0;
 	protected String modeName;
@@ -64,23 +61,19 @@ public class GameBoard extends JPanel {
 	}
 
 	protected void setGameBoardText(String string) {
-		String letter = "";
-		for (int i = 0; i < 9; i++)
-			letter += "          \n";
+		StringBuilder letter = new StringBuilder();
+		letter.append("          \n".repeat(9));
 		int num = 10 - string.length();
-		for (int i = 0; i < num / 2; i++)
-			letter += " ";
-		letter += string;
-		for (int i = 0; i < num / 2; i++)
-			letter += " ";
-		letter += "\n";
-		for (int i = 0; i < 9; i++)
-			letter += "          \n";
-		gamePane.setText(letter);
+		letter.append(" ".repeat(Math.max(0, num / 2)));
+		letter.append(string);
+		letter.append(" ".repeat(Math.max(0, num / 2)));
+		letter.append("\n");
+		letter.append("          \n".repeat(9));
+		gamePane.setText(letter.toString());
 	}
 
 	protected void moveRight() {
-		if (curr.getItem() == "weight" && detectCrash('D')) {
+		if (Objects.equals(curr.getItem(), "weight") && detectCrash('D')) {
 		} else {
 			gamePane.eraseCurr(x, y, curr);
 			if (!detectCrash('R'))
@@ -91,7 +84,7 @@ public class GameBoard extends JPanel {
 	}
 
 	protected void moveLeft() {
-		if (curr.getItem() == "weight" && detectCrash('D')) {
+		if (Objects.equals(curr.getItem(), "weight") && detectCrash('D')) {
 		} else {
 			gamePane.eraseCurr(x, y, curr);
 			if (!detectCrash('L'))
@@ -123,8 +116,7 @@ public class GameBoard extends JPanel {
 		int temp = 0;
 		int[][] lines = new int[HEIGHT][WIDTH];
 		for (int j = 0; j < erasedLine.length; j++)
-			for (int i = 0; i < WIDTH; i++)
-				lines[j][i] = erasedLine[j][i];
+			System.arraycopy(erasedLine[j], 0, lines[j], 0, WIDTH);
 
 		for (int i = 0; i < HEIGHT; i++) {
 			boolean lineClear = true;
@@ -154,11 +146,10 @@ public class GameBoard extends JPanel {
 		}
 		if (temp > 0) {
 			audio();
-			if (temp > 1) {
+			if (temp > 1 && erasedLine.length<10) {
 				erasedLine = new int[Math.min(10, erasedLine.length + temp)][WIDTH];
 				for (int j = 0; j < erasedLine.length; j++)
-					for (int i = 0; i < WIDTH; i++)
-						erasedLine[j][i] = lines[j][i];
+					System.arraycopy(lines[j], 0, erasedLine[j], 0, WIDTH);
 			}
 		}
 		gamePane.draw();
@@ -276,7 +267,7 @@ public class GameBoard extends JPanel {
 	}
 
 	public String getModeName() {
-		return modeName.toString();
+		return modeName;
 	}
 
 }

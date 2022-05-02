@@ -3,8 +3,6 @@ package scoreboard;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.JButton;
@@ -79,18 +77,8 @@ public class ScoreBoardMenu extends JFrame {
 
 		// button action
 		startBtn.addActionListener(e -> btnStartMenuActionPerformed());
-		enterBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				tryWriteScoreboard();
-			}
-		});
-		exitBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
+		enterBtn.addActionListener(e -> tryWriteScoreboard());
+		exitBtn.addActionListener(e -> System.exit(0));
 		enterBtn.setEnabled(false);
 		nameEnter.setEditable(false);
 		label.setText("역대 테트리스 게임 점수");
@@ -148,18 +136,8 @@ public class ScoreBoardMenu extends JFrame {
 
 		// button action
 		startBtn.addActionListener(e -> btnStartMenuActionPerformed());
-		enterBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				tryWriteScoreboard();
-			}
-		});
-		exitBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
+		enterBtn.addActionListener(e -> tryWriteScoreboard());
+		exitBtn.addActionListener(e -> System.exit(0));
 	}
 
 	private void setStyle() {
@@ -180,14 +158,6 @@ public class ScoreBoardMenu extends JFrame {
 
 		SimpleAttributeSet styleSet = new SimpleAttributeSet();
 		StyleConstants.setAlignment(styleSet, StyleConstants.ALIGN_CENTER);
-	}
-	public void reloadData() {
-		try {
-			scoreboard.setText(sb.readScoreBoard());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	public void tryWriteScoreboard() {

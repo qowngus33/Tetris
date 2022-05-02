@@ -38,7 +38,6 @@ public class SettingItem {
     private String modeName;
     private boolean isColorBlind;
     private int reduceSpeed;
-    private ScoreBoardFile sb;
     public static boolean isItemMode;
 
     public static final int SMALL_WIDTH = 300;
@@ -77,9 +76,9 @@ public class SettingItem {
      * 설정 불러오기
      */
     public Map<String, String> loadFile() throws IOException {
-        TypeReference<HashMap<String, String>> typeReference = new TypeReference<HashMap<String, String>>() {};
-        HashMap<String, String> fileMap = objectMapper.readValue(new File("savefile.json"), typeReference);
-        return fileMap;
+        TypeReference<HashMap<String, String>> typeReference = new TypeReference<>() {
+        };
+        return objectMapper.readValue(new File("savefile.json"), typeReference);
     }
 
     /**
@@ -146,13 +145,8 @@ public class SettingItem {
      */
     public void btnInitScoreBoardActionPerformed(){
         // score board init logic
-        sb = new ScoreBoardFile();
-//        try {
-//            //sb.eraseFile();
-//        } catch (IOException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
+        ScoreBoardFile sb = new ScoreBoardFile();
+        sb.eraseFile();
         JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "스코어보드가 초기화 되었습니다..");
     }
 
@@ -175,10 +169,6 @@ public class SettingItem {
         initInterval = 800;
         reduceSpeed = 120;
         modeName = "HARD";
-    }
-
-    public ObjectMapper getObjectMapper() {
-        return objectMapper;
     }
 
     public String getLeftKey() {
@@ -229,10 +219,6 @@ public class SettingItem {
 
     public boolean isColorBlind() {
         return isColorBlind;
-    }
-
-    public ScoreBoardFile getSb() {
-        return sb;
     }
 
     public void setLeftKey(String leftKey) {

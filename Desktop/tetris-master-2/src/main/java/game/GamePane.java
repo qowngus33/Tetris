@@ -135,7 +135,7 @@ public class GamePane extends JTextPane {
 
 	public void draw() {
 		StyledDocument doc = this.getStyledDocument();
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				if (board[i][j] == 1) sb.append("O");
@@ -178,10 +178,8 @@ public class GamePane extends JTextPane {
 	}
 
 	public void setLines(int [][] lines) {
-		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < 10-lines.length; i++) {
-			sb.append("          \n");
-		}
+		StringBuilder sb = new StringBuilder();
+		sb.append("          \n".repeat(Math.max(0, 10 - lines.length)));
 		for (int i = 0; i < lines.length; i++) {
 			for (int j = 0; j < lines[i].length; j++) {
 				if (lines[i][j] == 1) sb.append("O");
@@ -234,14 +232,5 @@ public class GamePane extends JTextPane {
 
 	public void setFontSize(int fontSize) {
 		StyleConstants.setFontSize(styleSet, fontSize);
-	}
-
-	public void threadSleep() {
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }
