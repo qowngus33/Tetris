@@ -21,7 +21,7 @@ public class Tetris {
 
     public static void start() throws IOException {
         System.out.println("NORMAL MODE");
-        gameForm = new FightMenu(false,true);
+        gameForm = new FightMenu(true,false);
         //gameMenu = new GameMenu(false);
         gameForm.setVisible(true);
     }

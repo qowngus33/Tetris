@@ -443,7 +443,6 @@ public class StartMenu extends JFrame {
 				menuExit.setIcon(menuExitClicked);
 				menuExit.setCursor(new Cursor(HAND_CURSOR));
 			}
-
 			@Override
 			public void mouseExited(MouseEvent e) {
 				menuExit.setIcon(menuExitBasic);

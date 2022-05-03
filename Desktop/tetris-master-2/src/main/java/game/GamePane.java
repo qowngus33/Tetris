@@ -192,8 +192,6 @@ public class GamePane extends JTextPane {
 	}
 
 	public void addLines(int [][] lines) {
-		if(lines.length>10||lines.length<=0)
-			return;
 		int [][] tempList = new int[HEIGHT][WIDTH];
 		String [][] tempColorList = new String[HEIGHT][WIDTH];
 		for (int i = board.length-1; i >=lines.length; i--) {

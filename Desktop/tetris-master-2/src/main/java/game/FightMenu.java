@@ -51,13 +51,16 @@ public class FightMenu extends JFrame implements KeyListener {
 		JButton settingButton = new JButton("Settings");
 		JButton startMenuBtn = new JButton("Start Menu");
 		JButton scoreBoardBtn = new JButton("EXIT");
+		JButton restartBtn = new JButton("restart");
 		settingButton.addActionListener(e -> btnSettingActionPerformed());
 		startMenuBtn.addActionListener(e -> btnStartMenuActionPerformed());
 		scoreBoardBtn.addActionListener(e -> btnScoreBoardActionPerformed());
-		JPanel lowerPanel = new JPanel(new GridLayout(0, 3));
+		restartBtn.addActionListener(e -> btnRestartActionPerformed());
+		JPanel lowerPanel = new JPanel(new GridLayout(0, 4));
 		lowerPanel.add(settingButton);
 		lowerPanel.add(startMenuBtn);
 		lowerPanel.add(scoreBoardBtn);
+		lowerPanel.add(restartBtn);
 
 		if (isItemMode) {
 			gameBoard1 = new ItemGameBoard();
@@ -205,7 +208,6 @@ public class FightMenu extends JFrame implements KeyListener {
 			gameOver();
 			return;
 		}
-
 		if(gameBoard==gameBoard1) {
 			gameBoard.gamePane.addLines(gameBoard2.erasedLine);
 			gameBoard2.resetErasedLine();
@@ -217,7 +219,12 @@ public class FightMenu extends JFrame implements KeyListener {
 		}
 		gameBoard.eraseLine();
 		gameBoard.curr = gameBoard.nextBlock;
-		gameBoard.nextBlock = gameBoard.getRandomBlock.getRandomBlockMode(gameBoard.modeName);
+		if(SettingItem.isItemMode && (gameBoard.lineNum/gameBoard.count >= gameBoard.lineChange)) {
+			gameBoard.nextBlock = gameBoard.getRandomBlock.getItemBlock(gameBoard.modeName);
+			gameBoard.count = gameBoard.count+1;
+		} else {
+			gameBoard.nextBlock = gameBoard.getRandomBlock.getRandomBlockMode(gameBoard.modeName);
+		}
 		gameBoard.x = 3;
 		gameBoard.y = 0;
 	}
@@ -256,18 +263,6 @@ public class FightMenu extends JFrame implements KeyListener {
 		timer.stop();
 		dispose();
 		System.exit(0);
-	}
-
-	private void btnSettingActionPerformed() {
-		timer.stop();
-		dispose();
-		Tetris.showSettingMenu();
-	}
-
-	private void btnStartMenuActionPerformed() {
-		timer.stop();
-		dispose();
-		Tetris.showStartMenu();
 	}
 
 	@Override
@@ -333,5 +328,28 @@ public class FightMenu extends JFrame implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stud
+	}
+
+	private void btnSettingActionPerformed() {
+		timer.stop();
+		dispose();
+		Tetris.showSettingMenu();
+	}
+
+	private void btnStartMenuActionPerformed() {
+		timer.stop();
+		dispose();
+		Tetris.showStartMenu();
+	}
+
+	private void btnRestartActionPerformed() {
+		timer.stop();
+		dispose();
+		try {
+			Tetris.start();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		//to be edited
 	}
 }
