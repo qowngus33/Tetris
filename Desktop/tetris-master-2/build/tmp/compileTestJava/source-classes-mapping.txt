@@ -39,9 +39,9 @@ block/EBlockTest.java
  block.EBlockTest
 file/ScoreBoardFileTest.java
  file.ScoreBoardFileTest
-game/FightBoardTest.java
- game.FightBoardTest
-block/WBlockTest.java
- block.WBlockTest
 game/GameBoardTest.java
  game.GameBoardTest
+block/WBlockTest.java
+ block.WBlockTest
+game/FightBoardTest.java
+ game.FightBoardTest

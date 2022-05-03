@@ -3,6 +3,7 @@ package game;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Objects;
 
 import javax.sound.sampled.AudioSystem;
@@ -118,47 +119,63 @@ public class GameBoard extends JPanel {
 		}
 	}
 
-	protected void eraseLine() {
+	protected boolean eraseLine() {
 		int temp = 0;
+		int[][] tempBoard = new int[HEIGHT][WIDTH];
 		int[][] lines = new int[HEIGHT][WIDTH];
+		String[][] tempColorBoard = new String[HEIGHT][WIDTH];
+
+		for(int j=0;j<gamePane.board.length;j++){
+			System.arraycopy(gamePane.board[j], 0, tempBoard[j], 0, WIDTH);
+			System.arraycopy(gamePane.colorBoard[j], 0, tempColorBoard[j], 0, WIDTH);
+		}
 		for (int j = 0; j < erasedLine.length; j++)
 			System.arraycopy(erasedLine[j], 0, lines[j], 0, WIDTH);
 
 		for (int i = 0; i < HEIGHT; i++) {
-			boolean lineClear = true;
-			for (int j = 0; j < WIDTH; j++) {
-				if (gamePane.getBoard(i, j) == 0) {
-					lineClear = false;
-					j = WIDTH;
-				}
-			}
-			if (lineClear) {
-				for (int k = 0; k < WIDTH; k++) {
-					if (curr.getShape(k - x, i - y) == 0)
-						lines[erasedLine.length + temp][k] = gamePane.getBoard(i, k);
-					else
-						lines[erasedLine.length + temp][k] = 0;
-				}
-				for (int k = i; k > 1; k--) {
-					for (int l = 0; l < WIDTH; l++) {
-						gamePane.setBoard(k, l, gamePane.getBoard(k - 1, l));
-						gamePane.setColorBoard(k, l, gamePane.getColorBoard(k - 1, l));
-					}
-				}
-				score += 10 * level;
-				lineNum++;
+			if (isErasedLine(i)) {
+				eraseOneLine(i,tempColorBoard,lines,temp);
 				temp++;
 			}
 		}
 		if (temp > 0) {
+			gamePane.draw(tempBoard,tempColorBoard);
 			audio();
 			if (temp > 1 && erasedLine.length<10) {
 				erasedLine = new int[Math.min(10, erasedLine.length + temp)][WIDTH];
 				for (int j = 0; j < erasedLine.length; j++)
 					System.arraycopy(lines[j], 0, erasedLine[j], 0, WIDTH);
 			}
+			return true;
 		}
-		gamePane.draw();
+		return false;
+	}
+
+	protected void eraseOneLine(int line,String [][] tempColorBoard, int [][] lines,int temp){
+		Arrays.fill(tempColorBoard[line],"WHITE");
+		for (int k = 0; k < WIDTH; k++) {
+			if (curr.getShape(k - x, line - y) == 0)
+				lines[erasedLine.length + temp][k] = gamePane.getBoard(line, k);
+			else
+				lines[erasedLine.length + temp][k] = 0;
+		}
+		for (int k = line; k > 1; k--) {
+			for (int l = 0; l < WIDTH; l++) {
+				gamePane.setBoard(k, l, gamePane.getBoard(k - 1, l));
+				gamePane.setColorBoard(k, l, gamePane.getColorBoard(k - 1, l));
+			}
+		}
+		score += 10 * level;
+		lineNum++;
+	}
+
+	protected boolean isErasedLine(int line){
+		for (int j = 0; j < WIDTH; j++) {
+			if (gamePane.getBoard(line, j) == 0) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	protected int[][] getErasedLine() {
@@ -201,15 +218,6 @@ public class GameBoard extends JPanel {
 			System.err.println("no music");
 		}
 	}
-
-	protected void animation(int line) {
-		System.out.println("animation");
-		for (int i = 0; i < WIDTH; i++) {
-			gamePane.setColorBoard(line, i, "WHITE");
-		}
-		gamePane.draw();
-	}
-
 	protected boolean detectCrash(char position) {
 		switch (position) {
 			case 'L':

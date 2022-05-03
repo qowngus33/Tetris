@@ -173,9 +173,12 @@ public class GameMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (timer.isRunning()) {
                     gameBoard.dropBlock();
-                    newBlock();
-                    gameBoard.placeBlock();
-                    gameBoard.drawBoard();
+                    if(newBlock()){
+                        gameBoard.placeBlock();
+                    } else{
+                        gameBoard.placeBlock();
+                        gameBoard.drawBoard();
+                    }
                 }
             }
         });
@@ -220,19 +223,25 @@ public class GameMenu extends JFrame {
 
     protected void moveDown() {
         if (!gameBoard.moveDown()) {
-            newBlock();
+            if(newBlock()){
+                gameBoard.placeBlock();
+            } else{
+                gameBoard.placeBlock();
+                gameBoard.drawBoard();
+            }
+        } else{
+            gameBoard.placeBlock();
+            gameBoard.drawBoard();
         }
-        gameBoard.placeBlock();
-        gameBoard.drawBoard();
     }
 
-    protected void newBlock() {
+    protected boolean newBlock() {
         gameBoard.placeBlock(); // 밑으로 내려가지 않게 고정
         if (gameBoard.isGameEnded()) { // 게임이 종료됨.
             gameOver();
-            return;
+            return false;
         }
-        gameBoard.eraseLine();
+        boolean isErased = gameBoard.eraseLine();
         gameBoard.curr = gameBoard.nextBlock;
         if(SettingItem.isItemMode && (gameBoard.lineNum/gameBoard.count >= gameBoard.lineChange)) {
             gameBoard.nextBlock = gameBoard.getRandomBlock.getItemBlock(gameBoard.modeName);
@@ -243,6 +252,7 @@ public class GameMenu extends JFrame {
         gameBoard.x = 3;
         gameBoard.y = 0;
         gameBoard.nextBlockPane.drawNextBlockBoard(gameBoard.getNextBlock());
+        return isErased;
     }
 
     protected void gameOver() {

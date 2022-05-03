@@ -22,7 +22,7 @@ public class FightMenu extends JFrame implements KeyListener {
 	private GameBoard gameBoard2;
 	private GamePane gamePane1;
 	private GamePane gamePane2;
-	
+
 	protected static int initInterval;
 	protected JLabel scoreLabel1;
 	protected JLabel scoreLabel2;
@@ -51,13 +51,16 @@ public class FightMenu extends JFrame implements KeyListener {
 		JButton settingButton = new JButton("Settings");
 		JButton startMenuBtn = new JButton("Start Menu");
 		JButton scoreBoardBtn = new JButton("EXIT");
+		JButton restartBtn = new JButton("restart");
 		settingButton.addActionListener(e -> btnSettingActionPerformed());
 		startMenuBtn.addActionListener(e -> btnStartMenuActionPerformed());
 		scoreBoardBtn.addActionListener(e -> btnScoreBoardActionPerformed());
-		JPanel lowerPanel = new JPanel(new GridLayout(0, 3));
+		restartBtn.addActionListener(e -> btnRestartActionPerformed());
+		JPanel lowerPanel = new JPanel(new GridLayout(0, 4));
 		lowerPanel.add(settingButton);
 		lowerPanel.add(startMenuBtn);
 		lowerPanel.add(scoreBoardBtn);
+		lowerPanel.add(restartBtn);
 
 		if (isItemMode) {
 			gameBoard1 = new ItemGameBoard();
@@ -187,25 +190,30 @@ public class FightMenu extends JFrame implements KeyListener {
 
 	protected void moveDown(GameBoard gameBoard) {
 		if (!gameBoard.moveDown()) {
-			newBlock(gameBoard);
-			gameBoard.nextBlockPane.drawNextBlockBoard(gameBoard.getNextBlock());
+			if(newBlock(gameBoard)){
+				gameBoard.placeBlock();
+			} else{
+				gameBoard.placeBlock();
+				gameBoard.drawBoard();
+			}
+		} else{
+			gameBoard.placeBlock();
+			gameBoard.drawBoard();
 		}
+
 		if(isGameEnded)
 			return;
-		gameBoard.placeBlock();
-		gameBoard.drawBoard();
 	}
 
-	protected void newBlock(GameBoard gameBoard) {
+	protected boolean newBlock(GameBoard gameBoard) {
 		gameBoard.placeBlock(); // 밑으로 내려가지 않게 고정
 		System.out.println(currentTimeMillis()-startTime);
 		if (gameBoard.isGameEnded() || (isTimeAttackMode && currentTimeMillis()-startTime>exitTime)) {
 			timer.stop();
 			isGameEnded = true;
 			gameOver();
-			return;
+			return false;
 		}
-
 		if(gameBoard==gameBoard1) {
 			gameBoard.gamePane.addLines(gameBoard2.erasedLine);
 			gameBoard2.resetErasedLine();
@@ -215,13 +223,19 @@ public class FightMenu extends JFrame implements KeyListener {
 			gameBoard1.resetErasedLine();
 			gamePane2.setLines(gameBoard1.getErasedLine());
 		}
-		gameBoard.eraseLine();
+		boolean isErased = gameBoard.eraseLine();
 		gameBoard.curr = gameBoard.nextBlock;
-		gameBoard.nextBlock = gameBoard.getRandomBlock.getRandomBlockMode(gameBoard.modeName);
+		if(SettingItem.isItemMode && (gameBoard.lineNum/gameBoard.count >= gameBoard.lineChange)) {
+			gameBoard.nextBlock = gameBoard.getRandomBlock.getItemBlock(gameBoard.modeName);
+			gameBoard.count = gameBoard.count+1;
+		} else {
+			gameBoard.nextBlock = gameBoard.getRandomBlock.getRandomBlockMode(gameBoard.modeName);
+		}
 		gameBoard.x = 3;
 		gameBoard.y = 0;
+		gameBoard.nextBlockPane.drawNextBlockBoard(gameBoard.getNextBlock());
+		return isErased;
 	}
-	
 	private void gameOver() {
 		String text = "draw";
 		if(gameBoard1.isGameEnded() && !gameBoard2.isGameEnded()) {
@@ -258,18 +272,6 @@ public class FightMenu extends JFrame implements KeyListener {
 		System.exit(0);
 	}
 
-	private void btnSettingActionPerformed() {
-		timer.stop();
-		dispose();
-		Tetris.showSettingMenu();
-	}
-
-	private void btnStartMenuActionPerformed() {
-		timer.stop();
-		dispose();
-		Tetris.showStartMenu();
-	}
-
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -289,12 +291,13 @@ public class FightMenu extends JFrame implements KeyListener {
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (timer.isRunning()) {
 				gameBoard2.dropBlock();
-				newBlock(gameBoard2);
-				if(!isGameEnded) {
+				if(newBlock(gameBoard2)){
 					gameBoard2.placeBlock();
-					gameBoard2.drawBoard();
-					gameBoard2.nextBlockPane.drawNextBlockBoard(gameBoard2.getNextBlock());
-					gameBoard2.drawBoard();
+				} else{
+					if(!isGameEnded){
+						gameBoard2.placeBlock();
+						gameBoard2.drawBoard();
+					}
 				}
 			}
 		} else if (e.getKeyCode() == KeyEvent.VK_D) {
@@ -312,12 +315,13 @@ public class FightMenu extends JFrame implements KeyListener {
 		} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			if (timer.isRunning()) {
 				gameBoard1.dropBlock();
-				newBlock(gameBoard1);
-				if(!isGameEnded){
+				if(newBlock(gameBoard1)){
 					gameBoard1.placeBlock();
-					gameBoard1.drawBoard();
-					gameBoard1.nextBlockPane.drawNextBlockBoard(gameBoard1.getNextBlock());
-					gameBoard1.drawBoard();
+				} else{
+					if(!isGameEnded){
+						gameBoard1.placeBlock();
+						gameBoard1.drawBoard();
+					}
 				}
 			}
 		} else if (e.getKeyCode() == KeyEvent.VK_P) {
@@ -333,5 +337,28 @@ public class FightMenu extends JFrame implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stud
+	}
+
+	private void btnSettingActionPerformed() {
+		timer.stop();
+		dispose();
+		Tetris.showSettingMenu();
+	}
+
+	private void btnStartMenuActionPerformed() {
+		timer.stop();
+		dispose();
+		Tetris.showStartMenu();
+	}
+
+	private void btnRestartActionPerformed() {
+		timer.stop();
+		dispose();
+		try {
+			Tetris.start();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		//to be edited
 	}
 }
