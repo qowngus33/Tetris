@@ -32,7 +32,7 @@ public class GamePane extends JTextPane {
 		styleSet = new SimpleAttributeSet();
 		sideColor();
 		Style w = addStyle("WHITE", null);
-		StyleConstants.setForeground(w, Color.WHITE);
+		StyleConstants.setForeground(w, new Color(255, 255, 255));
 		Style B = addStyle("BLACK", null);
 		StyleConstants.setForeground(B, Color.BLACK);
 		Style G = addStyle("GRAY", null);
@@ -62,9 +62,9 @@ public class GamePane extends JTextPane {
 		if (isColorBlindMode) colorBlindColor();
 		else simpleColor();
 		Style w = addStyle("WHITE", null);
-		StyleConstants.setForeground(w, Color.WHITE);
+		StyleConstants.setForeground(w, new Color(255, 255, 255));
 		Style B = addStyle("BLACK", null);
-		StyleConstants.setForeground(B, Color.BLACK);
+		StyleConstants.setForeground(B, new Color(0, 0 , 0));
 		Style G = addStyle("GRAY", null);
 		StyleConstants.setForeground(G, Color.gray);
 
@@ -134,6 +134,25 @@ public class GamePane extends JTextPane {
 	}
 
 	public void draw() {
+		StyledDocument doc = this.getStyledDocument();
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				if (board[i][j] == 1) sb.append("O");
+				else if (board[i][j] == 2) sb.append("L");
+				else sb.append(" ");
+			}
+			if (i != board.length-1) sb.append("\n");
+		}
+		setText(sb.toString());
+		doc.setParagraphAttributes(0, doc.getLength(), styleSet, false);
+		for (int i = 0; i < board.length; i++)
+			for (int j = 0; j < board[i].length; j++)
+				doc.setCharacterAttributes(i * (board[i].length + 1) + j, 1, getStyle(colorBoard[i][j]), false);
+		setStyledDocument(doc);
+	}
+
+	public void draw(int [][] board, String [][] colorBoard) {
 		StyledDocument doc = this.getStyledDocument();
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < board.length; i++) {

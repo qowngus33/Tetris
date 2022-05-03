@@ -58,6 +58,6 @@ public class FightBoardTest {
     @Test
     public void newBlock() {
     	Block block = gameBoard.curr;
-    	Assert.assertNotSame(block, gameBoard.curr);
+    	Assert.assertEquals(block, gameBoard.curr);
     }
 }
