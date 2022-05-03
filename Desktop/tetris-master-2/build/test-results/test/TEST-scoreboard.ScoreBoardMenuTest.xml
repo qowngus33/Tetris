@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scoreboard.ScoreBoardMenuTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-05-02T15:37:33" hostname="MacBook-Pro-2.local" time="31.893">
-  <properties/>
-  <testcase name="ScoreBoardMenu" classname="scoreboard.ScoreBoardMenuTest" time="30.423"/>
-  <testcase name="tryWriteScoreboard" classname="scoreboard.ScoreBoardMenuTest" time="0.919"/>
-  <testcase name="isAlphaOrDigit" classname="scoreboard.ScoreBoardMenuTest" time="0.542"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
