@@ -18,21 +18,18 @@ import static java.lang.System.currentTimeMillis;
 public class FightMenu extends JFrame implements KeyListener {
 
 	private SettingItem settingItem;
-	private GameBoard gameBoard1;
-	private GameBoard gameBoard2;
-	private GamePane gamePane1;
-	private GamePane gamePane2;
+	private GameBoard [] gameBoard;
+	private GamePane [] gamePane;
 
-	protected static int initInterval;
-	protected JLabel scoreLabel1;
-	protected JLabel scoreLabel2;
-	protected String gameMode;
-	protected Timer timer;
-	protected long startTime;
-	protected final long exitTime = 60000;
-	protected boolean isTimeAttackMode;
-	protected boolean isGameEnded;
+	private static int initInterval;
+	private JLabel [] scoreLabel;
+	private JLabel [] lineLabel;
 
+	private Timer timer;
+	private final long startTime;
+	private final long exitTime = 60000;
+	private final boolean isTimeAttackMode;
+	private boolean isGameEnded;
 
 	public FightMenu(boolean isItemMode,boolean isTimeAttackMode) throws IOException {
 		super("Tetris Fight");
@@ -62,77 +59,13 @@ public class FightMenu extends JFrame implements KeyListener {
 		lowerPanel.add(scoreBoardBtn);
 		lowerPanel.add(restartBtn);
 
-		if (isItemMode) {
-			gameBoard1 = new ItemGameBoard();
-			gameBoard2 = new ItemGameBoard();
-			gameMode = "item";
-		} else {
-			gameBoard1 = new GameBoard();
-			gameBoard2 = new GameBoard();
-			gameMode = "regul";
-		}
-		gameBoard1.gamePane.setFontSize(settingItem.getFontSize());
-		gameBoard1.drawBoard();
-		gameBoard2.gamePane.setFontSize(settingItem.getFontSize());
-		gameBoard2.drawBoard();
-		gameBoard1.nextBlockPane.drawNextBlockBoard(gameBoard1.getNextBlock());
-		gameBoard2.nextBlockPane.drawNextBlockBoard(gameBoard2.getNextBlock());
-
-		JPanel sidePanel1 = new JPanel();
-		sidePanel1.setBackground(Color.white);
-		JPanel sidePanel2 = new JPanel();
-		sidePanel2.setBackground(Color.white);
-		gamePane1 = new GamePane();
-		gamePane1.draw();
-		sidePanel1.add(gamePane1);
-		gamePane2 = new GamePane();
-		gamePane2.draw();
-		sidePanel2.add(gamePane2);
-
-		// Side display
-		scoreLabel1 = new JLabel(gameBoard1.getScore() + "", JLabel.CENTER);
-		TitledBorder tborder = new TitledBorder("SCORE");
-		tborder.setTitlePosition(TitledBorder.ABOVE_TOP);
-		tborder.setTitleJustification(TitledBorder.CENTER);
-		scoreLabel1.setBorder(tborder);
-		scoreLabel1.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 17));
-		scoreLabel1.setBackground(Color.white);
-
-		// Side display
-		scoreLabel2 = new JLabel(gameBoard2.getScore() + "", JLabel.CENTER);
-		scoreLabel2.setBorder(tborder);
-		scoreLabel2.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 17));
-		scoreLabel2.setBackground(Color.white);
-		updateScore();
-
-		// left panel
-		JPanel rightPanel1 = new JPanel();
-		rightPanel1.setLayout(new BoxLayout(rightPanel1, BoxLayout.Y_AXIS));
-		rightPanel1.add(gameBoard1.nextBlockPane);
-		rightPanel1.add(scoreLabel1);
-		rightPanel1.add(sidePanel1);
-		rightPanel1.setAlignmentX(LEFT_ALIGNMENT);
-		rightPanel1.setBackground(Color.WHITE);
-		JPanel rightPanel2 = new JPanel();
-		rightPanel2.setLayout(new BoxLayout(rightPanel2, BoxLayout.Y_AXIS));
-		rightPanel2.add(gameBoard2.nextBlockPane);
-		rightPanel2.add(scoreLabel2);
-		rightPanel2.add(sidePanel2);
-		rightPanel2.setAlignmentX(LEFT_ALIGNMENT);
-		rightPanel2.setBackground(Color.WHITE);
-
-		// upper panel
-		JPanel panel1 = new JPanel();
-		panel1.add(gameBoard1);
-		panel1.add(rightPanel1);
-		panel1.setBackground(Color.white);
-		JPanel panel2 = new JPanel();
-		panel2.add(gameBoard2);
-		panel2.add(rightPanel2);
-		panel2.setBackground(Color.white);
 		JPanel upperPanel = new JPanel(new GridLayout(0, 2));
-		upperPanel.add(panel1);
-		upperPanel.add(panel2);
+		gameBoard = new GameBoard[2];
+		gamePane = new GamePane[2];
+		scoreLabel = new JLabel[2];
+		lineLabel = new JLabel[2];
+		upperPanel.add(init(isItemMode,0));
+		upperPanel.add(init(isItemMode,1));
 
 		// outer panel
 		JPanel outerPanel = new JPanel();
@@ -146,121 +79,167 @@ public class FightMenu extends JFrame implements KeyListener {
 		JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "PLAYER1: A←,S↓,D→,W(rotate),SPACE BAR(drop)\nPLAYER2: Arrow keys, ENTER(drop)");
 		startTime = currentTimeMillis();
 		addKeyListener(this);
+		updateScore();
 		setTimer();
 		setFocusable(true);
 		requestFocus();
 	}
 
+	private JPanel init(boolean isItemMode, int i) throws IOException {
+		if (isItemMode) {
+			gameBoard[i] = new ItemGameBoard();
+		} else {
+			gameBoard[i] = new GameBoard();
+		}
+		gameBoard[i].gamePane.setFontSize(settingItem.getFontSize());
+		gameBoard[i].drawBoard();
+		gameBoard[i].nextBlockPane.drawNextBlockBoard(gameBoard[i].getNextBlock());
+
+		JPanel sidePanel = new JPanel();
+		sidePanel.setBackground(Color.white);
+		gamePane[i] = new GamePane();
+		gamePane[i].draw();
+		sidePanel.add(gamePane[i]);
+
+		// Side display
+		scoreLabel[i] = new JLabel(gameBoard[i].getScore() + "", JLabel.CENTER);
+		TitledBorder border = new TitledBorder("SCORE");
+		border.setTitlePosition(TitledBorder.ABOVE_TOP);
+		border.setTitleJustification(TitledBorder.CENTER);
+		scoreLabel[i].setBorder(border);
+		scoreLabel[i].setFont(new Font(Font.MONOSPACED, Font.PLAIN, 17));
+		scoreLabel[i].setBackground(Color.white);
+		lineLabel[i] = new JLabel(gameBoard[i].getLineNum() + "", JLabel.CENTER);
+		TitledBorder border2 = new TitledBorder("LINE");
+		border2.setTitlePosition(TitledBorder.ABOVE_TOP);
+		border2.setTitleJustification(TitledBorder.CENTER);
+		lineLabel[i].setBorder(border2);
+		lineLabel[i].setFont(new Font(Font.MONOSPACED, Font.PLAIN, 17));
+		lineLabel[i].setBackground(Color.white);
+
+		// left panel
+		JPanel rightPanel = new JPanel();
+		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+		rightPanel.add(gameBoard[i].nextBlockPane);
+		rightPanel.add(scoreLabel[i]);
+		rightPanel.add(lineLabel[i]);
+		rightPanel.add(sidePanel);
+		rightPanel.setAlignmentX(LEFT_ALIGNMENT);
+		rightPanel.setBackground(Color.WHITE);
+
+		// upper panel
+		JPanel panel = new JPanel();
+		panel.add(gameBoard[i]);
+		panel.add(rightPanel);
+		panel.setBackground(Color.white);
+
+		return panel;
+	}
+
 	protected void setTimer() {
 		timer = new Timer(initInterval, e -> {
-			moveDown(gameBoard1);
-			moveDown(gameBoard2);
+			moveDown(0);
+			moveDown(1);
 			updateScore();
 		});
 		timer.start();
 	}
 
 	protected void updateScore() {
-		scoreLabel1.setText(String.format("%5s", gameBoard1.getScore() + "") + " ");
-		scoreLabel2.setText(String.format("%5s", gameBoard2.getScore() + "") + " ");
-		if (Math.max(gameBoard1.getLineNum(), gameBoard2.getLineNum()) / 7 >= gameBoard1.getLevel()) {
-			gameBoard1.setLevel(gameBoard1.getLevel() + 1);
-			gameBoard2.setLevel(gameBoard2.getLevel() + 1);
-			initInterval -= settingItem.getReduceSpeed();
-			timer.stop();
-			setTimer();
+		for(int i=0;i<2;i++){
+			scoreLabel[i].setText(String.format("%5s", gameBoard[i].getScore() + "") + " ");
+			lineLabel[i].setText(String.format("%5s", gameBoard[i].getLineNum() + "") + " ");
+			int temp = (i==0)?1:0;
+			if (gameBoard[i].getErasedLine().length > 1)
+				gamePane[temp].setLines(gameBoard[i].getErasedLine());
+			if (gameBoard[i].getLineNum()/ 7 >= gameBoard[i].getLevel()) {
+				gameBoard[i].setLevel(gameBoard[i].getLevel() + 1);
+				gameBoard[temp].setLevel(gameBoard[temp].getLevel() + 1);
+				initInterval -= settingItem.getReduceSpeed();
+				timer.stop();
+				setTimer();
+			}
 		}
-		if (gameBoard1.getErasedLine().length > 1)
-			gamePane2.setLines(gameBoard1.getErasedLine());
-		if (gameBoard2.getErasedLine().length > 1)
-			gamePane1.setLines(gameBoard2.getErasedLine());
 	}
 
 	public void pause() {
 		if (!timer.isRunning()) {
 			timer.start();
-			gameBoard1.drawBoard();
-			gameBoard2.drawBoard();
+			gameBoard[0].drawBoard();
+			gameBoard[1].drawBoard();
 		} else {
 			timer.stop();
-			gameBoard1.setGameBoardText("PAUSE");
-			gameBoard2.setGameBoardText("PAUSE");
+			gameBoard[0].setGameBoardText("PAUSE");
+			gameBoard[1].setGameBoardText("PAUSE");
 		}
 	}
 
-	protected void moveDown(GameBoard gameBoard) {
-		if (!gameBoard.moveDown()) {
-			if(newBlock(gameBoard)){
-				gameBoard.placeBlock();
+	protected void moveDown(int i) {
+		if (!gameBoard[i].moveDown()) {
+			if(newBlock(i)){
+				gameBoard[i].placeBlock();
 			} else{
-				gameBoard.placeBlock();
-				gameBoard.drawBoard();
+				gameBoard[i].placeBlock();
+				gameBoard[i].drawBoard();
 			}
 		} else{
-			gameBoard.placeBlock();
-			gameBoard.drawBoard();
+			gameBoard[i].placeBlock();
+			gameBoard[i].drawBoard();
 		}
-
-		if(isGameEnded)
-			return;
 	}
 
-	protected boolean newBlock(GameBoard gameBoard) {
-		gameBoard.placeBlock(); // 밑으로 내려가지 않게 고정
+	protected boolean newBlock(int i) {
+		gameBoard[i].placeBlock(); // 밑으로 내려가지 않게 고정
 		System.out.println(currentTimeMillis()-startTime);
-		if (gameBoard.isGameEnded() || (isTimeAttackMode && currentTimeMillis()-startTime>exitTime)) {
+		if (gameBoard[i].isGameEnded() || (isTimeAttackMode && currentTimeMillis()-startTime>exitTime)) {
 			timer.stop();
 			isGameEnded = true;
 			gameOver();
 			return false;
 		}
-		if(gameBoard==gameBoard1) {
-			gameBoard.gamePane.addLines(gameBoard2.erasedLine);
-			gameBoard2.resetErasedLine();
-			gamePane1.setLines(gameBoard2.getErasedLine());
+		int temp = (i == 0) ? 1:0;
+		gameBoard[i].gamePane.addLines(gameBoard[temp].erasedLine);
+		gameBoard[temp].resetErasedLine();
+		gamePane[i].setLines(gameBoard[temp].getErasedLine());
+
+		boolean isErased = gameBoard[i].eraseLine();
+		gameBoard[i].curr = gameBoard[i].nextBlock;
+		if(SettingItem.isItemMode && (gameBoard[i].lineNum/gameBoard[i].count >= gameBoard[i].lineChange)) {
+			gameBoard[i].nextBlock = gameBoard[i].getRandomBlock.getItemBlock(gameBoard[i].modeName);
+			gameBoard[i].count = gameBoard[i].count+1;
 		} else {
-			gameBoard.gamePane.addLines(gameBoard1.erasedLine);
-			gameBoard1.resetErasedLine();
-			gamePane2.setLines(gameBoard1.getErasedLine());
+			gameBoard[i].nextBlock = gameBoard[i].getRandomBlock.getRandomBlockMode(gameBoard[i].modeName);
 		}
-		boolean isErased = gameBoard.eraseLine();
-		gameBoard.curr = gameBoard.nextBlock;
-		if(SettingItem.isItemMode && (gameBoard.lineNum/gameBoard.count >= gameBoard.lineChange)) {
-			gameBoard.nextBlock = gameBoard.getRandomBlock.getItemBlock(gameBoard.modeName);
-			gameBoard.count = gameBoard.count+1;
-		} else {
-			gameBoard.nextBlock = gameBoard.getRandomBlock.getRandomBlockMode(gameBoard.modeName);
-		}
-		gameBoard.x = 3;
-		gameBoard.y = 0;
-		gameBoard.nextBlockPane.drawNextBlockBoard(gameBoard.getNextBlock());
+		gameBoard[i].x = 3;
+		gameBoard[i].y = 0;
+		gameBoard[i].nextBlockPane.drawNextBlockBoard(gameBoard[i].getNextBlock());
 		return isErased;
 	}
 	private void gameOver() {
 		String text = "draw";
-		if(gameBoard1.isGameEnded() && !gameBoard2.isGameEnded()) {
-			gameBoard1.setGameBoardText("LOSE");
-			gameBoard2.setGameBoardText("WIN!");
+		if(gameBoard[0].isGameEnded() && !gameBoard[1].isGameEnded()) {
+			gameBoard[0].setGameBoardText("LOSE");
+			gameBoard[1].setGameBoardText("WIN!");
 			text = "player2 win";
-		} else if(!gameBoard1.isGameEnded() && gameBoard2.isGameEnded()){
-			gameBoard1.setGameBoardText("WIN!");
-			gameBoard2.setGameBoardText("LOSE");
+		} else if(!gameBoard[0].isGameEnded() && gameBoard[1].isGameEnded()){
+			gameBoard[0].setGameBoardText("WIN!");
+			gameBoard[1].setGameBoardText("LOSE");
 			text = "player1 win";
-		} else if(gameBoard1.isGameEnded() && gameBoard2.isGameEnded()){
-			gameBoard1.setGameBoardText("DRAW!");
-			gameBoard2.setGameBoardText("DRAW!");
+		} else if(gameBoard[0].isGameEnded() && gameBoard[1].isGameEnded()){
+			gameBoard[0].setGameBoardText("DRAW!");
+			gameBoard[1].setGameBoardText("DRAW!");
 		} else{
-			if(gameBoard1.score>gameBoard2.score){
-				gameBoard1.setGameBoardText("WIN!");
-				gameBoard2.setGameBoardText("LOSE");
+			if(gameBoard[0].score>gameBoard[1].score){
+				gameBoard[0].setGameBoardText("WIN!");
+				gameBoard[1].setGameBoardText("LOSE");
 				text = "player1 win";
-			} else if(gameBoard1.score<gameBoard2.score){
-				gameBoard1.setGameBoardText("LOSE");
-				gameBoard2.setGameBoardText("WIN!");
+			} else if(gameBoard[0].score<gameBoard[1].score){
+				gameBoard[0].setGameBoardText("LOSE");
+				gameBoard[1].setGameBoardText("WIN!");
 				text = "player2 win";
 			} else{
-				gameBoard1.setGameBoardText("DRAW!");
-				gameBoard2.setGameBoardText("DRAW!");
+				gameBoard[0].setGameBoardText("DRAW!");
+				gameBoard[1].setGameBoardText("DRAW!");
 			}
 		}
 		JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), text);
@@ -277,50 +256,50 @@ public class FightMenu extends JFrame implements KeyListener {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			if (timer.isRunning())
-				gameBoard2.moveRight();
+				gameBoard[1].moveRight();
 		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			if (timer.isRunning())
-				gameBoard2.moveLeft();
+				gameBoard[1].moveLeft();
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			if (timer.isRunning()) {
-				moveDown(gameBoard2);
+				moveDown(1);
 			}
 		} else if (e.getKeyCode() == KeyEvent.VK_UP) {
 			if (timer.isRunning())
-				gameBoard2.rotateBlock();
+				gameBoard[1].rotateBlock();
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (timer.isRunning()) {
-				gameBoard2.dropBlock();
-				if(newBlock(gameBoard2)){
-					gameBoard2.placeBlock();
+				gameBoard[1].dropBlock();
+				if(newBlock(1)){
+					gameBoard[1].placeBlock();
 				} else{
 					if(!isGameEnded){
-						gameBoard2.placeBlock();
-						gameBoard2.drawBoard();
+						gameBoard[1].placeBlock();
+						gameBoard[1].drawBoard();
 					}
 				}
 			}
 		} else if (e.getKeyCode() == KeyEvent.VK_D) {
 			if (timer.isRunning())
-				gameBoard1.moveRight();
+				gameBoard[0].moveRight();
 		} else if (e.getKeyCode() == KeyEvent.VK_A) {
 			if (timer.isRunning())
-				gameBoard1.moveLeft();
+				gameBoard[0].moveLeft();
 		} else if (e.getKeyCode() == KeyEvent.VK_S) {
 			if (timer.isRunning())
-				moveDown(gameBoard1);
+				moveDown(0);
 		} else if (e.getKeyCode() == KeyEvent.VK_W) {
 			if (timer.isRunning())
-				gameBoard1.rotateBlock();
+				gameBoard[0].rotateBlock();
 		} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			if (timer.isRunning()) {
-				gameBoard1.dropBlock();
-				if(newBlock(gameBoard1)){
-					gameBoard1.placeBlock();
+				gameBoard[0].dropBlock();
+				if(newBlock(0)){
+					gameBoard[0].placeBlock();
 				} else{
 					if(!isGameEnded){
-						gameBoard1.placeBlock();
-						gameBoard1.drawBoard();
+						gameBoard[0].placeBlock();
+						gameBoard[0].drawBoard();
 					}
 				}
 			}
