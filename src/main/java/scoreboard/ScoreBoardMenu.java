@@ -1,22 +1,14 @@
 package scoreboard;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.io.IOException;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.WindowConstants;
-import javax.swing.text.*;
-
-import file.ScoreBoardFile;
 import main.Tetris;
+
+import javax.swing.*;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+import java.awt.*;
+import java.io.IOException;
 
 public class ScoreBoardMenu extends JFrame {
 
@@ -81,11 +73,7 @@ public class ScoreBoardMenu extends JFrame {
 		exitBtn.addActionListener(e -> System.exit(0));
 		enterBtn.setEnabled(false);
 		nameEnter.setEditable(false);
-<<<<<<< HEAD
 		label.setText("Scores from past scoreboard games");
-=======
-		label.setText("역대 테트리스 게임 점수");
->>>>>>> 1c68e7c98bba8b52e7ce3f6959fb66042183d6a8
 	}
 
 	public ScoreBoardMenu(int score, String level, String mode) throws NumberFormatException, IOException {
@@ -108,11 +96,7 @@ public class ScoreBoardMenu extends JFrame {
 			if (score < sb.isWritable()) {
 				enterBtn.setEnabled(false);
 				nameEnter.setEditable(false);
-<<<<<<< HEAD
 				label.setText("Scores from past scoreboard games");
-=======
-				label.setText("역대 테트리스 게임 점수");
->>>>>>> 1c68e7c98bba8b52e7ce3f6959fb66042183d6a8
 				JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Game Over");
 			} else {
 				JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), scoreWriteText);
