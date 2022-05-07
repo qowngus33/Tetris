@@ -7,6 +7,9 @@ import org.junit.Test;
 
 import blocks.Block;
 
+import static java.time.Duration.ofMillis;
+import static org.junit.jupiter.api.Assertions.assertTimeout;
+
 public class GameBoardTest {
     GameBoard gameBoard = new GameBoard();
     public GameBoardTest() throws IOException {}
@@ -19,6 +22,11 @@ public class GameBoardTest {
     	
     	Assert.assertEquals(gameBoard.x, X+1);
     	Assert.assertEquals(gameBoard.y, Y);
+
+		assertTimeout(ofMillis(1000),() -> {
+			gameBoard.moveRight();
+		});
+
     }
     
     @Test
@@ -29,7 +37,10 @@ public class GameBoardTest {
     	
     	Assert.assertEquals(gameBoard.x, X-1);
     	Assert.assertEquals(gameBoard.y, Y);
-    	
+
+		assertTimeout(ofMillis(1000),() -> {
+			gameBoard.moveLeft();
+		});
     }
     
     @Test
@@ -40,6 +51,10 @@ public class GameBoardTest {
     	
     	Assert.assertEquals(gameBoard.x, X);
     	Assert.assertEquals(gameBoard.y, Y+1);
+
+		assertTimeout(ofMillis(1000),() -> {
+			gameBoard.moveDown();
+		});
     }
     
     @Test
@@ -60,6 +75,10 @@ public class GameBoardTest {
 		gameBoard.y=20;
 		gameBoard.rotateBlock();
 		Assert.assertArrayEquals(block.getShape(), gameBoard.curr.getShape());
+
+		assertTimeout(ofMillis(1000),() -> {
+			gameBoard.rotateBlock();
+		});
     }
     
     @Test
@@ -113,6 +132,7 @@ public class GameBoardTest {
 				lines[i][j] = 1;
 		gameBoard.gamePane.addLines(lines);
 		gameBoard.eraseLine();
+		gameBoard.drawBoard();
 		Assert.assertEquals(temp, gameBoard.gamePane.getText());
 	}
 }

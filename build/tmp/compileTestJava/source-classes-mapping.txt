@@ -31,17 +31,19 @@ scoreboard/ScoreBoardMenuTest.java
  scoreboard.ScoreBoardMenuTest
 block/LBlockTest.java
  block.LBlockTest
-game/itemModeTest.java
- game.itemModeTest
+game/GameMenuTest.java
+ game.GameMenuTest
 game/GamePaneTest.java
  game.GamePaneTest
 block/EBlockTest.java
  block.EBlockTest
 file/ScoreBoardFileTest.java
  file.ScoreBoardFileTest
-game/GameBoardTest.java
- game.GameBoardTest
-block/WBlockTest.java
- block.WBlockTest
 game/FightBoardTest.java
  game.FightBoardTest
+block/WBlockTest.java
+ block.WBlockTest
+game/GameBoardTest.java
+ game.GameBoardTest
+game/itemModeTest.java
+ game.itemModeTest

@@ -289,6 +289,7 @@ class itemModeTest {
 				lines[i][j] = 1;
 		itemGameBoard.gamePane.addLines(lines);
 		itemGameBoard.eraseLine();
+		itemGameBoard.drawBoard();
 		Assert.assertEquals(temp, itemGameBoard.gamePane.getText());
 
 		for(int i=0;i<100;i++){

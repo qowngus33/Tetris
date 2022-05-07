@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="game.itemModeTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2022-05-07T06:52:18" hostname="MacBook-Pro-2.local" time="1.822">
+  <properties/>
+  <testcase name="eraseLine()" classname="game.itemModeTest" time="1.128"/>
+  <testcase name="getItemBlockNormal()" classname="game.itemModeTest" time="0.241"/>
+  <testcase name="setLines()" classname="game.itemModeTest" time="0.003"/>
+  <testcase name="getItemBlockEasy()" classname="game.itemModeTest" time="0.22"/>
+  <testcase name="getItemBlockHard()" classname="game.itemModeTest" time="0.229"/>
+  <system-out><![CDATA[NORMAL
+countBlock: 
+[0] 28316 [1] 28653 [2] 28576 [3] 28603 [4] 28570 [5] 28662 [6] 28786 [7] 200437 [8] 198690 [9] 200479 [10] 200228 
+countPositionBlock: 
+[0] 50098 [1] 50759 [2] 50360 [3] 48949 [4] 0 [5] 0 NORMAL
+countBlock: 
+[0] 28559 [1] 28896 [2] 28662 [3] 28610 [4] 28156 [5] 28453 [6] 28476 [7] 200175 [8] 199870 [9] 200553 [10] 199590 
+countPositionBlock: 
+[0] 52845 [1] 49119 [2] 49399 [3] 48449 [4] 0 [5] 0 NORMAL
+countBlock: 
+[0] 28492 [1] 28428 [2] 28308 [3] 28486 [4] 28624 [5] 28639 [6] 28498 [7] 199931 [8] 200013 [9] 200302 [10] 200279 
+countPositionBlock: 
+[0] 50292 [1] 50137 [2] 49471 [3] 49575 [4] 0 [5] 0 ]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
