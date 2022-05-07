@@ -4,6 +4,7 @@ import blocks.Block;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import static java.time.Duration.ofMillis;

@@ -2,5 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+<<<<<<< HEAD
+=======
+    <mapping directory="$PROJECT_DIR$/tetris-1" vcs="Git" />
+>>>>>>> 69b1fb81b0f2ac306f7ea74b60f3f06d2646e4b4
   </component>
 </project>
