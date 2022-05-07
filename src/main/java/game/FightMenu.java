@@ -143,7 +143,11 @@ public class FightMenu extends JFrame implements KeyListener {
 
 		// Set timer for block drops.
 		initInterval = settingItem.getInitInterval();
+<<<<<<< HEAD
 		JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "PLAYER1: A,S,D,W(rotate),SPACE BAR(drop)\nPLAYER2: Arrow keys, ENTER(drop)");
+=======
+		JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "PLAYER1: A←,S↓,D→,W(rotate),SPACE BAR(drop)\nPLAYER2: Arrow keys, ENTER(drop)");
+>>>>>>> 1c68e7c98bba8b52e7ce3f6959fb66042183d6a8
 		startTime = currentTimeMillis();
 		addKeyListener(this);
 		setTimer();

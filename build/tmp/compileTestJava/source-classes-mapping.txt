@@ -4,6 +4,7 @@ block/IBlockTest.java
  block.IBlockTest
 block/CBlockTest.java
  block.CBlockTest
+<<<<<<< HEAD
 block/ZBlockTest.java
  block.ZBlockTest
 setting/SaveFileTest.java
@@ -13,6 +14,17 @@ setting/LoadFileTest.java
  setting.LoadFileTest$1
 setting/ModeTest.java
  setting.ModeTest
+=======
+setting/SaveFileTest.java
+ setting.SaveFileTest
+block/ZBlockTest.java
+ block.ZBlockTest
+setting/ModeTest.java
+ setting.ModeTest
+setting/LoadFileTest.java
+ setting.LoadFileTest
+ setting.LoadFileTest$1
+>>>>>>> 1c68e7c98bba8b52e7ce3f6959fb66042183d6a8
 game/NextBlockPaneTest.java
  game.NextBlockPaneTest
 setting/SettingMenuTest.java
@@ -33,15 +45,29 @@ block/LBlockTest.java
  block.LBlockTest
 game/itemModeTest.java
  game.itemModeTest
+<<<<<<< HEAD
 block/EBlockTest.java
  block.EBlockTest
 game/GamePaneTest.java
  game.GamePaneTest
 file/ScoreBoardFileTest.java
  file.ScoreBoardFileTest
+=======
+game/GamePaneTest.java
+ game.GamePaneTest
+block/EBlockTest.java
+ block.EBlockTest
+file/ScoreBoardFileTest.java
+ file.ScoreBoardFileTest
+game/GameBoardTest.java
+ game.GameBoardTest
+>>>>>>> 1c68e7c98bba8b52e7ce3f6959fb66042183d6a8
 block/WBlockTest.java
  block.WBlockTest
 game/FightBoardTest.java
  game.FightBoardTest
+<<<<<<< HEAD
 game/GameBoardTest.java
  game.GameBoardTest
+=======
+>>>>>>> 1c68e7c98bba8b52e7ce3f6959fb66042183d6a8

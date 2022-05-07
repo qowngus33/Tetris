@@ -53,8 +53,13 @@ public class KeySetting extends JFrame{
         }
 
         settingLine = new JPanel(new FlowLayout());
+<<<<<<< HEAD
         cancelBtn = new JButton("Cancel");
         saveBtn = new JButton("Save");
+=======
+        cancelBtn = new JButton("취소");
+        saveBtn = new JButton("저장");
+>>>>>>> 1c68e7c98bba8b52e7ce3f6959fb66042183d6a8
         cancelBtn.addActionListener(e -> btnCancelActionPerformed());
         saveBtn.addActionListener(e -> btnSaveActionPerformed());
 
