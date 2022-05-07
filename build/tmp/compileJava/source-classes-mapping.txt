@@ -52,8 +52,8 @@ game/GamePane.java
  game.GamePane
 game/NextBlockPane.java
  game.NextBlockPane
-main/Tetris.java
- main.Tetris
+scoreboard/ScoreBoardFile.java
+ scoreboard.ScoreBoardFile
 component/StartMenu.java
  component.StartMenu
  component.StartMenu$1
@@ -70,7 +70,18 @@ blocks/BBlock.java
  blocks.BBlock
 blocks/Block.java
  blocks.Block
-scoreboard/ScoreBoardFile.java
- scoreboard.ScoreBoardFile
+main/Tetris.java
+ main.Tetris
 game/FightMenu.java
  game.FightMenu
+ game.FightMenu$1
+ game.FightMenu$10
+ game.FightMenu$11
+ game.FightMenu$2
+ game.FightMenu$3
+ game.FightMenu$4
+ game.FightMenu$5
+ game.FightMenu$6
+ game.FightMenu$7
+ game.FightMenu$8
+ game.FightMenu$9

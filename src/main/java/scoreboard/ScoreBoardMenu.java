@@ -73,7 +73,7 @@ public class ScoreBoardMenu extends JFrame {
 		exitBtn.addActionListener(e -> System.exit(0));
 		enterBtn.setEnabled(false);
 		nameEnter.setEditable(false);
-		label.setText("Scores from past scoreboard games");
+		label.setText("Scores from past games");
 	}
 
 	public ScoreBoardMenu(int score, String level, String mode) throws NumberFormatException, IOException {

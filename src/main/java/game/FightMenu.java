@@ -3,8 +3,7 @@ package game;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 import javax.swing.*;
@@ -15,7 +14,7 @@ import setting.SettingItem;
 
 import static java.lang.System.currentTimeMillis;
 
-public class FightMenu extends JFrame implements KeyListener {
+public class FightMenu extends JFrame {
 
 	private SettingItem settingItem;
 	private GameBoard [] gameBoard;
@@ -36,6 +35,8 @@ public class FightMenu extends JFrame implements KeyListener {
 		settingItem = SettingItem.getInstance();
 		setSize(settingItem.getBoardWidth() * 2, settingItem.getBoardHeight());
 		SettingItem.isItemMode = isItemMode;
+		settingItem.isTimeAttackMode = isTimeAttackMode;
+		SettingItem.isFightMode = true;
 		this.isTimeAttackMode = isTimeAttackMode;
 		setResizable(false);
 		setBackground(Color.WHITE);
@@ -66,6 +67,7 @@ public class FightMenu extends JFrame implements KeyListener {
 		lineLabel = new JLabel[2];
 		upperPanel.add(init(isItemMode,0));
 		upperPanel.add(init(isItemMode,1));
+		updateScore();
 
 		// outer panel
 		JPanel outerPanel = new JPanel();
@@ -76,13 +78,16 @@ public class FightMenu extends JFrame implements KeyListener {
 
 		// Set timer for block drops.
 		initInterval = settingItem.getInitInterval();
-		JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "PLAYER1: A←,S↓,D→,W(rotate),SPACE BAR(drop)\nPLAYER2: Arrow keys, ENTER(drop)");
+		String message = "PLAYER1:"+settingItem.getP1LeftKey()+" "+settingItem.getP1RightKey()+" "
+				+settingItem.getP1DownKey()+" "+settingItem.getP1RotateKey()+" "+settingItem.getP1DropKey()
+				+"\nPLAYER2:"+settingItem.getP2LeftKey()+" "+ settingItem.getP2RightKey()+" "+settingItem.getP2DownKey()+" "
+				+settingItem.getP2RotateKey()+" "+settingItem.getP2DropKey();
+		JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), message);
 		startTime = currentTimeMillis();
-		addKeyListener(this);
-		updateScore();
 		setTimer();
 		setFocusable(true);
 		requestFocus();
+		initControls();
 	}
 
 	private JPanel init(boolean isItemMode, int i) throws IOException {
@@ -134,6 +139,119 @@ public class FightMenu extends JFrame implements KeyListener {
 		panel.setBackground(Color.white);
 
 		return panel;
+	}
+
+	protected void initControls() {
+		JRootPane rootPane = this.getRootPane();
+		InputMap im = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		ActionMap am = rootPane.getActionMap();
+
+		im.put(KeyStroke.getKeyStroke(settingItem.getP1RightKey()), "right1");
+		im.put(KeyStroke.getKeyStroke(settingItem.getP1LeftKey()), "left1");
+		im.put(KeyStroke.getKeyStroke(settingItem.getP1RotateKey()), "up1");
+		im.put(KeyStroke.getKeyStroke(settingItem.getP1DownKey()), "down1");
+		im.put(KeyStroke.getKeyStroke(settingItem.getP1DropKey()), "space1");
+		im.put(KeyStroke.getKeyStroke(settingItem.getP2RightKey()), "right2");
+		im.put(KeyStroke.getKeyStroke(settingItem.getP2LeftKey()), "left2");
+		im.put(KeyStroke.getKeyStroke(settingItem.getP2RotateKey()), "up2");
+		im.put(KeyStroke.getKeyStroke(settingItem.getP2DownKey()), "down2");
+		im.put(KeyStroke.getKeyStroke(settingItem.getP2DropKey()), "space2");
+		im.put(KeyStroke.getKeyStroke(settingItem.getPauseKey()), "pause");
+
+		am.put("right1", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (timer.isRunning())
+					gameBoard[0].moveRight();
+			}
+		});
+		am.put("left1", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (timer.isRunning())
+					gameBoard[0].moveLeft();
+			}
+		});
+		am.put("up1", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (timer.isRunning())
+					gameBoard[0].rotateBlock();
+			}
+		});
+		am.put("down1", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (timer.isRunning())
+					moveDown(0);
+			}
+		});
+		am.put("space1", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (timer.isRunning()) {
+					gameBoard[0].dropBlock();
+					if(newBlock(0)){
+						gameBoard[0].placeBlock();
+					} else{
+						if(!isGameEnded){
+							gameBoard[0].placeBlock();
+							gameBoard[0].drawBoard();
+						}
+					}
+				}
+			}
+		});
+		am.put("right2", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (timer.isRunning())
+					gameBoard[1].moveRight();
+			}
+		});
+		am.put("left2", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (timer.isRunning())
+					gameBoard[1].moveLeft();
+			}
+		});
+		am.put("up2", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (timer.isRunning())
+					gameBoard[1].rotateBlock();
+			}
+		});
+		am.put("down2", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (timer.isRunning())
+					moveDown(1);
+			}
+		});
+		am.put("space2", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (timer.isRunning()) {
+					gameBoard[1].dropBlock();
+					if(newBlock(1)){
+						gameBoard[1].placeBlock();
+					} else{
+						if(!isGameEnded){
+							gameBoard[1].placeBlock();
+							gameBoard[1].drawBoard();
+						}
+					}
+				}
+			}
+		});
+		am.put("pause", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				pause();
+			}
+		});
 	}
 
 	protected void setTimer() {
@@ -251,73 +369,6 @@ public class FightMenu extends JFrame implements KeyListener {
 		System.exit(0);
 	}
 
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			if (timer.isRunning())
-				gameBoard[1].moveRight();
-		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			if (timer.isRunning())
-				gameBoard[1].moveLeft();
-		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			if (timer.isRunning()) {
-				moveDown(1);
-			}
-		} else if (e.getKeyCode() == KeyEvent.VK_UP) {
-			if (timer.isRunning())
-				gameBoard[1].rotateBlock();
-		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			if (timer.isRunning()) {
-				gameBoard[1].dropBlock();
-				if(newBlock(1)){
-					gameBoard[1].placeBlock();
-				} else{
-					if(!isGameEnded){
-						gameBoard[1].placeBlock();
-						gameBoard[1].drawBoard();
-					}
-				}
-			}
-		} else if (e.getKeyCode() == KeyEvent.VK_D) {
-			if (timer.isRunning())
-				gameBoard[0].moveRight();
-		} else if (e.getKeyCode() == KeyEvent.VK_A) {
-			if (timer.isRunning())
-				gameBoard[0].moveLeft();
-		} else if (e.getKeyCode() == KeyEvent.VK_S) {
-			if (timer.isRunning())
-				moveDown(0);
-		} else if (e.getKeyCode() == KeyEvent.VK_W) {
-			if (timer.isRunning())
-				gameBoard[0].rotateBlock();
-		} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			if (timer.isRunning()) {
-				gameBoard[0].dropBlock();
-				if(newBlock(0)){
-					gameBoard[0].placeBlock();
-				} else{
-					if(!isGameEnded){
-						gameBoard[0].placeBlock();
-						gameBoard[0].drawBoard();
-					}
-				}
-			}
-		} else if (e.getKeyCode() == KeyEvent.VK_P) {
-			pause();
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stud
-	}
-
 	private void btnSettingActionPerformed() {
 		timer.stop();
 		dispose();
@@ -334,7 +385,7 @@ public class FightMenu extends JFrame implements KeyListener {
 		timer.stop();
 		dispose();
 		try {
-			Tetris.start();
+			Tetris.start(false);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

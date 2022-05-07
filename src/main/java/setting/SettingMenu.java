@@ -12,8 +12,6 @@ public class SettingMenu extends JFrame {
 	private JRadioButton[] sizeBtns;
 	private ButtonGroup sizeBtnGroup;
 	private JPanel sizePanel;
-	private JPanel keyPanel;
-	private JPanel keySettingPanel;
 	private JButton gameBtn;
 	private JButton startMenuBtn;
 	private JButton initSettingBtn;
@@ -29,9 +27,9 @@ public class SettingMenu extends JFrame {
 	private ButtonGroup modeBtnGroup;
 	private JRadioButton[] modeBtns;
 	private JPanel modePanel;
-	private JButton initKeySettingBtn;
+
 	private SettingItem settingItem;
-	private KeySetting keySetting;
+
 	private int size = 1;
 
 	public SettingMenu() throws IOException {
@@ -55,8 +53,8 @@ public class SettingMenu extends JFrame {
 
 		sizePanel = new JPanel(new GridLayout(0, 4));
 		sizePanel.add(sizeLabel);
-		for (int i = 0; i < sizeBtns.length; i++) {
-			sizePanel.add(sizeBtns[i]);
+		for (JRadioButton sizeBtn : sizeBtns) {
+			sizePanel.add(sizeBtn);
 		}
 		sizeBtns[0].addActionListener(e -> settingItem.btnSmallBtnActionPerformed());
 		sizeBtns[1].addActionListener(e -> settingItem.btnMediumBtnActionPerformed());
@@ -74,11 +72,22 @@ public class SettingMenu extends JFrame {
 				break;
 		}
 
-		// 조작키 설정
-		keyPanel = new JPanel(new BorderLayout());
-		keySettingPanel = displayKeySetting();
+		JPanel keyPanel = new JPanel(new BorderLayout());
 		keyPanel.add(new JLabel("Operation Key"), BorderLayout.NORTH);
-		keyPanel.add(keySettingPanel, BorderLayout.CENTER);
+
+		// 조작키 설정
+		if(SettingItem.isFightMode){
+			System.out.println("Fight mode");
+			JPanel keySettingPanel1 = displayKeySetting(1);
+			keyPanel.add(keySettingPanel1, BorderLayout.CENTER);
+			JPanel keySettingPanel2 = displayKeySetting(2);
+			keyPanel.add(keySettingPanel2, BorderLayout.SOUTH);
+		} else {
+			System.out.println("normal mode");
+			JPanel keySettingPanel = displayKeySetting(0);
+			keyPanel.add(keySettingPanel, BorderLayout.CENTER);
+		}
+
 
 		// 난이도 설정
 		String[] modeNames = { "EASY", "NORMAL", "HARD" };
@@ -93,8 +102,8 @@ public class SettingMenu extends JFrame {
 
 		modePanel = new JPanel(new GridLayout(0, 4));
 		modePanel.add(modeLabel);
-		for (int i = 0; i < modeBtns.length; i++) {
-			modePanel.add(modeBtns[i]);
+		for (JRadioButton modeBtn : modeBtns) {
+			modePanel.add(modeBtn);
 		}
 		modeBtns[0].addActionListener(e -> settingItem.btnEasyModeActionPerformed());
 		modeBtns[1].addActionListener(e -> settingItem.btnNormalModeActionPerformed());
@@ -116,11 +125,9 @@ public class SettingMenu extends JFrame {
 		colorBlindLabel = new JLabel("Color Blind Mode");
 		colorBlindOnBtn = new JRadioButton("on");
 		colorBlindOffBtn = new JRadioButton("off");
-
 		colorBlindBtnGroup = new ButtonGroup();
 		colorBlindBtnGroup.add(colorBlindOnBtn);
 		colorBlindBtnGroup.add(colorBlindOffBtn);
-
 		colorBlindOnBtn.addActionListener(e -> settingItem.btnColorBlindOnActionPerformed());
 		colorBlindOffBtn.addActionListener(e -> settingItem.btnColorBlindOffActionPerformed());
 
@@ -138,12 +145,10 @@ public class SettingMenu extends JFrame {
 		// 스코어 보드 기록 초기화
 		initScoreBoardBtn = new JButton("Scoreboard Reset");
 		initScoreBoardBtn.addActionListener(e -> settingItem.btnInitScoreBoardActionPerformed());
-
 		initScoreBoardPanel = new JPanel();
 		initScoreBoardPanel.add(initScoreBoardBtn);
 
 		// 게임 시작 버튼, 시작 메뉴 버튼 & 이벤트 설정
-
 		gameBtn = new JButton("Game");
 		startMenuBtn = new JButton("Start Menu");
 		initSettingBtn = new JButton("Reset Setting");
@@ -185,54 +190,48 @@ public class SettingMenu extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
-	public JPanel displayKeySetting() {
+	public JPanel displayKeySetting(int player) {
 
 		JButton leftKey = new JButton("LEFT");
 		JButton rightKey = new JButton("RIGHT");
 		JButton downKey = new JButton("DOWN");
 		JButton rotateKey = new JButton("ROTATE");
 		JButton dropKey = new JButton("DROP");
-		JButton initKey = new JButton("RESET");
-
 
 		leftKey.addActionListener(e -> {
 			try {
-				btnDisplayLeftKeySettingActionPerformed("LEFT");
+				btnDisplayLeftKeySettingActionPerformed("LEFT",player);
 			} catch (IOException ioException) {
 				ioException.printStackTrace();
 			}
 		});
 		rightKey.addActionListener(e -> {
 			try {
-				btnDisplayRightKeySettingActionPerformed("RIGHT");
+				btnDisplayRightKeySettingActionPerformed("RIGHT",player);
 			} catch (IOException ioException) {
 				ioException.printStackTrace();
 			}
 		});
 		downKey.addActionListener(e -> {
 			try {
-				btnDisplayDownKeySettingActionPerformed("DOWN");
+				btnDisplayDownKeySettingActionPerformed("DOWN",player);
 			} catch (IOException ioException) {
 				ioException.printStackTrace();
 			}
 		});
 		rotateKey.addActionListener(e -> {
 			try {
-				btnDisplayRotateKeySettingActionPerformed("ROTATE");
+				btnDisplayRotateKeySettingActionPerformed("ROTATE",player);
 			} catch (IOException ioException) {
 				ioException.printStackTrace();
 			}
 		});
 		dropKey.addActionListener(e -> {
 			try {
-				btnDisplayDropKeySettingActionPerformed("DROP");
+				btnDisplayDropKeySettingActionPerformed("DROP",player);
 			} catch (IOException ioException) {
 				ioException.printStackTrace();
 			}
-		});
-		initKey.addActionListener(e -> {
-			btnInitActionPerformed();
-			JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Reset Keys");
 		});
 
 		JPanel keySettingPanel = new JPanel();
@@ -241,7 +240,7 @@ public class SettingMenu extends JFrame {
 		keySettingPanel.add(downKey);
 		keySettingPanel.add(rotateKey);
 		keySettingPanel.add(dropKey);
-		keySettingPanel.add(initKey);
+
 		return keySettingPanel;
 	}
 
@@ -249,45 +248,38 @@ public class SettingMenu extends JFrame {
 		settingItem.initKeySetting();
 	}
 
-	public void btnDisplayLeftKeySettingActionPerformed(String keyType) throws IOException{
-		this.dispose();
-		Tetris.showKeySetting(keyType);
+	public void btnDisplayLeftKeySettingActionPerformed(String keyType, int player) throws IOException{
+		Tetris.showKeySetting(keyType,player);
 	}
 
-	public void btnDisplayRightKeySettingActionPerformed(String keyType) throws IOException{
-		this.dispose();
-		Tetris.showKeySetting(keyType);
+	public void btnDisplayRightKeySettingActionPerformed(String keyType, int player) throws IOException{
+		Tetris.showKeySetting(keyType,player);
 	}
 
-	public void btnDisplayDownKeySettingActionPerformed(String keyType) throws IOException{
-		this.dispose();
-		Tetris.showKeySetting(keyType);
+	public void btnDisplayDownKeySettingActionPerformed(String keyType, int player) throws IOException{
+		Tetris.showKeySetting(keyType,player);
 	}
 
-	public void btnDisplayDropKeySettingActionPerformed(String keyType) throws IOException{
-		this.dispose();
-		Tetris.showKeySetting(keyType);
+	public void btnDisplayDropKeySettingActionPerformed(String keyType,int player) throws IOException{
+		Tetris.showKeySetting(keyType,player);
 	}
 
-	public void btnDisplayRotateKeySettingActionPerformed(String keyType) throws IOException{
-		this.dispose();
-		Tetris.showKeySetting(keyType);
+	public void btnDisplayRotateKeySettingActionPerformed(String keyType, int player) throws IOException{
+		Tetris.showKeySetting(keyType,player);
 	}
 
 	public void btnGameActionPerformed() throws IOException {
 		dispose();
-		if(SettingItem.isItemMode){
-			Tetris.itemGameStart();
-		}else{
-			Tetris.start();
-		}
+		if(SettingItem.isFightMode)
+			Tetris.fightModeStart(SettingItem.isItemMode,settingItem.isTimeAttackMode);
+		else
+			Tetris.start(SettingItem.isItemMode);
 	}
 
 	public void btnStartMenuActionPerformed() {
 		dispose();
 		Tetris.showStartMenu();
 	}
-
 	/**
 	 * 설정 초기화
 	 */
