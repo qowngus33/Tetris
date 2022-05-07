@@ -13,9 +13,9 @@ game/GameBoard.java
  game.GameBoard
 blocks/CBlock.java
  blocks.CBlock
-file/Score.java
- file.Score
- file.ScoreComparator
+scoreboard/Score.java
+ scoreboard.Score
+ scoreboard.ScoreComparator
 blocks/TBlock.java
  blocks.TBlock
 setting/SaveFile.java
@@ -36,8 +36,6 @@ blocks/ZBlock.java
  blocks.ZBlock
 blocks/OBlock.java
  blocks.OBlock
-file/ScoreBoardFile.java
- file.ScoreBoardFile
 game/GameMenu.java
  game.GameMenu
  game.GameMenu$1
@@ -54,8 +52,8 @@ game/GamePane.java
  game.GamePane
 game/NextBlockPane.java
  game.NextBlockPane
-blocks/Block.java
- blocks.Block
+main/Tetris.java
+ main.Tetris
 component/StartMenu.java
  component.StartMenu
  component.StartMenu$1
@@ -70,7 +68,9 @@ blocks/SBlock.java
  blocks.SBlock
 blocks/BBlock.java
  blocks.BBlock
-main/Tetris.java
- main.Tetris
+blocks/Block.java
+ blocks.Block
+scoreboard/ScoreBoardFile.java
+ scoreboard.ScoreBoardFile
 game/FightMenu.java
  game.FightMenu

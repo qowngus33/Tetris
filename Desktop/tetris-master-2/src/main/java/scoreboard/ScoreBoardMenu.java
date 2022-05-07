@@ -15,7 +15,7 @@ import javax.swing.JTextPane;
 import javax.swing.WindowConstants;
 import javax.swing.text.*;
 
-import file.ScoreBoardFile;
+import scoreboard.ScoreBoardFile;
 import main.Tetris;
 
 public class ScoreBoardMenu extends JFrame {

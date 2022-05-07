@@ -1,4 +1,4 @@
-package file;
+package scoreboard;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

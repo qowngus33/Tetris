@@ -37,14 +37,14 @@ public class SettingMenu extends JFrame {
 	public SettingMenu() throws IOException {
 		settingItem = SettingItem.getInstance();
 
-		setTitle("설정메뉴");
+		setTitle("Setting Menu");
 		setSize(450, 720);
 		setBackground(Color.WHITE);
 		setLocationRelativeTo(null);
 
 		// 화면 크기 조절
 		String[] sizeNames = { "SMALL", "MEDIUM", "LARGE" };
-		sizeLabel = new JLabel("화면 크기");
+		sizeLabel = new JLabel("Screen width");
 		sizeBtns = new JRadioButton[3];
 		sizeBtnGroup = new ButtonGroup();
 
@@ -77,12 +77,12 @@ public class SettingMenu extends JFrame {
 		// 조작키 설정
 		keyPanel = new JPanel(new BorderLayout());
 		keySettingPanel = displayKeySetting();
-		keyPanel.add(new JLabel("조작키 설정"), BorderLayout.NORTH);
+		keyPanel.add(new JLabel("Operation Key"), BorderLayout.NORTH);
 		keyPanel.add(keySettingPanel, BorderLayout.CENTER);
 
 		// 난이도 설정
 		String[] modeNames = { "EASY", "NORMAL", "HARD" };
-		modeLabel = new JLabel("난이도 설정");
+		modeLabel = new JLabel("LEVEL");
 		modeBtns = new JRadioButton[3];
 		modeBtnGroup = new ButtonGroup();
 
@@ -113,7 +113,7 @@ public class SettingMenu extends JFrame {
 		}
 
 		// 색맹 모드 켜고 끄기
-		colorBlindLabel = new JLabel("색맹 모드");
+		colorBlindLabel = new JLabel("Color Blind Mode");
 		colorBlindOnBtn = new JRadioButton("on");
 		colorBlindOffBtn = new JRadioButton("off");
 
@@ -136,17 +136,17 @@ public class SettingMenu extends JFrame {
 		}
 
 		// 스코어 보드 기록 초기화
-		initScoreBoardBtn = new JButton("스코어 보드 기록 초기화");
+		initScoreBoardBtn = new JButton("Scoreboard Reset");
 		initScoreBoardBtn.addActionListener(e -> settingItem.btnInitScoreBoardActionPerformed());
 
 		initScoreBoardPanel = new JPanel();
 		initScoreBoardPanel.add(initScoreBoardBtn);
 
 		// 게임 시작 버튼, 시작 메뉴 버튼 & 이벤트 설정
-		gameBtn = new JButton("게임으로");
-		startMenuBtn = new JButton("시작메뉴로");
-		initSettingBtn = new JButton("설정 초기화");
-		saveSettingBtn = new JButton("설정 저장");
+		gameBtn = new JButton("Game");
+		startMenuBtn = new JButton("Start Menu");
+		initSettingBtn = new JButton("Reset Setting");
+		saveSettingBtn = new JButton("Save Setting");
 
 		gameBtn.addActionListener(e -> {
 			try {
@@ -164,7 +164,7 @@ public class SettingMenu extends JFrame {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			JOptionPane.showMessageDialog(initScoreBoardPanel, "설정이 저장되었습니다.");
+			JOptionPane.showMessageDialog(initScoreBoardPanel, "Settings have been saved.");
 		});
 
 		settingBtnPanel = new JPanel(new GridLayout(5, 0));
@@ -230,7 +230,7 @@ public class SettingMenu extends JFrame {
 		});
 		initKey.addActionListener(e -> {
 			btnInitActionPerformed();
-			JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "키 초기화");
+			JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Reset Keys");
 		});
 
 		JPanel keySettingPanel = new JPanel();
@@ -300,6 +300,6 @@ public class SettingMenu extends JFrame {
 		modeBtns[1].setSelected(true);
 
 		settingItem.initKeySetting();
-		JOptionPane.showMessageDialog(initScoreBoardPanel, "설정이 초기화되었습니다.");
+		JOptionPane.showMessageDialog(initScoreBoardPanel, "Settings have been reset.");
 	}
 }

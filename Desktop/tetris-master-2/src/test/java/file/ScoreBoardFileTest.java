@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import scoreboard.ScoreBoardFile;
 
 class ScoreBoardFileTest {
 
