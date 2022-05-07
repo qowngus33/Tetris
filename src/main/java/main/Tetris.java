@@ -24,6 +24,7 @@ public class Tetris {
         gameForm = new FightMenu(true,false);
         //gameMenu = new GameMenu(false);
         gameForm.setVisible(true);
+        System.out.print(0);
     }
 
     public static void itemGameStart() throws IOException {
