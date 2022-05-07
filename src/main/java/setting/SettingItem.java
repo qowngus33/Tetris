@@ -147,7 +147,11 @@ public class SettingItem {
         // score board init logic
         ScoreBoardFile sb = new ScoreBoardFile();
         sb.eraseFile();
+<<<<<<< HEAD
+        JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Score Board have been reset.");
+=======
         JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "스코어보드가 초기화 되었습니다..");
+>>>>>>> 1c68e7c98bba8b52e7ce3f6959fb66042183d6a8
     }
 
     /**

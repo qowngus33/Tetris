@@ -81,7 +81,11 @@ public class ScoreBoardMenu extends JFrame {
 		exitBtn.addActionListener(e -> System.exit(0));
 		enterBtn.setEnabled(false);
 		nameEnter.setEditable(false);
+<<<<<<< HEAD
+		label.setText("Scores from past scoreboard games");
+=======
 		label.setText("역대 테트리스 게임 점수");
+>>>>>>> 1c68e7c98bba8b52e7ce3f6959fb66042183d6a8
 	}
 
 	public ScoreBoardMenu(int score, String level, String mode) throws NumberFormatException, IOException {
@@ -104,7 +108,11 @@ public class ScoreBoardMenu extends JFrame {
 			if (score < sb.isWritable()) {
 				enterBtn.setEnabled(false);
 				nameEnter.setEditable(false);
+<<<<<<< HEAD
+				label.setText("Scores from past scoreboard games");
+=======
 				label.setText("역대 테트리스 게임 점수");
+>>>>>>> 1c68e7c98bba8b52e7ce3f6959fb66042183d6a8
 				JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Game Over");
 			} else {
 				JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), scoreWriteText);
