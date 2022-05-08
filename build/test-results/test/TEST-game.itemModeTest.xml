@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="game.itemModeTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2022-05-07T07:59:04" hostname="MacBook-Pro-2.local" time="1.588">
+<testsuite name="game.itemModeTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2022-05-08T14:29:13" hostname="MacBook-Pro-2.local" time="1.542">
   <properties/>
-  <testcase name="eraseLine()" classname="game.itemModeTest" time="0.83"/>
-  <testcase name="getItemBlockNormal()" classname="game.itemModeTest" time="0.309"/>
-  <testcase name="setLines()" classname="game.itemModeTest" time="0.006"/>
-  <testcase name="getItemBlockEasy()" classname="game.itemModeTest" time="0.255"/>
-  <testcase name="getItemBlockHard()" classname="game.itemModeTest" time="0.188"/>
+  <testcase name="eraseLine()" classname="game.itemModeTest" time="0.821"/>
+  <testcase name="getItemBlockNormal()" classname="game.itemModeTest" time="0.268"/>
+  <testcase name="setLines()" classname="game.itemModeTest" time="0.003"/>
+  <testcase name="getItemBlockEasy()" classname="game.itemModeTest" time="0.22"/>
+  <testcase name="getItemBlockHard()" classname="game.itemModeTest" time="0.23"/>
   <system-out><![CDATA[NORMAL
 countBlock: 
-[0] 28507 [1] 28282 [2] 28600 [3] 28557 [4] 28970 [5] 28497 [6] 28535 [7] 200182 [8] 200013 [9] 199849 [10] 200008 
+[0] 28802 [1] 28480 [2] 28586 [3] 28545 [4] 28745 [5] 28592 [6] 28444 [7] 200137 [8] 199852 [9] 199795 [10] 200022 
 countPositionBlock: 
-[0] 50427 [1] 49760 [2] 50343 [3] 49418 [4] 0 [5] 0 NORMAL
+[0] 52552 [1] 50048 [2] 49223 [3] 48371 [4] 0 [5] 0 NORMAL
 countBlock: 
-[0] 28608 [1] 28336 [2] 28471 [3] 28605 [4] 28763 [5] 28308 [6] 28585 [7] 199881 [8] 199970 [9] 200048 [10] 200425 
+[0] 28448 [1] 28555 [2] 28817 [3] 28479 [4] 28664 [5] 28552 [6] 28644 [7] 200124 [8] 200004 [9] 199837 [10] 199876 
 countPositionBlock: 
-[0] 51437 [1] 50260 [2] 50120 [3] 47859 [4] 0 [5] 0 NORMAL
+[0] 50790 [1] 50892 [2] 49598 [3] 48879 [4] 0 [5] 0 NORMAL
 countBlock: 
-[0] 28583 [1] 28585 [2] 28518 [3] 28745 [4] 28813 [5] 28373 [6] 28527 [7] 200261 [8] 199857 [9] 199647 [10] 200091 
+[0] 28507 [1] 28847 [2] 28437 [3] 28472 [4] 28429 [5] 28605 [6] 28568 [7] 200433 [8] 199555 [9] 200241 [10] 199906 
 countPositionBlock: 
-[0] 48523 [1] 49501 [2] 51695 [3] 50425 [4] 0 [5] 0 ]]></system-out>
+[0] 50990 [1] 50111 [2] 50376 [3] 48388 [4] 0 [5] 0 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

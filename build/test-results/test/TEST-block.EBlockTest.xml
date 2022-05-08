@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="block.EBlockTest" tests="3" skipped="0" failures="1" errors="0" timestamp="2022-05-07T07:59:06" hostname="MacBook-Pro-2.local" time="0.002">
+<testsuite name="block.EBlockTest" tests="3" skipped="0" failures="1" errors="0" timestamp="2022-05-08T14:29:12" hostname="MacBook-Pro-2.local" time="0.014">
   <properties/>
-  <testcase name="rotate()" classname="block.EBlockTest" time="0.0"/>
+  <testcase name="rotate()" classname="block.EBlockTest" time="0.011"/>
   <testcase name="getShape()" classname="block.EBlockTest" time="0.0"/>
-  <testcase name="getShape(int, int)" classname="block.EBlockTest" time="0.002">
+  <testcase name="getShape(int, int)" classname="block.EBlockTest" time="0.001">
     <failure message="org.junit.jupiter.api.extension.ParameterResolutionException: No ParameterResolver registered for parameter [int arg0] in method [public void block.EBlockTest.getShape(int,int)]." type="org.junit.jupiter.api.extension.ParameterResolutionException">org.junit.jupiter.api.extension.ParameterResolutionException: No ParameterResolver registered for parameter [int arg0] in method [public void block.EBlockTest.getShape(int,int)].
 	at org.junit.jupiter.engine.execution.ExecutableInvoker.resolveParameter(ExecutableInvoker.java:200)
 	at org.junit.jupiter.engine.execution.ExecutableInvoker.resolveParameters(ExecutableInvoker.java:183)

@@ -26,7 +26,7 @@ public class Tetris {
             gameMenu = new GameMenu(isItemMode);
             gameMenu.setVisible(true);
         } else {
-            gameForm = new FightMenu(isItemMode,true);
+            gameForm = new FightMenu(isItemMode,false);
             gameForm.setVisible(true);
         }
     }

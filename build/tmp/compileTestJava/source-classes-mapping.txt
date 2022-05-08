@@ -2,48 +2,48 @@ block/OBlockTest.java
  block.OBlockTest
 block/IBlockTest.java
  block.IBlockTest
-game/GameMenuTest.java
- game.GameMenuTest
+block/JBlockTest.java
+ block.JBlockTest
 block/CBlockTest.java
  block.CBlockTest
-setting/SaveFileTest.java
- setting.SaveFileTest
+block/WBlockTest.java
+ block.WBlockTest
 block/ZBlockTest.java
  block.ZBlockTest
 setting/ModeTest.java
  setting.ModeTest
-setting/LoadFileTest.java
- setting.LoadFileTest
- setting.LoadFileTest$1
+game/GamePaneTest.java
+ game.GamePaneTest
 game/NextBlockPaneTest.java
  game.NextBlockPaneTest
-setting/SettingMenuTest.java
- setting.SettingMenuTest
-game/KeySettingTest.java
- game.KeySettingTest
+block/EBlockTest.java
+ block.EBlockTest
+block/LBlockTest.java
+ block.LBlockTest
 block/BBlockTest.java
  block.BBlockTest
 block/TBlockTest.java
  block.TBlockTest
 block/SBlockTest.java
  block.SBlockTest
-block/JBlockTest.java
- block.JBlockTest
+game/GameMenuTest.java
+ game.GameMenuTest
+setting/SaveFileTest.java
+ setting.SaveFileTest
 scoreboard/ScoreBoardMenuTest.java
  scoreboard.ScoreBoardMenuTest
-block/LBlockTest.java
- block.LBlockTest
+setting/LoadFileTest.java
+ setting.LoadFileTest
+ setting.LoadFileTest$1
+setting/SettingMenuTest.java
+ setting.SettingMenuTest
 game/itemModeTest.java
  game.itemModeTest
-game/GamePaneTest.java
- game.GamePaneTest
-block/EBlockTest.java
- block.EBlockTest
 file/ScoreBoardFileTest.java
  file.ScoreBoardFileTest
+game/KeySettingTest.java
+ game.KeySettingTest
 game/FightBoardTest.java
  game.FightBoardTest
-block/WBlockTest.java
- block.WBlockTest
 game/GameBoardTest.java
  game.GameBoardTest

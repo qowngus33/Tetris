@@ -29,7 +29,6 @@ public class FightMenu extends JFrame {
 	private Timer timeAttackTimer;
 	private long startTime;
 	private final long exitTime = 60000;
-	private final boolean isTimeAttackMode;
 	private boolean isGameEnded;
 
 	public FightMenu(boolean isItemMode,boolean isTimeAttackMode) throws IOException {
@@ -39,7 +38,6 @@ public class FightMenu extends JFrame {
 		SettingItem.isItemMode = isItemMode;
 		settingItem.isTimeAttackMode = isTimeAttackMode;
 		SettingItem.isFightMode = true;
-		this.isTimeAttackMode = isTimeAttackMode;
 		setResizable(false);
 		setBackground(Color.WHITE);
 		setForeground(Color.WHITE);
@@ -63,7 +61,7 @@ public class FightMenu extends JFrame {
 		lowerPanel.add(restartBtn);
 
 		//Time Attack Mode
-		if(isTimeAttackMode){
+		if(settingItem.isTimeAttackMode){
 			startTime = currentTimeMillis();
 			setTimeAttackMode();
 		}
@@ -72,8 +70,8 @@ public class FightMenu extends JFrame {
 		gamePane = new GamePane[2];
 		scoreLabel = new JLabel[2];
 		lineLabel = new JLabel[2];
-		upperPanel.add(init(isItemMode,0));
-		upperPanel.add(init(isItemMode,1));
+		upperPanel.add(playerPanel(isItemMode,0));
+		upperPanel.add(playerPanel(isItemMode,1));
 		updateScore();
 
 		// outer panel
@@ -90,13 +88,13 @@ public class FightMenu extends JFrame {
 				+"\nPLAYER2:"+settingItem.getP2LeftKey()+" "+ settingItem.getP2RightKey()+" "+settingItem.getP2DownKey()+" "
 				+settingItem.getP2RotateKey()+" "+settingItem.getP2DropKey();
 		JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), message);
-		setTimer();
 		setFocusable(true);
 		requestFocus();
 		initControls();
+		setTimer();
 	}
 
-	private JPanel init(boolean isItemMode, int i) throws IOException {
+	private JPanel playerPanel(boolean isItemMode, int i) throws IOException {
 		if (isItemMode) {
 			gameBoard[i] = new ItemGameBoard();
 		} else {
@@ -276,7 +274,7 @@ public class FightMenu extends JFrame {
 		timeLabel[0] = new JLabel((exitTime-(currentTimeMillis()-startTime))+"");
 		timeLabel[1] = new JLabel((exitTime-(currentTimeMillis()-startTime))+"");
 		timeAttackTimer= new Timer(10, e -> {
-			if(isTimeAttackMode && currentTimeMillis()-startTime>exitTime){
+			if(settingItem.isTimeAttackMode && currentTimeMillis()-startTime>exitTime){
 				gameOver();
 			} else {
 				timeLabel[0].setText(((exitTime-(currentTimeMillis()-startTime))/1000)+"");
@@ -362,8 +360,13 @@ public class FightMenu extends JFrame {
 
 	private void gameOver() {
 		timer.stop();
-		timeAttackTimer.stop();
+		if(SettingItem.isTimeAttackMode)
+			timeAttackTimer.stop();
 		isGameEnded = true;
+		setResultText();
+	}
+
+	private void setResultText() {
 		String text = "draw";
 		if(gameBoard[0].isGameEnded() && !gameBoard[1].isGameEnded()) {
 			gameBoard[0].setGameBoardText("LOSE");
@@ -389,37 +392,36 @@ public class FightMenu extends JFrame {
 		}
 		JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), text);
 	}
+	private void exitGame() {
+		timer.stop();
+		if(SettingItem.isTimeAttackMode)
+			timeAttackTimer.stop();
+		dispose();
+	}
 
 	private void btnExitActionPerformed() {
-		timer.stop();
-		timeAttackTimer.stop();
-		dispose();
+		exitGame();
 		System.exit(0);
 	}
 
 	private void btnSettingActionPerformed() {
-		timer.stop();
-		timeAttackTimer.stop();
-		dispose();
+		exitGame();
 		Tetris.showSettingMenu();
 	}
 
 	private void btnStartMenuActionPerformed() {
-		timer.stop();
-		timeAttackTimer.stop();
-		dispose();
+		exitGame();
 		Tetris.showStartMenu();
 	}
 
 	private void btnRestartActionPerformed() {
-		timer.stop();
-		timeAttackTimer.stop();
-		dispose();
+		exitGame();
 		try {
 			Tetris.start(false);
+			//to be edited
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		//to be edited
+
 	}
 }
