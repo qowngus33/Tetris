@@ -30,6 +30,8 @@ public class FightMenu extends JFrame {
 	private long startTime;
 	private final long exitTime = 60000;
 	private boolean isGameEnded;
+	private int [] pCountNum = {0,0};
+	private int p2CountNum = 0;
 
 	public FightMenu(boolean isItemMode,boolean isTimeAttackMode) throws IOException {
 		super("Tetris Fight");
@@ -91,7 +93,7 @@ public class FightMenu extends JFrame {
 		setFocusable(true);
 		requestFocus();
 		initControls();
-		setTimer();
+		setTimer(settingItem.getReduceSpeed());
 	}
 
 	private JPanel playerPanel(boolean isItemMode, int i) throws IOException {
@@ -146,7 +148,6 @@ public class FightMenu extends JFrame {
 
 		return panel;
 	}
-
 	protected void initControls() {
 		JRootPane rootPane = this.getRootPane();
 		InputMap im = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
@@ -260,15 +261,21 @@ public class FightMenu extends JFrame {
 		});
 	}
 
-	protected void setTimer() {
+	protected void setTimer(int initInterval) {
 		timer = new Timer(initInterval, e -> {
-			moveDown(0);
-			moveDown(1);
+			for(int i=0;i<2;i++){
+				pCountNum[i]++;
+				int temp = (11-gameBoard[i].getLevel())<=0?1:(11-gameBoard[i].getLevel());
+				if(pCountNum[i]==temp) {
+					moveDown(i);
+					System.out.println("p"+i+": "+initInterval*pCountNum[i]);
+					pCountNum[i] = 0;
+				}
+			}
 			updateScore();
 		});
 		timer.start();
 	}
-
 	protected void setTimeAttackMode(){
 		timeLabel = new JLabel[2];
 		timeLabel[0] = new JLabel((exitTime-(currentTimeMillis()-startTime))+"");
@@ -284,20 +291,15 @@ public class FightMenu extends JFrame {
 		timeAttackTimer.start();
 	}
 
-
 	protected void updateScore() {
 		for(int i=0;i<2;i++){
-			scoreLabel[i].setText(String.format("%5s", gameBoard[i].getScore() + "") + " ");
+			scoreLabel[i].setText(String.format("%5s", gameBoard[i].getScore()+ "") + " ");
 			lineLabel[i].setText(String.format("%5s", gameBoard[i].getLineNum() + "") + " ");
 			int temp = (i==0)?1:0;
 			if (gameBoard[i].getErasedLine().length > 1)
 				gamePane[temp].setLines(gameBoard[i].getErasedLine());
-			if (gameBoard[i].getLineNum()/ 7 >= gameBoard[i].getLevel()) {
+			if (gameBoard[i].getLineNum() / 7 >= gameBoard[i].getLevel()) {
 				gameBoard[i].setLevel(gameBoard[i].getLevel() + 1);
-				gameBoard[temp].setLevel(gameBoard[temp].getLevel() + 1);
-				initInterval -= settingItem.getReduceSpeed();
-				timer.stop();
-				setTimer();
 			}
 		}
 	}
@@ -330,7 +332,6 @@ public class FightMenu extends JFrame {
 
 	protected boolean newBlock(int i) {
 		gameBoard[i].placeBlock(); // 밑으로 내려가지 않게 고정
-		System.out.println(currentTimeMillis()-startTime);
 		if (gameBoard[i].isGameEnded()) {
 			gameOver();
 			return false;
