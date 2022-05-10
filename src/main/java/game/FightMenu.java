@@ -20,7 +20,6 @@ public class FightMenu extends JFrame {
 	private GameBoard [] gameBoard;
 	private GamePane [] gamePane;
 
-	private static int initInterval;
 	private JLabel [] scoreLabel;
 	private JLabel [] lineLabel;
 	private JLabel [] timeLabel;
@@ -31,7 +30,7 @@ public class FightMenu extends JFrame {
 	private final long exitTime = 60000;
 	private boolean isGameEnded;
 	private int [] pCountNum = {0,0};
-	private int p2CountNum = 0;
+
 
 	public FightMenu(boolean isItemMode,boolean isTimeAttackMode) throws IOException {
 		super("Tetris Fight");
@@ -84,7 +83,6 @@ public class FightMenu extends JFrame {
 		outerPanel.setForeground(Color.WHITE);
 
 		// Set timer for block drops.
-		initInterval = settingItem.getInitInterval();
 		String message = "PLAYER1:"+settingItem.getP1LeftKey()+" "+settingItem.getP1RightKey()+" "
 				+settingItem.getP1DownKey()+" "+settingItem.getP1RotateKey()+" "+settingItem.getP1DropKey()
 				+"\nPLAYER2:"+settingItem.getP2LeftKey()+" "+ settingItem.getP2RightKey()+" "+settingItem.getP2DownKey()+" "
@@ -266,7 +264,7 @@ public class FightMenu extends JFrame {
 			for(int i=0;i<2;i++){
 				pCountNum[i]++;
 				int temp = (11-gameBoard[i].getLevel())<=0?1:(11-gameBoard[i].getLevel());
-				if(pCountNum[i]==temp) {
+				if(pCountNum[i]>=temp) {
 					moveDown(i);
 					System.out.println("p"+i+": "+initInterval*pCountNum[i]);
 					pCountNum[i] = 0;
