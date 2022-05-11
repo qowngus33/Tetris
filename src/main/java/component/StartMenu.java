@@ -111,7 +111,7 @@ public class StartMenu extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				dispose();
 				try {
-					Tetris.itemGameStart();
+					Tetris.start(true);
 				} catch (IOException ioException) {
 					ioException.printStackTrace();
 				}
@@ -145,7 +145,7 @@ public class StartMenu extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				dispose();
 				try {
-					Tetris.start();
+					Tetris.start(false);
 				} catch (IOException ioException) {
 					ioException.printStackTrace();
 				}
@@ -312,7 +312,7 @@ public class StartMenu extends JFrame {
 					if (itemStart.getIcon() == itemStartClicked) {
 						dispose();
 						try {
-							Tetris.itemGameStart();
+							Tetris.start(true);
 						} catch (IOException ioException) {
 							ioException.printStackTrace();
 						}
@@ -321,7 +321,7 @@ public class StartMenu extends JFrame {
 					if (normalStart.getIcon() == normalStartClicked) {
 						dispose();
 						try {
-							Tetris.start();
+							Tetris.start(false);
 						} catch (IOException ioException) {
 							ioException.printStackTrace();
 						}

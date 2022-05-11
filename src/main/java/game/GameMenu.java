@@ -37,6 +37,7 @@ public class GameMenu extends JFrame {
         settingItem = SettingItem.getInstance();
         setSize(settingItem.getBoardWidth(), settingItem.getBoardHeight());
         SettingItem.isItemMode = isItemMode;
+        SettingItem.isFightMode = false;
         setResizable(false);
         setBackground(Color.WHITE);
         setForeground(Color.WHITE);

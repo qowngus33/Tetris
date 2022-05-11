@@ -2,72 +2,48 @@ block/OBlockTest.java
  block.OBlockTest
 block/IBlockTest.java
  block.IBlockTest
+block/JBlockTest.java
+ block.JBlockTest
 block/CBlockTest.java
  block.CBlockTest
-<<<<<<< HEAD
-block/ZBlockTest.java
- block.ZBlockTest
-setting/SaveFileTest.java
- setting.SaveFileTest
-setting/LoadFileTest.java
- setting.LoadFileTest
- setting.LoadFileTest$1
-setting/ModeTest.java
- setting.ModeTest
-=======
-setting/SaveFileTest.java
- setting.SaveFileTest
+block/WBlockTest.java
+ block.WBlockTest
 block/ZBlockTest.java
  block.ZBlockTest
 setting/ModeTest.java
  setting.ModeTest
-setting/LoadFileTest.java
- setting.LoadFileTest
- setting.LoadFileTest$1
->>>>>>> 1c68e7c98bba8b52e7ce3f6959fb66042183d6a8
+game/GamePaneTest.java
+ game.GamePaneTest
 game/NextBlockPaneTest.java
  game.NextBlockPaneTest
-setting/SettingMenuTest.java
- setting.SettingMenuTest
-game/KeySettingTest.java
- game.KeySettingTest
+block/EBlockTest.java
+ block.EBlockTest
+block/LBlockTest.java
+ block.LBlockTest
 block/BBlockTest.java
  block.BBlockTest
 block/TBlockTest.java
  block.TBlockTest
 block/SBlockTest.java
  block.SBlockTest
-block/JBlockTest.java
- block.JBlockTest
+game/GameMenuTest.java
+ game.GameMenuTest
+setting/SaveFileTest.java
+ setting.SaveFileTest
 scoreboard/ScoreBoardMenuTest.java
  scoreboard.ScoreBoardMenuTest
-block/LBlockTest.java
- block.LBlockTest
+setting/LoadFileTest.java
+ setting.LoadFileTest
+ setting.LoadFileTest$1
+setting/SettingMenuTest.java
+ setting.SettingMenuTest
 game/itemModeTest.java
  game.itemModeTest
-<<<<<<< HEAD
-block/EBlockTest.java
- block.EBlockTest
-game/GamePaneTest.java
- game.GamePaneTest
 file/ScoreBoardFileTest.java
  file.ScoreBoardFileTest
-=======
-game/GamePaneTest.java
- game.GamePaneTest
-block/EBlockTest.java
- block.EBlockTest
-file/ScoreBoardFileTest.java
- file.ScoreBoardFileTest
-game/GameBoardTest.java
- game.GameBoardTest
->>>>>>> 1c68e7c98bba8b52e7ce3f6959fb66042183d6a8
-block/WBlockTest.java
- block.WBlockTest
+game/KeySettingTest.java
+ game.KeySettingTest
 game/FightBoardTest.java
  game.FightBoardTest
-<<<<<<< HEAD
 game/GameBoardTest.java
  game.GameBoardTest
-=======
->>>>>>> 1c68e7c98bba8b52e7ce3f6959fb66042183d6a8

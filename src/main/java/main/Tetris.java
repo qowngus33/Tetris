@@ -2,9 +2,9 @@ package main;
 
 import game.FightMenu;
 import game.GameMenu;
-import game.ItemGameBoard;
 import scoreboard.ScoreBoardMenu;
 import setting.KeySetting;
+import setting.SettingItem;
 import setting.SettingMenu;
 import component.StartMenu;
 
@@ -19,22 +19,20 @@ public class Tetris {
     private static KeySetting keySetting;
     private static ScoreBoardMenu scoreBoardForm;
 
-    public static void start() throws IOException {
-        System.out.println("NORMAL MODE");
-        gameForm = new FightMenu(true,false);
-        //gameMenu = new GameMenu(false);
-        gameForm.setVisible(true);
+    public static void start(boolean isItemMode) throws IOException {
+//        gameMenu = new GameMenu(isItemMode);
+//        gameMenu.setVisible(true);
+        if(isItemMode){
+            gameMenu = new GameMenu(isItemMode);
+            gameMenu.setVisible(true);
+        } else {
+            gameForm = new FightMenu(isItemMode,false);
+            gameForm.setVisible(true);
+        }
     }
 
-    public static void itemGameStart() throws IOException {
-        System.out.println("ITEM MODE");
-        gameMenu = new GameMenu(true);
-        gameMenu.setVisible(true);
-    }
-
-    public static void fightModeStart() throws IOException {
-        System.out.println("ITEM MODE");
-        gameForm = new FightMenu(true,false);
+    public static void fightModeStart(boolean isItemMode, boolean isTimeAttackMode) throws IOException {
+        gameForm = new FightMenu(isItemMode,isTimeAttackMode);
         gameForm.setVisible(true);
     }
 
@@ -48,6 +46,12 @@ public class Tetris {
     }
 
     public static void showSettingMenu() {
+        settingMenuForm.dispose();
+        try {
+            settingMenuForm = new SettingMenu();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         settingMenuForm.setVisible(true);
     }
 
@@ -56,8 +60,14 @@ public class Tetris {
         scoreBoardForm.setVisible(true);
     }
 
-    public static void showKeySetting(String keyType) throws IOException {
-        keySetting = new KeySetting(keyType);
+    public static void showKeySetting(String keyType,int player) throws IOException {
+        keySetting = new KeySetting(keyType,player);
+        keySetting.setVisible(true);
+    }
+
+    public static void showUnderSetting(String keyType) throws IOException {
+        int temp = SettingItem.isFightMode?1:0;
+        keySetting = new KeySetting(keyType,temp);
         keySetting.setVisible(true);
     }
 
