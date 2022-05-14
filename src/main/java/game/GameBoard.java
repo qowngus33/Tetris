@@ -249,10 +249,9 @@ public class GameBoard extends JPanel {
 	}
 
 	protected boolean isGameEnded() {
-		for (int i = 0; i < WIDTH; i++) {
+		for (int i = 0; i < WIDTH; i++) 
 			if (gamePane.getBoard(0, i) != 0)
 				return true;
-		}
 		return false;
 	}
 
