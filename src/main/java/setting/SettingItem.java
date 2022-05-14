@@ -8,6 +8,7 @@ import scoreboard.ScoreBoardFile;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +25,8 @@ public class SettingItem {
             e.printStackTrace();
         }
     }
-
+    private ArrayList<String> singleKeys = new ArrayList<>();
+    private ArrayList<String> multiKeys = new ArrayList<>();
     private String leftKey;
     private String rightKey;
     private String downKey;
@@ -94,7 +96,7 @@ public class SettingItem {
         p2DownKey = saveFile.get("p2DownKey");
         p2RotateKey = saveFile.get("p2RotateKey");
         p2DropKey = saveFile.get("p2DropKey");
-
+        addKey();
     }
 
     /**
@@ -141,6 +143,7 @@ public class SettingItem {
         p2DownKey = "DOWN";
         p2RotateKey = "UP";
         p2DropKey = "ENTER";
+        addKey();
     }
 
     /**
@@ -297,49 +300,86 @@ public class SettingItem {
         return isColorBlind;
     }
 
-    public void setLeftKey(String leftKey, int player) {
-        if(player==0)
-            this.leftKey = leftKey;
-        else if(player==1)
-            this.p1LeftKey = leftKey;
+    public void setLeftKey(String key, int player) {
+        if(player==0 && !singleKeys.contains(key))
+            this.leftKey = key;
+        else if(player==1 && !multiKeys.contains(key))
+            this.p1LeftKey = key;
+        else if(player==2 && !multiKeys.contains(key))
+            this.p2LeftKey = key;
         else
-            this.p2LeftKey = leftKey;
+            JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Key already in use");
+        addKey();
     }
 
-    public void setRightKey(String rightKey, int player) {
-        if(player==0)
-            this.rightKey = rightKey;
-        else if(player==1)
-            this.p1RightKey = rightKey;
+    public void setRightKey(String key, int player) {
+        if(player==0 && !singleKeys.contains(key))
+            this.rightKey = key;
+        else if(player==1 && !multiKeys.contains(key))
+            this.p1RightKey = key;
+        else if(player==2 && !multiKeys.contains(key))
+            this.p2RightKey = key;
         else
-            this.p2RightKey = rightKey;
+            JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Key already in use");
+        addKey();
     }
 
-    public void setDownKey(String downKey, int player) {
-        if(player==0)
-            this.downKey = downKey;
-        else if(player==1)
-            this.p1DownKey = downKey;
+    public void setDownKey(String key, int player) {
+        if(player==0 && !singleKeys.contains(key))
+            this.downKey = key;
+        else if(player==1 && !multiKeys.contains(key))
+            this.p1DownKey = key;
+        else if(player==2 && !multiKeys.contains(key))
+            this.p2DownKey = key;
         else
-            this.p2DownKey = downKey;
+            JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Key already in use");
+        addKey();
     }
 
-    public void setRotateKey(String rotateKey, int player) {
-        if(player==0)
-            this.rotateKey = rotateKey;
-        else if(player==1)
-            this.p1RotateKey = rotateKey;
+    public void setRotateKey(String key, int player) {
+        if(player==0 && !singleKeys.contains(key))
+            this.rotateKey = key;
+        else if(player==1 && !multiKeys.contains(key))
+            this.p1RotateKey = key;
+        else if(player==2 && !multiKeys.contains(key))
+            this.p2RotateKey = key;
         else
-            this.p2RotateKey = rotateKey;
+            JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Key already in use");
+        addKey();
     }
 
-    public void setDropKey(String dropKey, int player) {
-        if(player==0)
-            this.dropKey = dropKey;
-        else if(player==1)
-            this.p1DropKey = dropKey;
+    public void setDropKey(String key, int player) {
+        if(player==0 && !singleKeys.contains(key))
+            this.dropKey = key;
+        else if(player==1 && !multiKeys.contains(key))
+            this.p1DropKey = key;
+        else if(player==2 && !multiKeys.contains(key))
+            this.p2DropKey = key;
         else
-            this.p2DropKey = dropKey;
+            JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Key already in use");
+        addKey();
     }
 
+    public void addKey() {
+        singleKeys.clear();
+        multiKeys.clear();
+
+        singleKeys.add(leftKey);
+        singleKeys.add(rightKey);
+        singleKeys.add(downKey);
+        singleKeys.add(rotateKey);
+        singleKeys.add(dropKey);
+
+        multiKeys.add(p1LeftKey);
+        multiKeys.add(p1RightKey);
+        multiKeys.add(p1DownKey);
+        multiKeys.add(p1RotateKey);
+        multiKeys.add(p1DropKey);
+
+        multiKeys.add(p2LeftKey);
+        multiKeys.add(p2RightKey);
+        multiKeys.add(p2DownKey);
+        multiKeys.add(p2RotateKey);
+        multiKeys.add(p2DropKey);
+    }
 }

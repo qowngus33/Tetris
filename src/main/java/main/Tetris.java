@@ -19,25 +19,14 @@ public class Tetris {
     private static KeySetting keySetting;
     private static ScoreBoardMenu scoreBoardForm;
 
-    public static void start(boolean isItemMode) throws IOException {
-//        gameMenu = new GameMenu(isItemMode);
-//        gameMenu.setVisible(true);
-        if(isItemMode){
+    public static void start(boolean isFightMode,boolean isItemMode,boolean isTimeAttackMode) throws IOException {
+        if(!isFightMode){
             gameMenu = new GameMenu(isItemMode);
             gameMenu.setVisible(true);
         } else {
-            gameForm = new FightMenu(isItemMode,false);
+            gameForm = new FightMenu(isItemMode,isTimeAttackMode);
             gameForm.setVisible(true);
         }
-    }
-
-    public static void fightModeStart(boolean isItemMode, boolean isTimeAttackMode) throws IOException {
-        gameForm = new FightMenu(isItemMode,isTimeAttackMode);
-        gameForm.setVisible(true);
-    }
-
-    public static void disposeGameMenu() {
-        gameForm.dispose();
     }
 
     public static void showStartMenu() {
@@ -65,11 +54,6 @@ public class Tetris {
         keySetting.setVisible(true);
     }
 
-    public static void showUnderSetting(String keyType) throws IOException {
-        int temp = SettingItem.isFightMode?1:0;
-        keySetting = new KeySetting(keyType,temp);
-        keySetting.setVisible(true);
-    }
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {

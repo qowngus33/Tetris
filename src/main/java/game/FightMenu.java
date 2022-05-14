@@ -416,7 +416,7 @@ public class FightMenu extends JFrame {
 	private void btnRestartActionPerformed() {
 		exitGame();
 		try {
-			Tetris.start(false);
+			Tetris.start(true,SettingItem.isItemMode,SettingItem.isTimeAttackMode);
 			//to be edited
 		} catch (IOException e) {
 			throw new RuntimeException(e);

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="game.GameBoardTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2022-05-14T12:19:10" hostname="MacBook-Pro-2.local" time="0.061">
+  <properties/>
+  <testcase name="eraseLine" classname="game.GameBoardTest" time="0.034"/>
+  <testcase name="moveDown" classname="game.GameBoardTest" time="0.002"/>
+  <testcase name="moveLeft" classname="game.GameBoardTest" time="0.002"/>
+  <testcase name="setGameBoardText" classname="game.GameBoardTest" time="0.003"/>
+  <testcase name="moveRight" classname="game.GameBoardTest" time="0.004"/>
+  <testcase name="newBlock" classname="game.GameBoardTest" time="0.001"/>
+  <testcase name="setLevel" classname="game.GameBoardTest" time="0.001"/>
+  <testcase name="rotateBlock" classname="game.GameBoardTest" time="0.014"/>
+  <system-out><![CDATA[          
+          
+          
+          
+          
+          
+          
+          
+          
+  hello  
+          
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+          
+          
+          
+          
+          
+          
+          
+          
+  hello  
+          
+          
+          
+          
+          
+          
+          
+          
+          
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

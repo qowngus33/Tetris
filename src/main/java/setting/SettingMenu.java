@@ -270,10 +270,7 @@ public class SettingMenu extends JFrame {
 
 	public void btnGameActionPerformed() throws IOException {
 		dispose();
-		if(SettingItem.isFightMode)
-			Tetris.fightModeStart(SettingItem.isItemMode,settingItem.isTimeAttackMode);
-		else
-			Tetris.start(SettingItem.isItemMode);
+		Tetris.start(SettingItem.isFightMode,SettingItem.isItemMode,SettingItem.isTimeAttackMode);
 	}
 
 	public void btnStartMenuActionPerformed() {
@@ -296,5 +293,10 @@ public class SettingMenu extends JFrame {
 		settingItem.initKeySetting();
 
 		JOptionPane.showMessageDialog(initScoreBoardPanel, "Settings have been reset.");
+		try {
+			settingItem.btnSaveSettingActionPerformed();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
