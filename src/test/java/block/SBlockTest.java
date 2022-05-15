@@ -4,6 +4,7 @@ import blocks.BBlock;
 import blocks.Block;
 import blocks.SBlock;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class SBlockTest {
@@ -13,7 +14,7 @@ public class SBlockTest {
 
 	@Test
 	public void getShape() {
-		Assert.assertEquals(0,block.getShape(block.height()+100,block.width()+100));
+		Assertions.assertEquals(0, block.getShape(block.height()+100,block.width()+100));
 	}
 
 	@Test
@@ -25,6 +26,6 @@ public class SBlockTest {
 		block.rotate();
 		for(int i=0;i<block2.height();i++)
 			for(int j=0;j<block2.width();j++)
-				Assert.assertEquals(block2.getShape(i,j),block.getShape(i,j));
+				Assertions.assertEquals(block2.getShape(i,j), block.getShape(i,j));
 	}
 }

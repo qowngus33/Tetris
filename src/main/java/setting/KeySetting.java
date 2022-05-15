@@ -6,11 +6,11 @@ import java.io.IOException;
 
 public class KeySetting extends JFrame{
 
-    private JPanel firstLine;
-    private JPanel secondLine;
-    private JPanel thirdLine;
-    private JPanel settingLine;
-    private JButton cancelBtn;
+    private final JPanel firstLine;
+    private final JPanel secondLine;
+    private final JPanel thirdLine;
+    private final JPanel settingLine;
+    private final JButton cancelBtn;
     private String keyName;
     private final String keyType;
     private final SettingItem settingItem;

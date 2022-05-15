@@ -16,7 +16,7 @@ class ScoreBoardFileTest {
 	public void writeScoreBoard() {
 		String previous = null;
 		try {
-			previous = scoreBoardFile.readScoreBoard().toString();
+			previous = scoreBoardFile.readScoreBoard();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 		}
@@ -28,12 +28,12 @@ class ScoreBoardFileTest {
 		
 		String later = null;
 		try {
-			later = scoreBoardFile.readScoreBoard().toString();
+			later = scoreBoardFile.readScoreBoard();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 		}
 		
-		Assert.assertEquals(previous, later);
+		assertEquals(previous, later);
 		
 		try {
 			scoreBoardFile.writeScoreBoard("gh", 120, "NORMAL", "item");
@@ -41,11 +41,11 @@ class ScoreBoardFileTest {
 			// TODO Auto-generated catch block
 		}
 		try {
-			later = scoreBoardFile.readScoreBoard().toString();
+			later = scoreBoardFile.readScoreBoard();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 		}
-		Assert.assertNotEquals(previous, later);
+		assertNotEquals(previous, later);
 	}
 	
 	@Test
@@ -80,8 +80,8 @@ class ScoreBoardFileTest {
 			e.printStackTrace();
 		}
 
-		Assert.assertNotEquals(previous, later);
-		Assert.assertEquals("",later);
+		assertNotEquals(previous, later);
+		assertEquals("", later);
 	}
 
 }

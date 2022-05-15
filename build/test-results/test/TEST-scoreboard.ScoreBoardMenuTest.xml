@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scoreboard.ScoreBoardMenuTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-05-14T12:19:10" hostname="MacBook-Pro-2.local" time="2.847">
+<testsuite name="scoreboard.ScoreBoardMenuTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-05-15T06:03:06" hostname="MacBook-Pro-2.local" time="0.487">
   <properties/>
-  <testcase name="ScoreBoardMenu" classname="scoreboard.ScoreBoardMenuTest" time="2.54"/>
-  <testcase name="tryWriteScoreboard" classname="scoreboard.ScoreBoardMenuTest" time="0.15"/>
-  <testcase name="isAlphaOrDigit" classname="scoreboard.ScoreBoardMenuTest" time="0.157"/>
-  <system-out><![CDATA[p0: 800
-p1: 800
-p0: 800
-p1: 800
-p0: 800
-p1: 800
-p0: 800
-p1: 800
-]]></system-out>
+  <testcase name="ScoreBoardMenu" classname="scoreboard.ScoreBoardMenuTest" time="0.202"/>
+  <testcase name="tryWriteScoreboard" classname="scoreboard.ScoreBoardMenuTest" time="0.148"/>
+  <testcase name="isAlphaOrDigit" classname="scoreboard.ScoreBoardMenuTest" time="0.136"/>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

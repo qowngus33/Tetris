@@ -13,7 +13,7 @@ import java.util.List;
 public class ScoreBoardFile {
 
 	private List<Score> list;
-	private ObjectMapper mapper;
+	private final ObjectMapper mapper;
 
 	public ScoreBoardFile(){
 		list = new ArrayList<>();
@@ -45,16 +45,15 @@ public class ScoreBoardFile {
 		list = Arrays.asList(mapper.readValue(new File("scoreBoardFile.json"), Score[].class));
 		Collections.sort(List, new ScoreComparator());
 		Collections.sort(list, new ScoreComparator());
-		int index = List.indexOf(p);
 
-		return index;
+		return List.indexOf(p);
 	}
 	public String readScoreBoard() throws IOException {
-		String sb = new String();
+		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < Math.min(list.size(), 20); i++) {
-			sb += " " + String.format("%02d", i + 1) + list.get(i).toWritableString();
+			sb.append(" ").append(String.format("%02d", i + 1)).append(list.get(i).toWritableString());
 		}
-		return sb;
+		return sb.toString();
 	}
 	public int isWritable() throws IOException {
 		if (!list.isEmpty()) {

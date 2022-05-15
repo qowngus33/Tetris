@@ -170,11 +170,9 @@ public class GameBoard extends JPanel {
 	}
 
 	protected boolean isErasedLine(int line){
-		for (int j = 0; j < WIDTH; j++) {
-			if (gamePane.getBoard(line, j) == 0) {
+		for (int j = 0; j < WIDTH; j++)
+			if (gamePane.getBoard(line, j) == 0)
 				return false;
-			}
-		}
 		return true;
 	}
 
@@ -247,7 +245,6 @@ public class GameBoard extends JPanel {
 		}
 		return false;
 	}
-
 	protected boolean isGameEnded() {
 		for (int i = 0; i < WIDTH; i++) 
 			if (gamePane.getBoard(0, i) != 0)

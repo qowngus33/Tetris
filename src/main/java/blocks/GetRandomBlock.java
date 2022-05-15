@@ -78,7 +78,8 @@ public class GetRandomBlock {
 
 	public Block getItemBlock(String modeName) {
 		int random = (int) (Math.random() * 50);
-		Random rnd = new Random(System.currentTimeMillis());
+		new Random(System.currentTimeMillis());
+		Random rnd;
 		if (random < 10) {
 			return new WBlock();
 		} else if (random < 20) {

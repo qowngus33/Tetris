@@ -43,7 +43,6 @@ public class Score {
                 + String.format("%05d", this.score) + "   " + String.format("%-7s", this.level)
                 + String.format("%7s", this.mode) + "\n";
     }
-
 }
 class ScoreComparator implements Comparator<Score> {
     public int compare(Score arg0, Score arg1) {

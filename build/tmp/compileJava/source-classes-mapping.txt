@@ -20,8 +20,8 @@ blocks/TBlock.java
  blocks.TBlock
 setting/SaveFile.java
  setting.SaveFile
-scoreboard/ScoreBoardFile.java
- scoreboard.ScoreBoardFile
+setting/KeySetting.java
+ setting.KeySetting
 blocks/WBlock.java
  blocks.WBlock
 setting/exception/EmptyKeyException.java
@@ -52,19 +52,8 @@ game/GamePane.java
  game.GamePane
 game/NextBlockPane.java
  game.NextBlockPane
-game/FightMenu.java
- game.FightMenu
- game.FightMenu$1
- game.FightMenu$10
- game.FightMenu$11
- game.FightMenu$2
- game.FightMenu$3
- game.FightMenu$4
- game.FightMenu$5
- game.FightMenu$6
- game.FightMenu$7
- game.FightMenu$8
- game.FightMenu$9
+main/Tetris.java
+ main.Tetris
 component/StartMenu.java
  component.StartMenu
  component.StartMenu$1
@@ -82,7 +71,18 @@ blocks/BBlock.java
  blocks.BBlock
 blocks/Block.java
  blocks.Block
-main/Tetris.java
- main.Tetris
-setting/KeySetting.java
- setting.KeySetting
+scoreboard/ScoreBoardFile.java
+ scoreboard.ScoreBoardFile
+game/FightMenu.java
+ game.FightMenu
+ game.FightMenu$1
+ game.FightMenu$10
+ game.FightMenu$11
+ game.FightMenu$2
+ game.FightMenu$3
+ game.FightMenu$4
+ game.FightMenu$5
+ game.FightMenu$6
+ game.FightMenu$7
+ game.FightMenu$8
+ game.FightMenu$9

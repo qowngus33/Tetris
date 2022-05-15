@@ -10,26 +10,28 @@ import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.io.IOException;
 
+@SuppressWarnings("ALL")
 public class ScoreBoardMenu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private ScoreBoardFile sb;
-	private JPanel outerPanel = new JPanel();
-	private JPanel lowerPanel = new JPanel();
-	private JPanel upperPanel = new JPanel();
+	private final JPanel outerPanel = new JPanel();
+	private final JPanel lowerPanel = new JPanel();
+	private final JPanel upperPanel = new JPanel();
 
+	@SuppressWarnings("FieldMayBeFinal")
 	private JLabel label = new JLabel();
-	private JButton enterBtn = new JButton("Enter");
-	private JButton exitBtn = new JButton("Exit");
-	private JButton startBtn = new JButton("Start Menu");
-	private JTextPane scoreboard = new JTextPane();
+	private final JButton enterBtn = new JButton("Enter");
+	private final JButton exitBtn = new JButton("Exit");
+	private final JButton startBtn = new JButton("Start Menu");
+	private final JTextPane scoreboard = new JTextPane();
 	protected JTextField nameEnter = new JTextField(10);
 	private final int oneLineLength = 37;
 	private int score;
 	private String mode;
 
 	private String level = "normal";
-	private String scoreWriteText = "Game over. Enter your name within\nfour characters with alphabet and number.";
+	private final String scoreWriteText = "Game over. Enter your name within\nfour characters with alphabet and number.";
 
 	public ScoreBoardMenu() {
 		super("ScoreBoard"); // 타이틀

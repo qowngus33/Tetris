@@ -16,21 +16,18 @@ import static java.lang.System.currentTimeMillis;
 
 public class FightMenu extends JFrame {
 
-	private SettingItem settingItem;
-	private GameBoard [] gameBoard;
-	private GamePane [] gamePane;
-
-	private JLabel [] scoreLabel;
-	private JLabel [] lineLabel;
+	private final SettingItem settingItem;
+	private final GameBoard [] gameBoard;
+	private final GamePane [] gamePane;
+	private final JLabel [] scoreLabel;
+	private final JLabel [] lineLabel;
 	private JLabel [] timeLabel;
-
 	private Timer timer;
 	private Timer timeAttackTimer;
 	private long startTime;
 	private final long exitTime = 60000;
 	private boolean isGameEnded;
-	private int [] pCountNum = {0,0};
-
+	private final int [] pCountNum = {0,0};
 
 	public FightMenu(boolean isItemMode,boolean isTimeAttackMode) throws IOException {
 		super("Tetris Fight");
@@ -46,7 +43,6 @@ public class FightMenu extends JFrame {
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// lower panel
 		JButton settingButton = new JButton("Settings");
 		JButton startMenuBtn = new JButton("Start Menu");
 		JButton exitBtn = new JButton("EXIT");
@@ -75,14 +71,12 @@ public class FightMenu extends JFrame {
 		upperPanel.add(playerPanel(isItemMode,1));
 		updateScore();
 
-		// outer panel
 		JPanel outerPanel = new JPanel();
 		outerPanel.add(upperPanel);
 		outerPanel.add(lowerPanel);
 		setContentPane(outerPanel);
 		outerPanel.setForeground(Color.WHITE);
 
-		// Set timer for block drops.
 		String message = "PLAYER1:"+settingItem.getP1LeftKey()+" "+settingItem.getP1RightKey()+" "
 				+settingItem.getP1DownKey()+" "+settingItem.getP1RotateKey()+" "+settingItem.getP1DropKey()
 				+"\nPLAYER2:"+settingItem.getP2LeftKey()+" "+ settingItem.getP2RightKey()+" "+settingItem.getP2DownKey()+" "
@@ -110,7 +104,6 @@ public class FightMenu extends JFrame {
 		gamePane[i].draw();
 		sidePanel.add(gamePane[i]);
 
-		// Side display
 		scoreLabel[i] = new JLabel(gameBoard[i].getScore() + "", JLabel.CENTER);
 		TitledBorder border = new TitledBorder("SCORE");
 		border.setTitlePosition(TitledBorder.ABOVE_TOP);
@@ -126,7 +119,6 @@ public class FightMenu extends JFrame {
 		lineLabel[i].setFont(new Font(Font.MONOSPACED, Font.PLAIN, 17));
 		lineLabel[i].setBackground(Color.white);
 
-		// left panel
 		JPanel rightPanel = new JPanel();
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
 		if(SettingItem.isTimeAttackMode)
@@ -138,7 +130,6 @@ public class FightMenu extends JFrame {
 		rightPanel.setAlignmentX(LEFT_ALIGNMENT);
 		rightPanel.setBackground(Color.WHITE);
 
-		// upper panel
 		JPanel panel = new JPanel();
 		panel.add(gameBoard[i]);
 		panel.add(rightPanel);
@@ -266,7 +257,6 @@ public class FightMenu extends JFrame {
 				int temp = (11-gameBoard[i].getLevel())<=0?1:(11-gameBoard[i].getLevel());
 				if(pCountNum[i]>=temp) {
 					moveDown(i);
-					System.out.println("p"+i+": "+initInterval*pCountNum[i]);
 					pCountNum[i] = 0;
 				}
 			}
@@ -363,31 +353,21 @@ public class FightMenu extends JFrame {
 			timeAttackTimer.stop();
 		isGameEnded = true;
 		setResultText();
+		dispose();
+		Tetris.showStartMenu();
 	}
 
 	private void setResultText() {
 		String text = "draw";
-		if(gameBoard[0].isGameEnded() && !gameBoard[1].isGameEnded()) {
-			gameBoard[0].setGameBoardText("LOSE");
-			gameBoard[1].setGameBoardText("WIN!");
+		if(gameBoard[0].isGameEnded() && !gameBoard[1].isGameEnded())
 			text = "player2 win";
-		} else if(!gameBoard[0].isGameEnded() && gameBoard[1].isGameEnded()){
-			gameBoard[0].setGameBoardText("WIN!");
-			gameBoard[1].setGameBoardText("LOSE");
+		else if(!gameBoard[0].isGameEnded() && gameBoard[1].isGameEnded())
 			text = "player1 win";
-		} else{
-			if(gameBoard[0].score>gameBoard[1].score){
-				gameBoard[0].setGameBoardText("WIN!");
-				gameBoard[1].setGameBoardText("LOSE");
+		else{
+			if(gameBoard[0].score>gameBoard[1].score)
 				text = "player1 win";
-			} else if(gameBoard[0].score<gameBoard[1].score){
-				gameBoard[0].setGameBoardText("LOSE");
-				gameBoard[1].setGameBoardText("WIN!");
+			else if(gameBoard[0].score<gameBoard[1].score)
 				text = "player2 win";
-			} else if(gameBoard[0].score==gameBoard[1].score){
-				gameBoard[0].setGameBoardText("DRAW!");
-				gameBoard[1].setGameBoardText("DRAW!");
-			}
 		}
 		JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), text);
 	}
@@ -417,10 +397,8 @@ public class FightMenu extends JFrame {
 		exitGame();
 		try {
 			Tetris.start(true,SettingItem.isItemMode,SettingItem.isTimeAttackMode);
-			//to be edited
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-
 	}
 }

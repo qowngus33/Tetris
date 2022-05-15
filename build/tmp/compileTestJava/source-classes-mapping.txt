@@ -12,8 +12,8 @@ block/ZBlockTest.java
  block.ZBlockTest
 setting/ModeTest.java
  setting.ModeTest
-block/EBlockTest.java
- block.EBlockTest
+game/GameBoardTest.java
+ game.GameBoardTest
 game/NextBlockPaneTest.java
  game.NextBlockPaneTest
 game/GamePaneTest.java
@@ -28,8 +28,6 @@ block/SBlockTest.java
  block.SBlockTest
 block/JBlockTest.java
  block.JBlockTest
-file/ScoreBoardFileTest.java
- file.ScoreBoardFileTest
 game/FightMenuTest.java
  game.FightMenuTest
 game/GameMenuTest.java
@@ -43,7 +41,9 @@ setting/SettingMenuTest.java
  setting.SettingMenuTest
 game/itemModeTest.java
  game.itemModeTest
+file/ScoreBoardFileTest.java
+ file.ScoreBoardFileTest
 game/KeySettingTest.java
  game.KeySettingTest
-game/GameBoardTest.java
- game.GameBoardTest
+block/EBlockTest.java
+ block.EBlockTest

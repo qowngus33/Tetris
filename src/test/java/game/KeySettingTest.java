@@ -16,7 +16,6 @@ public class KeySettingTest {
 
     public KeySettingTest() throws IOException {
         gameBoard = new GameBoard();
-        gameBoard2 = new GameBoard();
         gameBoard2 = gameBoard;
         settingItem = SettingItem.getInstance();
     }

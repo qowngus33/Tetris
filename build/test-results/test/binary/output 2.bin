@@ -1,88 +1,0 @@
-
-EASY
-
-countBlock: 
-
-t[0] 28544 [1] 28773 [2] 28476 [3] 28462 [4] 28490 [5] 28646 [6] 28150 [7] 200334 [8] 200418 [9] 199855 [10] 199852 
-
-countPositionBlock: 
-
-4[0] 52022 [1] 49855 [2] 49184 [3] 48480 [4] 0 [5] 0 
-EASY
-
-countBlock: 
-
-t[0] 28365 [1] 28334 [2] 28678 [3] 28697 [4] 28541 [5] 28850 [6] 28752 [7] 199837 [8] 200139 [9] 200201 [10] 199606 
-
-countPositionBlock: 
-
-4[0] 52560 [1] 49640 [2] 51171 [3] 46846 [4] 0 [5] 0 
-EASY
-
-countBlock: 
-
-t[0] 28759 [1] 28826 [2] 28578 [3] 28406 [4] 28596 [5] 28470 [6] 28578 [7] 200130 [8] 199588 [9] 199885 [10] 200184 
-
-countPositionBlock: 
-
-4[0] 51531 [1] 50535 [2] 48974 [3] 49173 [4] 0 [5] 0 Ó{boardWidth=300, rotateKey=UP, modeName=EASY, pauseKey=P, downKey=DOWN, rightKey=RIGHT, p1DropKey=SPACE, p2RightKey=S, p2DropKey=G, p2DownKey=D, p1LeftKey=Q, p1DownKey=E, p2LeftKey=A, initInterval=1200, boardHeight=510, colorBlind=true, leftKey=LEFT, p1RotateKey=R, dropKey=SPACE, fontSize=19, p2RotateKey=F, p1RightKey=W, reduceSpeed=80}
-normal mode
-FEp0: 800
-FEp1: 800
-FI          
-FI          
-FI          
-FI          
-FI          
-FI          
-FI          
-FI          
-FI          
-FI
-  hello  
-FI          
-FI          
-FI          
-FI          
-FI          
-FI          
-FI          
-FI          
-FI          
-FI
-FI          
-FI          
-FI          
-FI          
-FI          
-FI          
-FI          
-FI          
-FI          
-FI
-  hello  
-FI          
-FI          
-FI          
-FI          
-FI          
-FI          
-FI          
-FI          
-FI          
-FI
-ONp0: 800
-ONp1: 800
-OPp0: 800
-OPp1: 800
-SRNormal Mode
-SRp0: 800
-SR:[0] 1000 [1] 973 [2] 953 [3] 965 [4] 986 [5] 970 [6] 953 
-ST
-STp1: 800
-ST
-Easy Mode
-ST=[0] 1227 [1] 1020 [2] 982 [3] 959 [4] 972 [5] 1024 [6] 1016 
-SU
-Hard Mode
-SU<[0] 818 [1] 990 [2] 1004 [3] 1011 [4] 928 [5] 1074 [6] 975 

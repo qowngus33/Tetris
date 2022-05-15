@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class SettingItem {
 
-    private ObjectMapper objectMapper = new ObjectMapper()
+    private final ObjectMapper objectMapper = new ObjectMapper()
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     private static SettingItem instance;
 
@@ -25,8 +25,8 @@ public class SettingItem {
             e.printStackTrace();
         }
     }
-    private ArrayList<String> singleKeys = new ArrayList<>();
-    private ArrayList<String> multiKeys = new ArrayList<>();
+    private final ArrayList<String> singleKeys = new ArrayList<>();
+    private final ArrayList<String> multiKeys = new ArrayList<>();
     private String leftKey;
     private String rightKey;
     private String downKey;

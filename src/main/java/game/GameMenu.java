@@ -22,8 +22,8 @@ public class GameMenu extends JFrame {
      *
      */
     private static final long serialVersionUID = 1L;
-    private SettingItem settingItem;
-    private GameBoard gameBoard;
+    private final SettingItem settingItem;
+    private final GameBoard gameBoard;
     protected static int initInterval;
     protected JLabel scoreLabel;
     protected JLabel levelLabel;

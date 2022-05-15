@@ -3,12 +3,12 @@ package game;
 import java.io.IOException;
 
 import blocks.GetRandomBlock;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import blocks.Block;
 
-class itemModeTest {
+class ItemModeTest {
 	ItemGameBoard itemGameBoard;
 	
 	@Test
@@ -94,7 +94,7 @@ class itemModeTest {
 			LItemNumCompare += countPositionBlock[i];
 		}
 
-		Assert.assertEquals(LItemNum, LItemNumCompare, 5);
+		Assertions.assertEquals(LItemNum, LItemNumCompare, 5);
 	}
 	@Test
 	public void getItemBlockNormal() {
@@ -180,7 +180,7 @@ class itemModeTest {
 			LItemNumCompare += countPositionBlock[i];
 		}
 
-		Assert.assertEquals(LItemNum, LItemNumCompare, 5);
+		Assertions.assertEquals(LItemNum, LItemNumCompare, 5);
 	}
 
 	@Test
@@ -267,7 +267,7 @@ class itemModeTest {
 			LItemNumCompare += countPositionBlock[i];
 		}
 
-		Assert.assertEquals(LItemNum, LItemNumCompare, 5);
+		Assertions.assertEquals(LItemNum, LItemNumCompare, 5);
 	}
 	
 	@Test
@@ -283,14 +283,14 @@ class itemModeTest {
 		itemGameBoard.gamePane.eraseCurr(itemGameBoard.x,itemGameBoard.y,itemGameBoard.curr);
 		itemGameBoard.drawBoard();
 		String temp = itemGameBoard.gamePane.getText();
-		int lines [][] = new int[10][10];
+		int[][] lines = new int[10][10];
 		for(int i=0;i<10;i++)
 			for(int j=0;j<10;j++)
 				lines[i][j] = 1;
 		itemGameBoard.gamePane.addLines(lines);
 		itemGameBoard.eraseLine();
 		itemGameBoard.drawBoard();
-		Assert.assertEquals(temp, itemGameBoard.gamePane.getText());
+		Assertions.assertEquals(temp, itemGameBoard.gamePane.getText());
 
 		for(int i=0;i<100;i++){
 			itemGameBoard.x = 5;

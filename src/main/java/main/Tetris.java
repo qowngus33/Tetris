@@ -54,7 +54,6 @@ public class Tetris {
         keySetting.setVisible(true);
     }
 
-
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             startmenu = new StartMenu();

@@ -29,72 +29,72 @@ class NextBlockPaneTest {
 		targetGamePane.drawNextBlockBoard(block);
 		compareGamePane.drawNextBlockBoard(block);
 
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new BBlock();
 		targetGamePane.drawNextBlockBoard(block);
 		compareGamePane.drawNextBlockBoard(block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new CBlock();
 		targetGamePane.drawNextBlockBoard(block);
 		compareGamePane.drawNextBlockBoard(block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new EBlock();
 		targetGamePane.drawNextBlockBoard(block);
 		compareGamePane.drawNextBlockBoard(block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new IBlock();
 		targetGamePane.drawNextBlockBoard(block);
 		compareGamePane.drawNextBlockBoard(block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new JBlock();
 		targetGamePane.drawNextBlockBoard(block);
 		compareGamePane.drawNextBlockBoard(block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new LBlock();
 		targetGamePane.drawNextBlockBoard(block);
 		compareGamePane.drawNextBlockBoard(block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new OBlock();
 		targetGamePane.drawNextBlockBoard(block);
 		compareGamePane.drawNextBlockBoard(block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new SBlock();
 		targetGamePane.drawNextBlockBoard(block);
 		compareGamePane.drawNextBlockBoard(block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new TBlock();
 		targetGamePane.drawNextBlockBoard(block);
 		compareGamePane.drawNextBlockBoard(block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new WBlock();
 		targetGamePane.drawNextBlockBoard(block);
 		compareGamePane.drawNextBlockBoard(block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new ZBlock();
 		targetGamePane.drawNextBlockBoard(block);
 		compareGamePane.drawNextBlockBoard(block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 	}
 }

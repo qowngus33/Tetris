@@ -1,5 +1,4 @@
 package blocks;
-import java.awt.Color;
 
 public class BBlock extends Block {
 	//Bomb block

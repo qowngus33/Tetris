@@ -11,7 +11,7 @@ import blocks.Block;
 
 public class NextBlockPane extends JTextPane {
 
-	private GamePane gamePane;
+	private final GamePane gamePane;
 
 	public NextBlockPane(boolean isColorBlindMode) {
 		setEditable(false);

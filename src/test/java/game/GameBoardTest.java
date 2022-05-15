@@ -90,7 +90,7 @@ public class GameBoardTest {
 	@Test
 	public void setGameBoardText() {
 		String temp = gameBoard.gamePane.getText();
-		Assert.assertEquals(temp, gameBoard.gamePane.getText().toString());
+		Assert.assertEquals(temp, gameBoard.gamePane.getText());
 		gameBoard.setGameBoardText("hello");
 		StringBuilder letter = new StringBuilder();
 		for(int i=0;i<9;i++)
@@ -107,11 +107,11 @@ public class GameBoardTest {
 
 		System.out.println(letter);
 		System.out.println(gameBoard.gamePane.getText());
-		Assert.assertEquals(letter.toString(), gameBoard.gamePane.getText().toString());
+		Assert.assertEquals(letter.toString(), gameBoard.gamePane.getText());
 
 		temp = gameBoard.gamePane.getText();
 		gameBoard.setGameBoardText("                       ");
-		Assert.assertEquals(temp, gameBoard.gamePane.getText().toString());
+		Assert.assertEquals(temp, gameBoard.gamePane.getText());
 	}
 
 	@Test
@@ -126,7 +126,7 @@ public class GameBoardTest {
 		gameBoard.gamePane.eraseCurr(gameBoard.x,gameBoard.y,gameBoard.curr);
 		gameBoard.drawBoard();
 		String temp = gameBoard.gamePane.getText();
-		int lines [][] = new int[10][10];
+		int [][] lines = new int[10][10];
 		for(int i=0;i<10;i++)
 			for(int j=0;j<10;j++)
 				lines[i][j] = 1;

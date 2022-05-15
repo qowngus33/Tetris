@@ -33,19 +33,19 @@ public class ScoreBoardMenuTest {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		Assert.assertEquals(true,sb2.isAlphaOrDigit("0"));
-		Assert.assertEquals(true,sb2.isAlphaOrDigit("9999"));
-		Assert.assertEquals(true,sb2.isAlphaOrDigit("999w"));
-		Assert.assertEquals(true,sb2.isAlphaOrDigit("a"));
-		Assert.assertEquals(true,sb2.isAlphaOrDigit("A"));
-		Assert.assertEquals(true,sb2.isAlphaOrDigit("e"));
-		Assert.assertEquals(true,sb2.isAlphaOrDigit("z"));
-		Assert.assertEquals(true,sb2.isAlphaOrDigit("Z"));
-		Assert.assertEquals(false,sb2.isAlphaOrDigit("안"));
-		Assert.assertEquals(false,sb2.isAlphaOrDigit("+"));
-		Assert.assertEquals(false,sb2.isAlphaOrDigit("#"));
-		Assert.assertEquals(false,sb2.isAlphaOrDigit("#"));
-		Assert.assertEquals(false,sb2.isAlphaOrDigit("ppp+"));
+		Assert.assertTrue(sb2.isAlphaOrDigit("0"));
+		Assert.assertTrue(sb2.isAlphaOrDigit("9999"));
+		Assert.assertTrue(sb2.isAlphaOrDigit("999w"));
+		Assert.assertTrue(sb2.isAlphaOrDigit("a"));
+		Assert.assertTrue(sb2.isAlphaOrDigit("A"));
+		Assert.assertTrue(sb2.isAlphaOrDigit("e"));
+		Assert.assertTrue(sb2.isAlphaOrDigit("z"));
+		Assert.assertTrue(sb2.isAlphaOrDigit("Z"));
+		Assert.assertFalse(sb2.isAlphaOrDigit("안"));
+		Assert.assertFalse(sb2.isAlphaOrDigit("+"));
+		Assert.assertFalse(sb2.isAlphaOrDigit("#"));
+		Assert.assertFalse(sb2.isAlphaOrDigit("#"));
+		Assert.assertFalse(sb2.isAlphaOrDigit("ppp+"));
 
 	}
 

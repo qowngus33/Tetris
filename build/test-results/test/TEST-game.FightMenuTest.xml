@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="game.FightMenuTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-05-14T12:18:04" hostname="MacBook-Pro-2.local" time="65.903">
+<testsuite name="game.FightMenuTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-05-15T06:02:42" hostname="MacBook-Pro-2.local" time="24.035">
   <properties/>
-  <testcase name="moveDown" classname="game.FightMenuTest" time="65.903"/>
+  <testcase name="moveDown" classname="game.FightMenuTest" time="24.035"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

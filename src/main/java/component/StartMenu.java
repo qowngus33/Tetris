@@ -349,14 +349,13 @@ public class StartMenu extends JFrame {
 						}
 						break;
 					case KeyEvent.VK_ENTER:
-						break;
 					case KeyEvent.VK_SPACE:
 						break;
 					default:
 						JOptionPane alertNo = new JOptionPane();
 						showMessageDialog(null,
 								"↑ : SELECT START \n" + "← : SELECT OPTION \n" + "→ : SELECT SCORE BOARD \n"
-										+ "↓ : SELCET EXIT \n" + "Enter, Space Bar : EXCUTE SELECTED OPTION",
+										+ "↓ : SELECT EXIT \n" + "Enter, Space Bar : EXECUTE SELECTED OPTION",
 								"Key Reminder", JOptionPane.PLAIN_MESSAGE);
 						break;
 				}

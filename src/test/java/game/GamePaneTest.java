@@ -21,73 +21,73 @@ class GamePaneTest {
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
 
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new BBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new CBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new EBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new IBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new JBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new LBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new OBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new SBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new TBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new WBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new ZBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
 		
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 	}
 	
 	@Test
@@ -95,103 +95,103 @@ class GamePaneTest {
 		Block block = new JBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		targetGamePane.eraseCurr(5, 5, block);
 		compareGamePane.eraseCurr(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new BBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		targetGamePane.eraseCurr(5, 5, block);
 		compareGamePane.eraseCurr(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new CBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		targetGamePane.eraseCurr(5, 5, block);
 		compareGamePane.eraseCurr(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new EBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		targetGamePane.eraseCurr(5, 5, block);
 		compareGamePane.eraseCurr(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new IBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		targetGamePane.eraseCurr(5, 5, block);
 		compareGamePane.eraseCurr(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new JBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		targetGamePane.eraseCurr(5, 5, block);
 		compareGamePane.eraseCurr(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new LBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		targetGamePane.eraseCurr(5, 5, block);
 		compareGamePane.eraseCurr(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new OBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		targetGamePane.eraseCurr(5, 5, block);
 		compareGamePane.eraseCurr(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new SBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		targetGamePane.eraseCurr(5, 5, block);
 		compareGamePane.eraseCurr(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new TBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		targetGamePane.eraseCurr(5, 5, block);
 		compareGamePane.eraseCurr(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new WBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		targetGamePane.eraseCurr(5, 5, block);
 		compareGamePane.eraseCurr(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		
 		block = new ZBlock();
 		targetGamePane.placeBlock(5, 5, block);
 		compareGamePane.placeBlock(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 		targetGamePane.eraseCurr(5, 5, block);
 		compareGamePane.eraseCurr(5, 5, block);
-		Assert.assertEquals(targetGamePane.getText(), compareGamePane.getText());
+		assertEquals(targetGamePane.getText(), compareGamePane.getText());
 	}
 
 	@Test
 	public void setLines(){
-		int lines [][] = new int[5][10];
+		int[][] lines = new int[5][10];
 		for(int i=0;i<5;i++)
 			for(int j=0;j<10;j++)
 				lines[i][j] = 1;
@@ -208,7 +208,7 @@ class GamePaneTest {
 
 		sideGamePane.setLines(lines);
 
-		Assert.assertEquals(sb.toString(), sideGamePane.getText());
+		assertEquals(sb.toString(), sideGamePane.getText());
 	}
 
 }
