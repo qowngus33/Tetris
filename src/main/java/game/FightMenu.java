@@ -111,6 +111,7 @@ public class FightMenu extends JFrame {
 		scoreLabel[i].setBorder(border);
 		scoreLabel[i].setFont(new Font(Font.MONOSPACED, Font.PLAIN, 17));
 		scoreLabel[i].setBackground(Color.white);
+
 		lineLabel[i] = new JLabel(gameBoard[i].getLineNum() + "", JLabel.CENTER);
 		TitledBorder border2 = new TitledBorder("LINE");
 		border2.setTitlePosition(TitledBorder.ABOVE_TOP);
@@ -121,9 +122,16 @@ public class FightMenu extends JFrame {
 
 		JPanel rightPanel = new JPanel();
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-		if(SettingItem.isTimeAttackMode)
-			rightPanel.add(timeLabel[i]);
 		rightPanel.add(gameBoard[i].nextBlockPane);
+		if(SettingItem.isTimeAttackMode) {
+			TitledBorder border3 = new TitledBorder("TIME");
+			border3.setTitlePosition(TitledBorder.ABOVE_TOP);
+			border3.setTitleJustification(TitledBorder.CENTER);
+			timeLabel[i].setBorder(border3);
+			timeLabel[i].setFont(new Font(Font.MONOSPACED, Font.PLAIN, 17));
+			timeLabel[i].setBackground(Color.white);
+			rightPanel.add(timeLabel[i]);
+		}
 		rightPanel.add(scoreLabel[i]);
 		rightPanel.add(lineLabel[i]);
 		rightPanel.add(sidePanel);
@@ -272,8 +280,8 @@ public class FightMenu extends JFrame {
 			if(settingItem.isTimeAttackMode && currentTimeMillis()-startTime>exitTime){
 				gameOver();
 			} else {
-				timeLabel[0].setText(((exitTime-(currentTimeMillis()-startTime))/1000)+"");
-				timeLabel[1].setText(((exitTime-(currentTimeMillis()-startTime))/1000)+"");
+				timeLabel[0].setText(String.format("%5s",(exitTime-(currentTimeMillis()-startTime))/1000+"") + " ");
+				timeLabel[1].setText(String.format("%5s",(exitTime-(currentTimeMillis()-startTime))/1000+"") + " ");
 			}
 		});
 		timeAttackTimer.start();
