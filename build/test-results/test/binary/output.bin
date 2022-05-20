@@ -1,80 +1,0 @@
-
-NORMAL
-
-countBlock: 
-
-t[0] 28507 [1] 28677 [2] 28458 [3] 28778 [4] 28601 [5] 28337 [6] 28590 [7] 199865 [8] 199745 [9] 200714 [10] 199728 
-
-countPositionBlock: 
-
-4[0] 52717 [1] 50153 [2] 50323 [3] 46755 [4] 0 [5] 0 
-NORMAL
-
-countBlock: 
-
-t[0] 28638 [1] 28553 [2] 28878 [3] 28545 [4] 28608 [5] 28526 [6] 28372 [7] 200391 [8] 199872 [9] 199263 [10] 200354 
-
-countPositionBlock: 
-
-4[0] 49555 [1] 50354 [2] 49748 [3] 50463 [4] 0 [5] 0 
-NORMAL
-
-countBlock: 
-
-t[0] 28748 [1] 28517 [2] 28499 [3] 28391 [4] 28867 [5] 28565 [6] 28636 [7] 200198 [8] 200143 [9] 199508 [10] 199928 
-
-countPositionBlock: 
-
-4[0] 53520 [1] 50152 [2] 49666 [3] 46885 [4] 0 [5] 0 æ{boardWidth=350, rotateKey=UP, modeName=NORMAL, pauseKey=P, downKey=DOWN, rightKey=RIGHT, p1DropKey=SPACE, p2RightKey=RIGHT, p2DropKey=ENTER, p2DownKey=DOWN, p1LeftKey=A, p1DownKey=J, p2LeftKey=LEFT, initInterval=1000, boardHeight=593, colorBlind=false, leftKey=LEFT, p1RotateKey=W, dropKey=SPACE, fontSize=23, p2RotateKey=UP, p1RightKey=D, reduceSpeed=100}
-normal mode
-EH          
-EH          
-EH          
-EH          
-EH          
-EH          
-EH          
-EH          
-EH          
-EH
-  hello  
-EH          
-EH          
-EH          
-EH          
-EH          
-EH          
-EH          
-EH          
-EH          
-EH
-EH          
-EH          
-EH          
-EH          
-EH          
-EH          
-EH          
-EH          
-EH          
-EH
-  hello  
-EH          
-EH          
-EH          
-EH          
-EH          
-EH          
-EH          
-EH          
-EH          
-EH
-RQNormal Mode
-RQ;[0] 907 [1] 986 [2] 965 [3] 991 [4] 928 [5] 1005 [6] 1018 
-RS
-RS
-Easy Mode
-RS=[0] 1177 [1] 996 [2] 1016 [3] 943 [4] 1048 [5] 994 [6] 1026 
-RT
-Hard Mode
-RT;[0] 848 [1] 979 [2] 1014 [3] 1005 [4] 985 [5] 990 [6] 979 
