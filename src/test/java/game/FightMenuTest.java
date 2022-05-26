@@ -92,12 +92,10 @@ public class FightMenuTest {
 				robot.keyPress(KeyEvent.VK_DOWN);
 			});
 		}
-		for(int i=0;i<10;i++) {
-			assertTimeout(ofMillis(1000), () -> {
-				robot.keyPress(KeyEvent.VK_A);
-				robot.keyPress(KeyEvent.VK_D);
-			});
-		}
+		assertTimeout(ofMillis(1000), () -> {
+			robot.keyPress(KeyEvent.VK_A);
+			robot.keyPress(KeyEvent.VK_D);
+		});
 		for(int i=0;i<10;i++) {
 			assertTimeout(ofMillis(1000), () -> {
 				robot.keyPress(KeyEvent.VK_S);

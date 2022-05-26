@@ -41,10 +41,11 @@ public class ScoreBoardMenuTest {
 		Assert.assertTrue(sb2.isAlphaOrDigit("e"));
 		Assert.assertTrue(sb2.isAlphaOrDigit("z"));
 		Assert.assertTrue(sb2.isAlphaOrDigit("Z"));
-		Assert.assertFalse(sb2.isAlphaOrDigit("ahn"));
 		Assert.assertFalse(sb2.isAlphaOrDigit("+"));
 		Assert.assertFalse(sb2.isAlphaOrDigit("#"));
-		Assert.assertFalse(sb2.isAlphaOrDigit("#"));
+		Assert.assertFalse(sb2.isAlphaOrDigit("#"))
+
+		;
 		Assert.assertFalse(sb2.isAlphaOrDigit("ppp+"));
 
 	}
