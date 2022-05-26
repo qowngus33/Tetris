@@ -69,7 +69,7 @@ class ScoreBoardFileTest {
 		try {
 			previous = scoreBoardFile.readScoreBoard();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generataswed catch block
 			e.printStackTrace();
 		}
 		scoreBoardFile.eraseFile();
@@ -79,7 +79,6 @@ class ScoreBoardFileTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		assertNotEquals(previous, later);
 		assertEquals("", later);
 	}

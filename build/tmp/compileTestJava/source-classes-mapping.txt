@@ -2,8 +2,8 @@ block/OBlockTest.java
  block.OBlockTest
 block/IBlockTest.java
  block.IBlockTest
-game/GameMenuTest.java
- game.GameMenuTest
+file/ScoreBoardFileTest.java
+ file.ScoreBoardFileTest
 block/CBlockTest.java
  block.CBlockTest
 setting/SaveFileTest.java
@@ -17,8 +17,8 @@ setting/LoadFileTest.java
  setting.LoadFileTest$1
 game/NextBlockPaneTest.java
  game.NextBlockPaneTest
-setting/SettingMenuTest.java
- setting.SettingMenuTest
+game/GameBoardTest.java
+ game.GameBoardTest
 game/KeySettingTest.java
  game.KeySettingTest
 block/BBlockTest.java
@@ -29,21 +29,21 @@ block/SBlockTest.java
  block.SBlockTest
 block/JBlockTest.java
  block.JBlockTest
-game/FightMenuTest.java
- game.FightMenuTest
-scoreboard/ScoreBoardMenuTest.java
- scoreboard.ScoreBoardMenuTest
+block/WBlockTest.java
+ block.WBlockTest
+game/ItemModeTest.java
+ game.ItemModeTest
 block/LBlockTest.java
  block.LBlockTest
 game/GamePaneTest.java
  game.GamePaneTest
 block/EBlockTest.java
  block.EBlockTest
-file/ScoreBoardFileTest.java
- file.ScoreBoardFileTest
-game/ItemModeTest.java
- game.ItemModeTest
-block/WBlockTest.java
- block.WBlockTest
-game/GameBoardTest.java
- game.GameBoardTest
+setting/SettingMenuTest.java
+ setting.SettingMenuTest
+game/GameMenuTest.java
+ game.GameMenuTest
+scoreboard/ScoreBoardMenuTest.java
+ scoreboard.ScoreBoardMenuTest
+game/FightMenuTest.java
+ game.FightMenuTest

@@ -355,6 +355,13 @@ public class FightMenu extends JFrame {
 		gamePane[i].setLines(gameBoard[temp].getErasedLine());
 	}
 
+	protected GameBoard getGameBoard(int i) {
+		if(i>1 || i<0)
+			return null;
+		return gameBoard[i];
+	}
+
+
 	private void gameOver() {
 		timer.stop();
 		if(SettingItem.isTimeAttackMode)
