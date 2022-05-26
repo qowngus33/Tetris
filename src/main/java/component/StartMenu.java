@@ -435,7 +435,7 @@ public class StartMenu extends JFrame {
 						JOptionPane alertNo = new JOptionPane();
 						showMessageDialog(null,
 								"↑ : SELECT START \n" + "← : SELECT OPTION \n" + "→ : SELECT SCORE BOARD \n"
-										+ "↓ : SELCET EXIT \n" + "Enter, Space Bar : EXCUTE SELECTED OPTION \n" + "` : Change FightMode \n",
+										+ "↓ : SELCET EXIT \n" + "Enter, Space Bar : EXCUTE SELECTED OPTION \n" + "BackSpace : Change FightMode \n",
 								"Key Reminder", JOptionPane.PLAIN_MESSAGE);
 						break;
 				}
