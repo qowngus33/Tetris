@@ -458,8 +458,16 @@ public class StartMenu extends JFrame {
 						}
 						// normal mode start
 					}
+					if (timerStart.getIcon() == timerStartClicked) {
+						dispose();
+						try {
+							Tetris.start(SettingItem.isFightMode, false, true);
+						} catch (IOException ioException) {
+							ioException.printStackTrace();
+						}
+						// normal mode start
+					}
 					if (menuStart.getIcon() == menuStartClicked) {
-
 						if (cnt == 0) {
 							menuStart.setIcon(menuStartPressed);
 							itemStart.setVisible(true);
