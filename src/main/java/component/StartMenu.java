@@ -237,14 +237,10 @@ public class StartMenu extends JFrame {
 					playMode.setIcon(multiplay);
 					SettingItem.isFightMode = false;
 					showMessageDialog(null, "Game Mode : Single Mode");
-					SettingItem.isFightMode = false;
-					menuStart.requestFocus();
 				} else {
 					playMode.setIcon(singleplay);
 					SettingItem.isFightMode = true;
 					showMessageDialog(null, "Game Mode : Fight Mode");
-					SettingItem.isFightMode = true;
-					menuStart.requestFocus();
 				}
 			}
 		});
@@ -296,6 +292,7 @@ public class StartMenu extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
 					case 37:
+						setFocusable(true);
 						System.out.println("left");
 						menuStart.setIcon(menuStartBasic);
 						menuOption.setIcon(menuOptionClicked);
@@ -303,6 +300,7 @@ public class StartMenu extends JFrame {
 						menuExit.setIcon(menuExitBasic);
 						break;
 					case 38:
+						setFocusable(true);
 						System.out.println("up");
 						if (cnt == 0) {
 							menuStart.setIcon(menuStartClicked);
@@ -363,6 +361,7 @@ public class StartMenu extends JFrame {
 						menuExit.setIcon(menuExitBasic);
 						break;
 					case 40:
+						setFocusable(true);
 						System.out.println("down");
 						if (cnt == 0 && step == 0) {
 							System.out.println("down");
@@ -414,6 +413,20 @@ public class StartMenu extends JFrame {
 
 						}
 						break;
+					case KeyEvent.VK_BACK_SPACE:
+						setFocusable(true);
+						System.out.println("change fight mode");
+						if(SettingItem.isFightMode) {
+							SettingItem.isFightMode = false;
+							playMode.setIcon(singleplay);
+							showMessageDialog(null, "Game Mode : Single Mode");
+						}
+						else {
+							SettingItem.isFightMode = true;
+							playMode.setIcon(multiplay);
+							showMessageDialog(null, "Game Mode : Fight Mode");
+						}
+
 					case KeyEvent.VK_ENTER:
 						break;
 					case KeyEvent.VK_SPACE:
@@ -422,7 +435,7 @@ public class StartMenu extends JFrame {
 						JOptionPane alertNo = new JOptionPane();
 						showMessageDialog(null,
 								"↑ : SELECT START \n" + "← : SELECT OPTION \n" + "→ : SELECT SCORE BOARD \n"
-										+ "↓ : SELCET EXIT \n" + "Enter, Space Bar : EXCUTE SELECTED OPTION",
+										+ "↓ : SELCET EXIT \n" + "Enter, Space Bar : EXCUTE SELECTED OPTION \n" + "` : Change FightMode \n",
 								"Key Reminder", JOptionPane.PLAIN_MESSAGE);
 						break;
 				}
