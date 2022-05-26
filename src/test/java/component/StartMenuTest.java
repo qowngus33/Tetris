@@ -22,7 +22,24 @@ public class StartMenuTest {
         } catch (AWTException e) {
             throw new RuntimeException(e);
         }
-        for (int i = 0; i < 100; i++) {
+        assertTimeout(ofMillis(300), () -> {
+            robot.keyPress(KeyEvent.VK_BACK_SPACE);
+        });
+        for(int i =0; i < 50; i++) {
+            assertTimeout(ofMillis(400), () -> {
+                robot.keyPress(KeyEvent.VK_UP);
+                robot.keyPress(KeyEvent.VK_ENTER);
+            });
+            for(int j =0; j<5; j++) {
+                robot.keyPress((KeyEvent.VK_UP));
+            }
+            for(int j =0; j<5; j++) {
+                robot.keyPress((KeyEvent.VK_DOWN));
+            }
+        }
+
+        for (int j = 0; j < 50; j++) {
+
             assertTimeout(ofMillis(600), () -> {
                 robot.keyPress(KeyEvent.VK_LEFT);
                 robot.keyPress(KeyEvent.VK_RIGHT);

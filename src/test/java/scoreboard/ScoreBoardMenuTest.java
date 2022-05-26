@@ -11,7 +11,6 @@ public class ScoreBoardMenuTest {
 	ScoreBoardMenu sb1 = new ScoreBoardMenu();
 	ScoreBoardMenu sb2;
 
-	/*
 	@Test
 	public void ScoreBoardMenu(){
 		try {
@@ -25,7 +24,7 @@ public class ScoreBoardMenuTest {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-	}*/
+	}
 
 	@Test
 	public void isAlphaOrDigit(){
@@ -42,7 +41,7 @@ public class ScoreBoardMenuTest {
 		Assert.assertTrue(sb2.isAlphaOrDigit("e"));
 		Assert.assertTrue(sb2.isAlphaOrDigit("z"));
 		Assert.assertTrue(sb2.isAlphaOrDigit("Z"));
-		Assert.assertFalse(sb2.isAlphaOrDigit("안"));
+		Assert.assertFalse(sb2.isAlphaOrDigit("ahn"));
 		Assert.assertFalse(sb2.isAlphaOrDigit("+"));
 		Assert.assertFalse(sb2.isAlphaOrDigit("#"));
 		Assert.assertFalse(sb2.isAlphaOrDigit("#"));

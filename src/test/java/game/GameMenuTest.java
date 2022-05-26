@@ -15,7 +15,6 @@ public class GameMenuTest {
 	GameMenu itemGameMenu = new GameMenu(true);
     public GameMenuTest() throws IOException {}
 
-	/*
    @Test
 	public void moveDown(){
 		for(int i=0;i<100;i++) {
@@ -29,6 +28,6 @@ public class GameMenuTest {
 			   itemGameMenu.moveDown();
 		   });
 	   }
-   }
-*/
+
+  }
 }

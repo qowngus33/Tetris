@@ -65,14 +65,14 @@ public class FightMenuTest {
 		fightMenu.pause();
 		String pre1 = fightMenu.getGameBoard(0).toString();
 		String pre2 = fightMenu.getGameBoard(1).toString();
-		robot.keyRelease(KeyEvent.VK_ENTER);
+		robot.keyPress(KeyEvent.VK_ENTER);
 		robot.keyPress(KeyEvent.VK_LEFT);
 		robot.keyPress(KeyEvent.VK_RIGHT);
 		robot.keyPress(KeyEvent.VK_DOWN);
 		robot.keyPress(KeyEvent.VK_UP);
 		robot.keyPress(KeyEvent.VK_A);
 		robot.keyPress(KeyEvent.VK_D);
-		robot.keyRelease(KeyEvent.VK_S);
+		robot.keyPress(KeyEvent.VK_S);
 		robot.keyPress(KeyEvent.VK_W);
 		fightMenu.pause();
 

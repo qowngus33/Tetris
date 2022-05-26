@@ -25,8 +25,8 @@ game/ItemModeTest.java
  game.ItemModeTest
 block/IBlockTest.java
  block.IBlockTest
-scoreboard/ScoreBoardMenuTest.java
- scoreboard.ScoreBoardMenuTest
+game/FightMenuTest.java
+ game.FightMenuTest
 scoreboard/ScoreBoardFileTest.java
  scoreboard.ScoreBoardFileTest
 block/ZBlockTest.java
@@ -41,11 +41,11 @@ block/SBlockTest.java
  block.SBlockTest
 game/GameBoardTest.java
  game.GameBoardTest
-component/StartMenuTest.java
- component.StartMenuTest
-game/GamePaneTest.java
- game.GamePaneTest
-game/FightMenuTest.java
- game.FightMenuTest
 game/GameMenuTest.java
  game.GameMenuTest
+game/GamePaneTest.java
+ game.GamePaneTest
+scoreboard/ScoreBoardMenuTest.java
+ scoreboard.ScoreBoardMenuTest
+component/StartMenuTest.java
+ component.StartMenuTest
