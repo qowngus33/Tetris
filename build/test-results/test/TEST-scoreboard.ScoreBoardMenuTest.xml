@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="scoreboard.ScoreBoardMenuTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-05-26T07:23:18" hostname="LAPTOP-9HFDF87R" time="1.991">
-  <properties/>
-  <testcase name="tryWriteScoreboard" classname="scoreboard.ScoreBoardMenuTest" time="1.443"/>
-  <testcase name="isAlphaOrDigit" classname="scoreboard.ScoreBoardMenuTest" time="0.548"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

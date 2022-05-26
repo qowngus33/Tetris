@@ -1,86 +1,5 @@
-)*NORMAL
-)*countBlock: 
-)*t[0] 28426 [1] 28579 [2] 28560 [3] 28574 [4] 28168 [5] 28536 [6] 28704 [7] 200018 [8] 200145 [9] 200767 [10] 199523 
-)*countPositionBlock: 
-)*4[0] 38187 [1] 50764 [2] 54091 [3] 56505 [4] 0 [5] 0 ),NORMAL
-),countBlock: 
-),t[0] 28492 [1] 28247 [2] 28686 [3] 28512 [4] 28564 [5] 28658 [6] 28612 [7] 200017 [8] 200037 [9] 200182 [10] 199993 
-),countPositionBlock: 
-),4[0] 49643 [1] 49578 [2] 47724 [3] 52826 [4] 0 [5] 0 )-NORMAL
-)-countBlock: 
-)-t[0] 28776 [1] 28408 [2] 28424 [3] 28341 [4] 28495 [5] 28781 [6] 29056 [7] 199838 [8] 200385 [9] 199245 [10] 200251 
-)-countPositionBlock: 
-)-4[0] 50039 [1] 49254 [2] 49482 [3] 51506 [4] 0 [5] 0 54ç{boardWidth=350, rotateKey=UP, modeName=NORMAL, pauseKey=P, downKey=DOWN, rightKey=RIGHT, p1DropKey=SPACE, p2RightKey=RIGHT, p2DropKey=ENTER, p2DownKey=DOWN, p1LeftKey=A, p1DownKey=S, p2LeftKey=LEFT, initInterval=1000, boardHeight=593, colorBlind=false, leftKey=LEFT, p1RotateKey=W, dropKey=SPACE, fontSize=23, p2RotateKey=UP, p1RightKey=D, reduceSpeed=100}
-98normal mode
-;:left
-;:right
-;:down
-;:down
-;:up
-;:left
-;:right
-;:down
-;:up
-;:left
-;:right
-;:down
-;:down
-;:up
-;:left
-;:right
-;:down
-;:up
-=<left
-=<right
-=<down
-=<down
-=<up
-?B          
-?B          
-?B          
-?B          
-?B          
-?B          
-?B          
-?B          
-?B          
-?B
-  hello  
-?B          
-?B          
-?B          
-?B          
-?B          
-?B          
-?B          
-?B          
-?B          
-?B
-?B          
-?B          
-?B          
-?B          
-?B          
-?B          
-?B          
-?B          
-?B          
-?B
-  hello  
-?B          
-?B          
-?B          
-?B          
-?B          
-?B          
-?B          
-?B          
-?B          
-?B
-QPNormal Mode
-QP;[0] 990 [1] 976 [2] 949 [3] 963 [4] 949 [5] 1031 [6] 942 
-QR
-QREasy Mode
-QR?[0] 1195 [1] 1001 [2] 941 [3] 1047 [4] 1021 [5] 950 [6] 1045 
-QSHard Mode
-QS=[0] 761 [1] 1055 [2] 1008 [3] 999 [4] 996 [5] 1016 [6] 965 
+EASY
+countBlock: 
+t[0] 28652 [1] 28693 [2] 28656 [3] 28732 [4] 28492 [5] 28595 [6] 28714 [7] 199797 [8] 199763 [9] 199648 [10] 200258 
+countPositionBlock: 
+4[0] 49221 [1] 49809 [2] 48260 [3] 53244 [4] 0 [5] 0 

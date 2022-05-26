@@ -210,5 +210,4 @@ class GamePaneTest {
 
 		assertEquals(sb.toString(), sideGamePane.getText());
 	}
-
 }

@@ -68,8 +68,5 @@ public class GameMenuTest {
 			});
 		}
 	}
-
-=======
 */
->>>>>>> 3bcbceffc7f732cc550e6dfd2dcfd43cf1c2a30a
 }
