@@ -11,6 +11,7 @@ public class ScoreBoardMenuTest {
 	ScoreBoardMenu sb1 = new ScoreBoardMenu();
 	ScoreBoardMenu sb2;
 
+	/*
 	@Test
 	public void ScoreBoardMenu(){
 		try {
@@ -24,7 +25,7 @@ public class ScoreBoardMenuTest {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-	}
+	}*/
 
 	@Test
 	public void isAlphaOrDigit(){

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="component.StartMenuTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-05-26T07:23:15" hostname="LAPTOP-9HFDF87R" time="1.57">
+  <properties/>
+  <testcase name="keyTest" classname="component.StartMenuTest" time="1.57"/>
+  <system-out><![CDATA[left
+right
+down
+down
+up
+left
+right
+down
+up
+left
+right
+down
+down
+up
+left
+right
+down
+up
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

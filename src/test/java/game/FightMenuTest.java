@@ -32,7 +32,7 @@ public class FightMenuTest {
 		}
 	}
 
-	@Test
+	/*@Test
 	public void moveDown(){
 		for(int i=0;i<100;i++) {
 			assertTimeout(ofMillis(1000), () -> {
@@ -51,7 +51,7 @@ public class FightMenuTest {
 				fightMenu.moveDown(0);
 			});
 		}
-	}
+	}*/
 
 	@Test
 	public void keyTest(){

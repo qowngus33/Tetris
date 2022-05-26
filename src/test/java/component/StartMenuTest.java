@@ -33,8 +33,9 @@ public class StartMenuTest {
                 robot.keyPress(KeyEvent.VK_SPACE);
             });
         }
-        assertTimeout(ofMillis(300), () -> {
-            robot.keyPress(KeyEvent.VK_LEFT);
-        });
     }
 }
+
+
+
+
