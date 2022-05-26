@@ -52,34 +52,8 @@ game/GamePane.java
  game.GamePane
 game/NextBlockPane.java
  game.NextBlockPane
-<<<<<<< HEAD
-scoreboard/ScoreBoardFile.java
- scoreboard.ScoreBoardFile
-=======
-game/FightMenu.java
- game.FightMenu
- game.FightMenu$1
- game.FightMenu$10
- game.FightMenu$11
- game.FightMenu$2
- game.FightMenu$3
- game.FightMenu$4
- game.FightMenu$5
- game.FightMenu$6
- game.FightMenu$7
- game.FightMenu$8
- game.FightMenu$9
-scoreboard/ScoreBoardFile.java
- scoreboard.ScoreBoardFile
-blocks/SBlock.java
- blocks.SBlock
-blocks/BBlock.java
- blocks.BBlock
-blocks/Block.java
- blocks.Block
 main/Tetris.java
  main.Tetris
->>>>>>> 57fab3667d6c8c01d3a9ed5a0e7ba4c8f0ad7011
 component/StartMenu.java
  component.StartMenu
  component.StartMenu$1
@@ -92,15 +66,14 @@ component/StartMenu.java
  component.StartMenu$7
  component.StartMenu$8
  component.StartMenu$9
-<<<<<<< HEAD
 blocks/SBlock.java
  blocks.SBlock
 blocks/BBlock.java
  blocks.BBlock
 blocks/Block.java
  blocks.Block
-main/Tetris.java
- main.Tetris
+scoreboard/ScoreBoardFile.java
+ scoreboard.ScoreBoardFile
 game/FightMenu.java
  game.FightMenu
  game.FightMenu$1
@@ -114,5 +87,3 @@ game/FightMenu.java
  game.FightMenu$7
  game.FightMenu$8
  game.FightMenu$9
-=======
->>>>>>> 57fab3667d6c8c01d3a9ed5a0e7ba4c8f0ad7011
