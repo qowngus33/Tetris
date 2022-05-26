@@ -19,14 +19,14 @@ block/LBlockTest.java
  block.LBlockTest
 block/EBlockTest.java
  block.EBlockTest
-game/ItemModeTest.java
- game.ItemModeTest
 block/WBlockTest.java
  block.WBlockTest
+game/ItemModeTest.java
+ game.ItemModeTest
 block/IBlockTest.java
  block.IBlockTest
-game/GameMenuTest.java
- game.GameMenuTest
+game/FightMenuTest.java
+ game.FightMenuTest
 scoreboard/ScoreBoardFileTest.java
  scoreboard.ScoreBoardFileTest
 block/ZBlockTest.java
@@ -39,13 +39,13 @@ block/BBlockTest.java
  block.BBlockTest
 block/SBlockTest.java
  block.SBlockTest
-game/FightMenuTest.java
- game.FightMenuTest
-scoreboard/ScoreBoardMenuTest.java
- scoreboard.ScoreBoardMenuTest
 game/GameBoardTest.java
  game.GameBoardTest
-component/StartMenuTest.java
- component.StartMenuTest
+game/GameMenuTest.java
+ game.GameMenuTest
 game/GamePaneTest.java
  game.GamePaneTest
+scoreboard/ScoreBoardMenuTest.java
+ scoreboard.ScoreBoardMenuTest
+component/StartMenuTest.java
+ component.StartMenuTest

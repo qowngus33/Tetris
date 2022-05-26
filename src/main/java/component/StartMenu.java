@@ -73,7 +73,7 @@ public class StartMenu extends JFrame {
 	public StartMenu() {
 		// basic
 		// setUndecorated(true);
-		requestFocus();
+		//requestFocus();
 		JPanel imagepanel = new ImagePanel(tetrisBackground);
 		add(imagepanel);
 		setTitle("Tetris Game");
@@ -213,10 +213,19 @@ public class StartMenu extends JFrame {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				if(playMode.getIcon() == multiplay) {
+					menuStart.setFocusable(true);
 					playMode.setIcon(singleplay);
+					playMode.setFocusable(false);
+					menuStart.requestFocus();
+					menuStart.setFocusable(true);
 				}
 				else {
+					menuStart.setFocusable(true);
 					playMode.setIcon(multiplay);
+					playMode.setFocusable(false);
+					menuStart.requestFocus();
+					menuStart.setFocusable(true);
+
 				}
 				playMode.setCursor(new Cursor(HAND_CURSOR));
 			}
@@ -246,6 +255,8 @@ public class StartMenu extends JFrame {
 		});
 
 		// start menu
+		menuStart.setFocusable(true);
+		menuStart.requestFocus();
 		menuStart.setBounds(115, 425, 130, 40);
 		menuStart.setBorderPainted(false);
 		menuStart.setContentAreaFilled(false);
@@ -292,7 +303,6 @@ public class StartMenu extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
 					case 37:
-						setFocusable(true);
 						System.out.println("left");
 						menuStart.setIcon(menuStartBasic);
 						menuOption.setIcon(menuOptionClicked);
@@ -300,7 +310,6 @@ public class StartMenu extends JFrame {
 						menuExit.setIcon(menuExitBasic);
 						break;
 					case 38:
-						setFocusable(true);
 						System.out.println("up");
 						if (cnt == 0) {
 							menuStart.setIcon(menuStartClicked);
@@ -353,7 +362,6 @@ public class StartMenu extends JFrame {
 
 						break;
 					case 39:
-						setFocusable(true);
 						System.out.println("right");
 						menuStart.setIcon(menuStartBasic);
 						menuOption.setIcon(menuOptionBasic);
@@ -361,7 +369,6 @@ public class StartMenu extends JFrame {
 						menuExit.setIcon(menuExitBasic);
 						break;
 					case 40:
-						setFocusable(true);
 						System.out.println("down");
 						if (cnt == 0 && step == 0) {
 							System.out.println("down");
@@ -414,7 +421,6 @@ public class StartMenu extends JFrame {
 						}
 						break;
 					case KeyEvent.VK_BACK_SPACE:
-						setFocusable(true);
 						System.out.println("change fight mode");
 						if(SettingItem.isFightMode) {
 							SettingItem.isFightMode = false;
@@ -426,7 +432,7 @@ public class StartMenu extends JFrame {
 							playMode.setIcon(multiplay);
 							showMessageDialog(null, "Game Mode : Fight Mode");
 						}
-
+						menuStart.setFocusable(true);
 					case KeyEvent.VK_ENTER:
 						break;
 					case KeyEvent.VK_SPACE:
@@ -458,8 +464,16 @@ public class StartMenu extends JFrame {
 						}
 						// normal mode start
 					}
+					if (timerStart.getIcon() == timerStartClicked) {
+						dispose();
+						try {
+							Tetris.start(SettingItem.isFightMode, false, true);
+						} catch (IOException ioException) {
+							ioException.printStackTrace();
+						}
+						// normal mode start
+					}
 					if (menuStart.getIcon() == menuStartClicked) {
-
 						if (cnt == 0) {
 							menuStart.setIcon(menuStartPressed);
 							itemStart.setVisible(true);
