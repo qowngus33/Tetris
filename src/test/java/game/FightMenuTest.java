@@ -100,7 +100,7 @@ public class FightMenuTest {
 		}
 		for(int i=0;i<10;i++) {
 			assertTimeout(ofMillis(1000), () -> {
-				robot.keyRelease(KeyEvent.VK_S);
+				robot.keyPress(KeyEvent.VK_S);
 			});
 		}
 		for(int i=0;i<10;i++) {
