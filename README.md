@@ -30,6 +30,5 @@
 
 ### 5. option
 * 옵션에서는 게임에서 사용할 키 설정, 스코어보드 기록 초기화, EASY, NORMAL, HARD 세 가지의 게임 레벨, 색각 이상자를 위한 색맹 모드, 화면 크기 등을 설정할 수 있습니다.
-<img width="462" alt="스크린샷 2022-05-27 오전 9 53 42" src="https://user-images.githubusercontent.com/83813866/170607218-d23096ca-88e0-4119-a466-a1330240c977.png"></br>색ㅁ
-<img width="462" alt="스크린샷 2022-05-27 오전 9 53 42" src="https://user-images.githubusercontent.com/83813866/170607218-d23096ca-88e0-4119-a466-a1330240c977.png"></br>
+<img width="562" alt="스크린샷 2022-05-27 오전 9 54 42" src="https://user-images.githubusercontent.com/83813866/170607792-23df0256-ec76-44cc-a655-258df83249fe.png">
 
