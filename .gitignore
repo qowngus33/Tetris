@@ -171,6 +171,7 @@ gradlew.bat
 gradle/wrapper/
 
 .idea
+tetris.iml
 
 config
 config/settings.json
