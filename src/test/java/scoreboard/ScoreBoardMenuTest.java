@@ -53,7 +53,7 @@ public class ScoreBoardMenuTest {
 	@Test
 	public void tryWriteScoreboard(){
 		try {
-			sb2 = new ScoreBoardMenu(10,"10","HARD");
+			sb2 = new ScoreBoardMenu(10,"NORMAL","item");
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

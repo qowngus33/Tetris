@@ -77,7 +77,7 @@ public class StartMenu extends JFrame {
 		JPanel imagepanel = new ImagePanel(tetrisBackground);
 		add(imagepanel);
 		setTitle("Tetris Game");
-		setSize(370, 737);
+		setSize(355, 700);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -38,22 +38,23 @@ public class GetRandomBlock {
 
 	// normal mode
 	public Block getRandomBlockNormalMode() {
-		int random = (int) (Math.random() * 70);
-		if (random < 10) {
-			return new JBlock();
-		} else if (random < 20) {
-			return new LBlock();
-		} else if (random < 30) {
-			return new ZBlock();
-		} else if (random < 40) {
-			return new SBlock();
-		} else if (random < 50) {
-			return new TBlock();
-		} else if (random < 60) {
-			return new OBlock();
-		} else {
-			return new IBlock(); // 가중치 12
-		}
+//		int random = (int) (Math.random() * 70);
+//		if (random < 10) {
+//			return new JBlock();
+//		} else if (random < 20) {
+//			return new LBlock();
+//		} else if (random < 30) {
+//			return new ZBlock();
+//		} else if (random < 40) {
+//			return new SBlock();
+//		} else if (random < 50) {
+//			return new TBlock();
+//		} else if (random < 60) {
+//			return new OBlock();
+//		} else {
+//
+//		}
+		return new IBlock(); // 가중치 12
 	}
 
 	// hard mode

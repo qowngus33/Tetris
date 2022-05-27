@@ -34,7 +34,7 @@ public class GameBoard extends JPanel {
 	protected int y = 0;
 	protected String modeName;
 	protected int[][] erasedLine;
-	protected int lineChange = 10;
+	protected int lineChange = 1;
 	protected int count = 1;
 
 	public GameBoard() throws IOException {
