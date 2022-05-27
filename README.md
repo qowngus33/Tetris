@@ -1,7 +1,7 @@
 # 소프트웨어공학 5조
 
 
-## <img src="https://img.shields.io/badge/Java-007396?style=flat-square&logo=java&logoColor=white"/> swing으로 만든 텍스트 기반 테트리스 게임
+### <img src="https://img.shields.io/badge/Java-007396?style=flat-square&logo=java&logoColor=white"/> swing으로 만든 텍스트 기반 테트리스 게임
 
 ### 1. 시작화면
 
