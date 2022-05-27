@@ -170,6 +170,8 @@ gradlew
 gradlew.bat
 gradle/wrapper/
 
+.idea
+
 config
 config/settings.json
 config/item_score.json
