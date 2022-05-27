@@ -164,3 +164,13 @@ gradle-app.setting
 .classpath
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,java,gradle
+
+# add
+gradlew
+gradlew.bat
+gradle/wrapper/
+
+config
+config/settings.json
+config/item_score.json
+config/normal_score.json
