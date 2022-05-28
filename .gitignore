@@ -177,6 +177,7 @@ tetris.iml
 META-INF
 classes
 .github/workflows
+.DS_Store
 
 config
 config/settings.json
