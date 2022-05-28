@@ -12,7 +12,6 @@
 * 아이템 모드에서는 10줄을 삭제할 때마다 아이템 블록이 나옵니다.
 
 <img width="462" alt="스크린샷 2022-05-27 오전 9 46 54" src="https://user-images.githubusercontent.com/83813866/170606535-402dc1ad-6586-4cc1-af0d-1ffb6e030dd8.png">
-
 <img width="462" alt="스크린샷 2022-05-27 오전 9 47 36" src="https://user-images.githubusercontent.com/83813866/170606656-230abf33-bb88-44b4-a0bb-d78ec01aef1f.png"></br>
 
 
