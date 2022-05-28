@@ -3,7 +3,9 @@ package scoreboard;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,7 +29,18 @@ public class ScoreBoardFile {
 	}
 
 	public void getScoreBoard() throws IOException {
-		list = Arrays.asList(mapper.readValue(new File("scoreBoardFile.json"), Score[].class));
+		File file = new File("scoreBoardFile.json");
+		if(!file.exists()) {
+			file.createNewFile();
+			try {
+				BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+				writer.write("[]");
+				writer.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		list = Arrays.asList(mapper.readValue(file, Score[].class));
 		Collections.sort(list, new ScoreComparator());
 	}
 

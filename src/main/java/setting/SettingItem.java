@@ -6,7 +6,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import scoreboard.ScoreBoardFile;
 
 import javax.swing.*;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -105,7 +107,18 @@ public class SettingItem {
     public Map<String, String> loadFile() throws IOException {
         TypeReference<HashMap<String, String>> typeReference = new TypeReference<HashMap<String, String>>() {
         };
-        return objectMapper.readValue(new File("savefile.json"), typeReference);
+        File file = new File("savefile.json");
+        if(!file.exists()) {
+            file.createNewFile();
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+                writer.write("{\"leftKey\":\"LEFT\",\"rightKey\":\"RIGHT\",\"downKey\":\"DOWN\",\"rotateKey\":\"UP\",\"dropKey\":\"SPACE\",\"p1LeftKey\":\"A\",\"p1RightKey\":\"D\",\"p1DownKey\":\"S\",\"p1RotateKey\":\"W\",\"p1DropKey\":\"SPACE\",\"p2LeftKey\":\"LEFT\",\"p2RightKey\":\"RIGHT\",\"p2DownKey\":\"DOWN\",\"p2RotateKey\":\"UP\",\"p2DropKey\":\"ENTER\",\"pauseKey\":\"P\",\"initInterval\":1000,\"reduceSpeed\":100,\"modeName\":\"NORMAL\",\"boardWidth\":350,\"boardHeight\":593,\"fontSize\":23,\"colorBlind\":false}");
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return objectMapper.readValue(file, typeReference);
     }
 
     /**
